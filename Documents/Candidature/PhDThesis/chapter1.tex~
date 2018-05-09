@@ -1,0 +1,7 @@
+\chapter{Introduction}
+Bayesian optimisation is considered to be the specific case of model-based optimisation methods which is structured based on the Bayesian formulations. Like the most cases of Bayesian approaches, there is a prior distribution over a function, a likelihood function, and a posterior distribution over the unknown functions given data \cite{gelbart2015constrained}. Bayesian optimisation aims to solve a difficult though concise problem:
+\begin{equation}
+	\operatorname*{min}_{x \in \mathcal{X}} f(x)	
+\label{eq:ch1_1}
+\end{equation}
+

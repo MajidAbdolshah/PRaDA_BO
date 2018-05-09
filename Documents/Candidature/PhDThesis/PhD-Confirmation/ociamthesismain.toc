@@ -1,0 +1,16 @@
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Motivation}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}Summary of contributions}{3}{section.1.2}
+\contentsline {chapter}{\numberline {2}Literature Review}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Constrained single-objective Bayesian optimisation}{6}{section.2.1}
+\contentsline {section}{\numberline {2.2}Multi-objective optimisation and Bayesian optimisation}{7}{section.2.2}
+\contentsline {section}{\numberline {2.3}Multi-objective Bayesian optimisation with constraints}{10}{section.2.3}
+\contentsline {section}{\numberline {2.4}Evolutionary algorithms and Multi-objective problems with constraints}{11}{section.2.4}
+\contentsline {section}{\numberline {2.5}Multi-objective problems with constraints and objective rankings}{12}{section.2.5}
+\contentsline {chapter}{\numberline {3}Background}{14}{chapter.3}
+\contentsline {section}{\numberline {3.1}Gaussian Processes}{14}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Computing the Posterior}{15}{subsection.3.1.1}
+\contentsline {chapter}{\numberline {4}Sample Title}{16}{chapter.4}
+\contentsline {chapter}{\numberline {A}Sample Title}{17}{appendix.A}
+\contentsline {chapter}{\numberline {B}Sample Title}{18}{appendix.B}
+\contentsline {chapter}{Bibliography}{19}{appendix.B}

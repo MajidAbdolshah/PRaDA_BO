@@ -1,0 +1,57 @@
+\chapter{Background}
+This chapter describes the background and related work on which this proposal builds.
+We will start from Gaussian process as a power tool for placing the prior belief and compute the uncertainty over the function space. Then we will the  Bayesian optimisation and the acquisition functions. Finally we will explain about multi-objective Bayesian optimisation and Exptected Hypervolume Improvement.
+
+\section{Gaussian Processes}
+A Gaussian process is a collection of random variables $\{f(\textbf{x}) : \textbf{x} \in \mathcal{X}\}$ in which any finite collection of random variables has a multivariate
+Gaussian distribution \cite{rasmussen2006gaussian}. GPs are determined by using a mean function $\mu(\textbf{x}): \mathcal{X} \rightarrow \mathbb{R}$ and 
+a covariance function $k(\textbf{x}): \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}^+$:
+\begin{equation}
+f(\textbf{x}) \sim \mathcal{GP}(\mu(\textbf{x}),k(\textbf{x},\textbf{x}^{\prime})).
+\end{equation}
+The particular choice of covariance function determines the properties of sample functions drawn from the GP prior.
+Popular kernels for covariance function are Squared Exponential, Matern, Periodic, and Linear \cite{wilson2013gaussian}. 
+Without loss of generality, the prior mean function generally assumed to be zero in Gaussian process.
+Let us assume that we already made $t$ observations on the points $\textbf{x}_{1..t} = \{\textbf{x}_1,...,\textbf{x}_t\}$. The obtained evaluated results of these $t$ observations are $f(\textbf{x}_{1..t}) = \{f(\textbf{x}_1),...,f(\textbf{x}_t)\}$. Based on the defined properties of Gaussian process, the function values  $f(\textbf{x}_{1..t})$ jointly follow a multivariate Gaussian distribution $f(\textbf{x}_{1..t}) \sim \mathcal{N}(0,K)$ \cite{li2017rapid}. Where $K$ is a positive definite kernel matrix:
+\[
+K = \begin{bmatrix} 
+    k(\textbf{x}_1,\textbf{x}_1) & \dots & k(\textbf{x}_1,\textbf{x}_t)\\
+    \vdots & \ddots  \\
+    k(\textbf{x}_t,\textbf{x}_1) & \dots  & k(\textbf{x}_t,\textbf{x}_t)
+    \end{bmatrix}.
+\]
+\subsection{Computing the Posterior}
+The posterior can be similarly derived the way how the update equations for the Kalman filter was derived. First we need to find the joint distribution of $[f(\textbf{x}_{t+1}),f(\textbf{x}_1),\\ f(\textbf{x}_2),...,f(\textbf{x}_t)]$.
+Considering $t$  observations of the objective function, for a new point $\textbf{x}_{t+1}$, $P(f(\textbf{x}_{t+1})|\textbf{x}_{1..t},f(\textbf{x}_{1..t})) = \mathcal{N}(\mu_t(\textbf{x}_{t+1}),\sigma^2_t(\textbf{x}_{t+1}))$:
+\begin{align}
+   \begin{bmatrix} 
+    f(\textbf{x}_{t+1})\\
+    f(\textbf{x}_{1})\\
+    f(\textbf{x}_{2})\\
+    \vdots\\
+    f(\textbf{x}_{t})
+    \end{bmatrix} \sim \mathcal{N} \Bigg(    
+   \begin{bmatrix} 
+    0\\
+    0\\
+    \vdots\\
+    0
+ 	\end{bmatrix},\begin{bmatrix} 
+    k(\textbf{x}_{t+1},\textbf{x}_{t+1}) & k(\textbf{x}_{t+1},\textbf{x})^T\\
+    k(\textbf{x}_{t+1},\textbf{x}) & K_{\textbf{xx}}
+    \end{bmatrix}\Bigg)
+\end{align}
+Where posterior mean and variance are calculated as:
+\begin{equation}
+\mu_t(\textbf{x}_{t+1}) = k^T  K^{-1}  f(\textbf{x}_{1..t}), 
+\label{eq:1}
+\end{equation}
+\begin{equation}
+\sigma^2_t(\textbf{x}_{t+1}) = k(\textbf{x}_{t+1},\textbf{x}_{t+1}) - k^T K^{-1} k.
+\label{eq:2}
+\end{equation}
+$k$ in equation \ref{eq:1} and \ref{eq:2}, is a kernel vector such that $k = [k(\textbf{x}_{t+1},\textbf{x}_1),...,k(\textbf{x}_{t+1},\textbf{x}_t)]^T$.
+After modelling the observations with GP, it is required to find the best possible point for next iteration of optimisation ($\textbf{x}_{t+1}$).
+
+\subsection{A few basic kernels}
+

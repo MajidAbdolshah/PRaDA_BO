@@ -1,0 +1,139 @@
+\chapter{Literature Review}
+
+
+Bayesian optimisation is a well-known tool for solving a variety of optimisation problems. While traditional numerical methods have proved ineffective for solving some optimisation problems, Bayesian optimisation has proved in variety of optimisation problems dealing with blackbox objective functions expensive to evaluate \cite{gelbart2014bayesian}. Bayesian optimization is impacting a wide range of areas, including Robotics \cite{lizotte2007automatic,martinez2007active}, enviromental monitoring \cite{marchant2012bayesian}, interactive user interface \cite{brochu2010bayesian}, information extraction \cite{wang2014bayesian}, combinatorial optimisation \cite{wang2013bayesian,hutter2011sequential}, reinforcement learning \cite{brochu2010tutorial}, sensor networks \cite{garnett2010bayesian,srinivas2009gaussian}, and automated machine learning algorithms \cite{thornton2013auto,snoek2012practical,hoffman2014correlation,garnett2013active}.
+\par
+Fundamentally, Bayesian optimization is a sequential model-based approach for solving optimisation problems. Bayesian optimisation framework has two main stages. The first one is a probabilistic surrogate model, consist of a prior distribution which encodes our beliefs about the nature of the expensive black-box function \cite{shahriari2016taking}. The second stage is constructing a proper acquisition function which can accurately model the behavior of the black-box function. Equipped with these probabilistic models, acquisition functions will be sequentially induced  in order to leverage the uncertainty in the posterior for leading the exploration \cite{shahriari2016taking}. After observing the output value of each selected point in that iteration, the prior understanding of the black-box function and the acquisition function will be updated subsequently. Algorithm \ref{alg:1} illustrates the procedure of Bayesian optimisation.
+\par
+But as we have mentioned before, many real-world optimisation problems are dealing with unknown constraints. In the next section we are investigating the role of unknown constraints in single-objective Bayesian optimisation.
+\begin{algorithm}
+  \caption{Bayesian optimisation Algorithm}\label{algo1}
+  \begin{algorithmic}[1]
+    \Require
+	  \For{$n= \ 1,2,..., $} 
+	  \State Optimise acquisition function $\alpha$, \ 
+	  $\textbf{x}_{t+1} = \underset{\textbf{x}   \in \mathcal{X}}{\mathrm{argmax}\ \alpha(\textbf{x};\mathcal{D}_n)}$
+	  \State Evaluate $\textbf{x}_{t+1}$, obtain ${y}_{t+1}$
+	  \State Augment data to the observation set, $\mathcal{D}_{n+1} = \{\mathcal{D}_n,(\textbf{x}_{n+1},{y}_{n+1})\}$
+	  \State Update the prior model based on the new observed point.
+	  \EndFor
+  \end{algorithmic}
+  \label{alg:1}
+\end{algorithm}
+
+\section{Constrained single-objective Bayesian optimisation}
+Consider an SVM model; when tuning SVM hyperparameters, we may want to optimise performance on limited hardware (such as accessible memory). So, in addition to expensive evaluations of the objective function, we may face with similarly expensive evaluations of constraint functions. The only single-objective Bayesian optimisation with constraints method is proposed by \cite{gardner2014bayesian}. In this paper, the authors have extended Bayesian optimization to incorporate inequality constraints. The aim of this method is:
+\begin{equation}
+\operatorname*{min}_{c(\textbf{x}) \leq \lambda} f(\textbf{x})	
+\label{eq:1}
+\end{equation}
+where $f(\textbf{x})$ and $c(\textbf{x})$ are both expensive and black-box functions. Authors defined a new \textit{Constrained Improvement} in order to form the acquisition function. Constrained improvement is defined as:
+\begin{equation}
+\mathrm{I}_C(\hat{x}) = \Delta(\hat{x})\ max\{0,f(x^{+})-f(\hat{x})\} = \Delta(\hat{x})\mathrm{I}(\hat{x})
+\label{eq:2}
+\end{equation}
+In equation \ref{eq:2}, $\Delta(\hat{x})$ is defined to be $\Delta(\hat{x}) \in \{0,1\}$ which is a feasibility indicator function that returns $1$ when $c(\hat{x}) \leq \lambda$ and $0$ otherwise. Also $x^+$ denotes a feasible point with lowest function value observed in time $\tau$. Due to dealing with black-box functions for both objectives and constraints, the authors use Bayesian formalism to model each with a Gaussian Process $\hat{c}(\textbf{x}) \thicksim
+ \mathcal{N}(\hat{\mu}_{c}(\textbf{x}),\hat{\Sigma}_c(x))$ and $\hat{f}(\textbf{x}) \thicksim \mathcal{N}(\hat{\mu}_{f}(\textbf{x}),\hat{\Sigma}_f(x))$.
+Due to ehe marginal Gaussianity of $\hat{c}(\textbf{x})$, the expected constrained improvement acquisition function is defined as:
+\begin{align*}
+\mathrm{EI}_C(\hat{x}) = \mathbb{E}[\mathrm{I}_C(\hat{x})|\hat{x}]\\
+		     		   = \mathbb{E}[\Delta(\hat{x})\mathrm{I}(\hat{x})|\hat{x}]\\
+					   = \mathbb{E}[\Delta(\hat{x})|\hat{x}]\mathbb{E}[\mathrm{I}(\hat{x})|\hat{x}]
+   					   = \mathrm{PF}(\hat{x})\mathbb{E}[\mathrm{I}(\hat{x})
+\label{eq:3}
+\end{align*}
+which the $\mathrm{PF}(\hat{\textbf{x}})$ is defined as a simple univariate Gaussian cummulative distribution function $\mathrm{PF}(\hat{\textbf{x}}) = Pr[{c}(\hat{\textbf{x}}) \leq \lambda] = \int_{-\infty}^{\lambda} p(c(\hat{\textbf{x}})|\hat{\textbf{x}},\tau_c) dc(\hat{\textbf{x}})$. 
+Thus the expected constrained improvement acquisition function $\mathrm{EI}_C(\hat{\textbf{x}})$ is the expected improvement of $\hat{x}$ over the best feasible point observed so far. It is also possible to extend the constraint function to the set of independant constraint functions $c(\textbf{x}) = [c_1(\textbf{x}), c_2(\textbf{x}),...,c_k(\textbf{x})]$ \cite{gardner2014bayesian}. In this case, $\mathrm{PF}(\hat{\textbf{x}})$ is multipication of $k$ constrains as $Pr[c(\textbf{x})_i \leq \lambda_i]_{i=1...k}$. The authors evaluated their proposed model on one simulation function and two real-world problem of Locality Sensitive Hashing and SVM‌ compression. The proposed method proved to be robust in the case of constraints existance.
+
+\section{Multi-objective optimisation and Bayesian optimisation}
+There are many studies on the topic of multi-objective optimisation. A quick summary of the most related studies have been illustrated in the Table \ref{tab:1}.
+
+\begin{longtable}{|p{6cm}|p{3cm}|p{2.5cm}|p{2cm}|}
+\caption{Summary of related studies in Multi-objective optimisation.}\\
+    \hline
+    \centering {\bf Study} &\centering {\bf Method} &\centering {\bf Constraints} & {\centering {\bf Ranking}} \\ \hline	
+
+    \centering A Bayesian approach to constrained single- and multi-objective optimization \cite{feliot2017bayesian} & \bf Bayesian optimization  & \centering \checkmark  & -\\\hline    
+
+    \centering Predictive Entropy Search for Multi-objective Bayesian Optimization with Constraints \cite{garrido2016predictive} & \bf Bayesian optimization  & \centering \checkmark  & -\\\hline    
+
+    \centering Predictive Entropy Search for Multi-objective Bayesian Optimization \cite{hernandez2016predictive} & \bf Bayesian optimisation  & \centering -  & -\\\hline
+    \centering Pareto Frontier Learning with Expensive Correlated Objectives \cite{shah2016pareto} & \bf Bayesian optimisation  & \centering - & - \\\hline    
+        \centering Pareto front modeling for sensitivity analysis in multi-objective bayesian optimization \cite{calandra2014pareto} & \bf Bayesian optimisation  & \centering - & - \\\hline
+    \centering Active Learning of Pareto Fronts \cite{campigotto2014active} & Active Learning for Regression Task; Gaussian Processes  &\centering \checkmark & - \\\hline    
+\centering A Generative Kriging Surrogate Model for Constrained and Unconstrained Multi-objective Optimization \cite{hussein2016generative} & Generative surrogate modeling  & \centering \checkmark & -\\\hline    
+    \centering Multi-objective Reinforcement Learning with Continuous Pareto Frontier Approximation \cite{pirotta2015multi} & gradient-based approach & \centering \checkmark & -\\\hline
+    \centering Active Learning for Multi-Objective Optimization \cite{zuluaga2013active} & \centering Pareto Active Learning (PAL); \centering Gaussian Processes  & \centering -  & {\centering -} \\\hline    
+    \centering Faster Computation of Expected Hypervolume Improvement \cite{hupkens2014faster} & Expected Hypervolume Improvement  & \centering -  & -\\\hline
+    \centering Multi-objective Bandits Optimizing the Generalized Gini Index \cite{busa2017multi} & Generalized Gini Index; gradient-based algorithm   & \centering - & - \\ \hline
+
+%\centering A novel harmony search algorithm with gaussian mutation for multi-objective optimization \cite{dai2017novel} & Other Text 6  & Other Text 7 & Other Text 6\\\hline   
+%\centering Adaptive Weights Generation for Decomposition-Based Multi-Objective Optimization Using Gaussian Process Regression \cite{wu2017adaptive} & 	%Other Text 6  & Other Text 7 & Other Text 6\\\hline    
+%    \centering A multi-objective optimization method based on Gaussian process simultaneous modeling for quality control in sheet metal forming %\cite{xia2014multi} & Other Text 6  & Other Text 7 & Other Text 6\\\hline   
+%    \centering A Survey on Modeling and Optimizing Multi-Objective Systems \cite{cho2017survey} & Other Text 6  & Other Text 7 & Other Text 6\\\hline
+
+%    \centering The Hypervolume Indicator Revisited On the Design of Pareto-compliant Indicators Via Weighted Integration \cite{zitzler2007hypervolume} & %Other Text 6  & Other Text 7 & Other Text 6\\\hline    
+    %\centering An Efficient Batch Expensive Multi-objective Evolutionary Algorithm based on Decomposition  \cite{lin2017efficient} & Other Text 6  & Other Text 7 & Other Text 6\\\hline    
+    %\centering A Simple and Fast Hypervolume Indicator-Based Multiobjective Evolutionary Algorithm  \cite{jiang2015simple} & Other Text 6  & Other Text 7 & Other Text 6\\\hline       
+    %\centering Multi-Objective Evolutionary Algorithm for a Quick Computation of Pareto-Optimal Solutions  \cite{jiang2015simple} & Other Text 6  & Other Text 7 & Other Text 6\\\hline
+    %\centering A fast and elitist multiobjective genetic algorithm: NSGA-II  \cite{deb2002fast} & Other Text 6  & Other Text 7 & Other Text 6\\\hline
+    %\centering SPEA2: Improving the strength Pareto evolutionary algorithm  \cite{zitzler2001spea2} & Other Text 6  & Other Text 7 & Other Text 6\\\hline    
+\label{tab:1}
+\end{longtable}
+The authors in \cite{feliot2017bayesian}  proposed a new Bayesian optimization approach to solve multi-objective optimization
+problems with non-linear constraints. The constraints are handled by extended domination rule. Also a new expected improvement formulation is proposed. In particular, the new formulation makes it possible to work around the problems in which no feasible solutions are available from the start. 
+Sequential Monte Carlo sampling techniques are used in the process of computation and optimization of the new expected improvement criterion. The reason for using Sequential Monte Carlo sampling  is due to no closed-form expression of expected improvement criterion.
+The contribution of this article is twofold. The first part of the contribution is about formulation of new sampling criterion that handles multiple objectives and non-linear constraints simultaneously.  The second part of the contribution lies in the numerical methods employed to compute and optimize the sampling criterion \cite{feliot2017bayesian}. 
+There is another study about multi-objective optimisation with constraints based on Bayesian optimisation. The authors in \cite{garrido2016predictive} have described an information-based approach which can handle multiple objectives and several constraints. Motivated by the lack of Entropy-based methods, PESMOC is based on the Predictive Entropy Search for Multi-objective Bayesian Optimization \cite{hernandez2016predictive}. At each iteration, PESMOC evaluates the objective functions and the constraints at an input location that is expected to reduce the entropy of the posterior distribution of the Pareto set the most. The proposed method is most useful useful in practical situations in which the objectives and the constraints are very
+expensive to evaluate \cite{garrido2016predictive}.
+There are studies about multi-objective optimisation. The study conducted in \cite{hernandez2016predictive} described PESMO, a method for multi-objective Bayesian optimization. PESMO evaluates the objective functions at the input location that is most expected to reduce the entropy of posterior estimate of the Pareto set. The structure of acquisition function of PESMO can be understood as a sum of $K$ individual acquisition functions, one per each of the $K$ objectives. This triggers a decoupled evaluation scenario, in which the most promising objective is calculated by maximizing the individual acquisition functions.
+The other study in multi-objective Bayesian optimisation is proposed by \cite{shah2016pareto}. The authors focus on modelling correlations amongst
+objectives in multi-objective Pareto optimization problems. To overcome the problem of intractable integrals in the proposed method, they have designed a novel approximation which leads to an analytic and differentiable approximation to the expected increase in Pareto hypervolume acquisition function.
+Another related study has been conducted in \cite{calandra2014pareto}. The authors showed that by computation of arbitrarily dense and continuous Pareto front, they can approximate the real Pareto front better in presence of measurement noise. These are useful tools to assist the user while making final decision among the Pareto points.
+An sudy based on Active Learning is proposed in \cite{campigotto2014active}. Active Learning of Pareto Fronts framework adopts a different strategy. Pareto-optimal objective vectors are generated by combining the active learning paradigm with the solution of a scalarized optimization problem. The proposed model was iteratively refined until the information gain obtained by the new candidate training examples became negligible.
+A generative surrogate modeling procedure proposed in \cite{hussein2016generative}. In this work, the authors have proposed a generative surrogate modeling procedure for multiobjective optimization. The main idea is \textit{"finding a particular Pareto-optimal solution helps in modeling and finding another neighboring Pareto-optimal solution"}. 
+The authors in \cite{pirotta2015multi} have proposed PMGA, a novel gradient–based approach to learn a continuous approximation of the Pareto frontier in 
+Multi–Objective Markov Decision Problems (MOMDPs). The idea is to define a parametric function that describes a manifold in the policy–parameter space.
+The authors have presented different alternatives, discussed about the advantages and disadvantages of the model and shown their properties through an empirical analysis.
+The presented model in \cite{zuluaga2013active}, uses a Gaussian processes to predict the objective functions and to guide the sampling process in
+order to improve the prediction of the Pareto optimal set. it can be intuitively parameterized to achieve the desired level of accuracy at the lowest possible cost of evaluation. The authors presented an extensive theoretical analysis including bounds for the required number of evaluations to achieve the final accuracy. 
+There is an study in which the authors use Gini index in the process of optimisation \cite{busa2017multi}. They introduced a new problem in the context of multiobjective multi-armed bandit (MOMAB). Contrary to most previously proposed approaches in MOMAB, They have tried to search for the Pareto front, instead we aim for a fair solution. To incorporate the fairness into the formulations, they have used the Generalized Gini Index (GGI), a well-known criterion developed in economics \cite{busa2017multi}.
+\section{Multi-objective Bayesian optimisation with constraints}
+The goal of optimisation in such cases is to minimize the number of black-box function evaluations to find the global optimum of the function with respect to constraints. Bayesian optimisation with inequality constraints \cite{gardner2014bayesian} and predictive entropy search for Bayesian optimization with unknown constraints \cite{garrido2016predictive} are two major studies investigating the role of inequality black-box expensive constraints in singleobjective Bayesian optimisation. There are also two recent studies on multi-objective Bayesian optimisation with constraints.
+For example, in \cite{feliot2017bayesian} authors proposed a Bayesian multi-objective optimisation (BMOO) approach to solve the single-objective and multi-objective optimisation with non-linear constraints which is in the same context with the proposed problem in this paper. The method handles
+the constraints using an extended Pareto domination rule that takes both objectives and constraints into account. The authors evaluated their method on the benchmark test functions with respect to hypervolume improvement. They proposed approach is inspired from \cite{oyama2007new} which relies on highly complex data models. BMOO uses Sequential Monte-Carlo (SMC) in order to compute the integral over the expected improvement formulation. In \cite{garrido2016predictive}, the authors proposed a method based on predictive entropy search. The authors generated 100 synthetic optimization
+problems obtained by sampling the objectives and the constraints from their respective GP prior and they did not use benchmark test functions to evaluate their method. This method is generally categorized as informationbased methods while our proposed problem is based on hypervolume improvement approaches
+
+\section{Evolutionary algorithms and Multi-objective problems with constraints}
+Generally evolutionary algorithms and Surrogate-assisted evolutionary computation are not designed to work on limited budget of evaluation. But we are covering the overal review of the most related ones. Table \ref{tab:2} illustrates the related studies about such evolutionary methods.
+\begin{longtable}{|p{6cm}|p{3cm}|p{2.5cm}|p{2cm}|}
+	\caption{Summary of related studies in Evolutionary Multi-objective optimisation.}\\
+    \hline
+    \centering A surrogate-assisted evolution strategy for constrained multi-objective optimization \cite{datta2016surrogate} & Surrogate-assisted evolution  & \centering \checkmark &  - \\\hline  
+    \centering A Simple and Fast Hypervolume Indicator-Based Multiobjective Evolutionary Algorithm  \cite{jiang2015simple} & Evolutionary Algorithm; Hypervolume  & \centering - & - \\\hline       
+    \centering Multi-objective Evolutionary Algorithm for a Quick Computation of Pareto-Optimal Solutions  \cite{jiang2015simple} & Evolutionary Algorithm  & \centering \checkmark  & -\\\hline
+    
+    \centering A fast and elitist multiobjective genetic algorithm: NSGA-II  \cite{deb2002fast} & Evolutionary Algorithm  & \centering \checkmark & -\\\hline
+    \centering SPEA2: Improving the strength Pareto evolutionary algorithm  \cite{zitzler2001spea2} & Evolutionary Algorithm  & \centering \checkmark & -\\\hline    
+\label{tab:2}
+\end{longtable}
+A surrogate-assisted evolution strategy is proposed in \cite{datta2016surrogate}. They have developed a surrogate-assisted multi-objective evolution
+strategy (SMES) for computationally expensive constrained multiobjective optimization. 
+The main limitation of the present work is that, as with most evolutionary algorithms, there is no theoretical guarantee that the proposed surrogate-assisted ES will converge to the Pareto front. Moreover, the proposed approximations could be inaccurate when the computational budget is severely
+limited due to the computational expense of the simulations.
+The authors in \cite{jiang2015simple} proposed a way for finding high quality of solutions in indicator-based multiobjective evolutionary algorithms (MOEAs). Hypervolume (HV) is a critical performance factor playing a role in solution selection. In this paper, a simple and fast hypervolume indicator-based MOEA (FV-MOEA) is proposed to quickly update exact HV contributions for different solutions. The core idea of FV-MOEA is that the HV
+contribution of a solution is only associated with parts of the solutions rather than the full solution set.
+The authors in \cite{jiang2015simple} introduced a new method called $\epsilon$-MOEA. They have proven that $\epsilon$-MOEA has two main advantages: 1. It has helped in reducing the cardinality of Pareto-optimal region and and 2. It has also ensured that no two obtained solutions are within an $\epsilon_i$ from each other in the $i-th$ objective.
+Also NSGA-II \cite{deb2002fast} is one of the most famous evolutionary multi-objective algorithm. The authors have proposed a computationally fast and elitist MOEA based on a nondominated sorting approach. The authors believe the proposed method has less computational complexity of nondominated sorting, more elite, and lack of need for specifying the sharing parameter.
+The last study is about SPEA2 \cite{zitzler2001spea2}. The authors name many advantages over the similar strategies:
+\begin{itemize}
+\item SPEA2 performs better than SPEA on all problem sets.
+\item PESA has fastest convergence power, probably due to its higher elitism intensity, but has difficulties on some problems regarding the boundry solutions because it does not always keep the boundary solutions.
+\item In higher dimensional objective spaces, SPEA2 seems to have advantages over NSGA-II.
+\end{itemize}
+
+\section{Multi-objective problems with constraints and objective rankings}
+As we have already explained in section \ref{sec:mot}, there are many real-world problems, requiring handling the importance of the objectives. In other words, objective ranking. This informaion could either be used as priori or as an output of the algorithm. There are not any specific studies on this problem. However, there is an study \cite{kukkonen2007ranking} about the ranking of the solutions based on the objectives. 
+The authors studied on an alternative dominance relation to Pareto-dominance. Based on each separate objective, ranking set of solutions will be calculated and an aggregation function is used to calculate a scalar fitness value for each solution. The authors called this relation as \textit{ranking-dominance} and it can be used to sort a set of solutions even for many objectives when Pareto-dominance relation is not able to distinguish solutions from one another. 
+\par
+Later in this proposal, we will explain our presented idea based on Bayesian optimisation for this particular problem and will present the corresponding results.

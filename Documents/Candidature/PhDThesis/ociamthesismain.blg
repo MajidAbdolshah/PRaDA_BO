@@ -1,0 +1,74 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: ociamthesismain.aux
+A level-1 auxiliary file: dedication.aux
+A level-1 auxiliary file: acknowlegements.aux
+A level-1 auxiliary file: abstract.aux
+A level-1 auxiliary file: chapter1.aux
+A level-1 auxiliary file: chapter2.aux
+A level-1 auxiliary file: chapter3.aux
+A level-1 auxiliary file: conclusions.aux
+A level-1 auxiliary file: appendix1.aux
+A level-1 auxiliary file: appendix2.aux
+The style file: plain.bst
+Database file #1: refs.bib
+I was expecting a `,' or a `}'---line 92 of file refs.bib
+ : 
+ : @article{gelbart2014bayesian,
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 179 of file refs.bib
+ : @inproceedings{snoek2012practical
+ :                                  ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 308 of file refs.bib
+ : @inproceedings{shah2016pareto
+ :                              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 315 of file refs.bib
+ : @inproceedings{calandra2014pareto
+ :                                  ,
+I'm skipping whatever remains of this entry
+Warning--empty school in gelbart2015constrained
+You've used 44 entries,
+            2118 wiz_defined-function locations,
+            744 strings with 13188 characters,
+and the built_in function-call counts, 18584 in all, are:
+= -- 1858
+> -- 906
+< -- 26
++ -- 361
+- -- 310
+* -- 1255
+:= -- 2881
+add.period$ -- 143
+call.type$ -- 44
+change.case$ -- 283
+chr.to.int$ -- 0
+cite$ -- 45
+duplicate$ -- 757
+empty$ -- 1408
+format.name$ -- 310
+if$ -- 4038
+int.to.chr$ -- 0
+int.to.str$ -- 44
+missing$ -- 45
+newline$ -- 223
+num.names$ -- 88
+pop$ -- 344
+preamble$ -- 1
+purify$ -- 242
+quote$ -- 0
+skip$ -- 600
+stack$ -- 0
+substring$ -- 1188
+swap$ -- 282
+text.length$ -- 26
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 172
+warning$ -- 1
+while$ -- 168
+width$ -- 46
+write$ -- 489
+(There were 4 error messages)
