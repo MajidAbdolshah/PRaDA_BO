@@ -1,74 +1,75 @@
 This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: ociamthesismain.aux
-A level-1 auxiliary file: dedication.aux
-A level-1 auxiliary file: acknowlegements.aux
 A level-1 auxiliary file: abstract.aux
 A level-1 auxiliary file: chapter1.aux
 A level-1 auxiliary file: chapter2.aux
 A level-1 auxiliary file: chapter3.aux
-A level-1 auxiliary file: conclusions.aux
-A level-1 auxiliary file: appendix1.aux
-A level-1 auxiliary file: appendix2.aux
-The style file: plain.bst
+A level-1 auxiliary file: chapter4.aux
+A level-1 auxiliary file: chapter5.aux
+A level-1 auxiliary file: chapter6.aux
+A level-1 auxiliary file: chapter7.aux
+The style file: unsrt.bst
 Database file #1: refs.bib
 I was expecting a `,' or a `}'---line 92 of file refs.bib
  : 
  : @article{gelbart2014bayesian,
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Repeated entry---line 179 of file refs.bib
+Repeated entry---line 173 of file refs.bib
  : @inproceedings{snoek2012practical
  :                                  ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 308 of file refs.bib
+Repeated entry---line 302 of file refs.bib
  : @inproceedings{shah2016pareto
  :                              ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 315 of file refs.bib
+Repeated entry---line 309 of file refs.bib
  : @inproceedings{calandra2014pareto
  :                                  ,
 I'm skipping whatever remains of this entry
 Warning--empty school in gelbart2015constrained
-You've used 44 entries,
-            2118 wiz_defined-function locations,
-            744 strings with 13188 characters,
-and the built_in function-call counts, 18584 in all, are:
-= -- 1858
-> -- 906
-< -- 26
-+ -- 361
-- -- 310
-* -- 1255
-:= -- 2881
-add.period$ -- 143
-call.type$ -- 44
-change.case$ -- 283
+Warning--empty journal in hernandez2015predictive
+Warning--empty journal in hernandez2016general
+You've used 60 entries,
+            1791 wiz_defined-function locations,
+            773 strings with 15971 characters,
+and the built_in function-call counts, 17857 in all, are:
+= -- 1690
+> -- 728
+< -- 35
++ -- 264
+- -- 204
+* -- 1077
+:= -- 2542
+add.period$ -- 198
+call.type$ -- 60
+change.case$ -- 56
 chr.to.int$ -- 0
-cite$ -- 45
-duplicate$ -- 757
-empty$ -- 1408
-format.name$ -- 310
-if$ -- 4038
+cite$ -- 63
+duplicate$ -- 909
+empty$ -- 1710
+format.name$ -- 204
+if$ -- 4226
 int.to.chr$ -- 0
-int.to.str$ -- 44
-missing$ -- 45
-newline$ -- 223
-num.names$ -- 88
-pop$ -- 344
+int.to.str$ -- 60
+missing$ -- 62
+newline$ -- 303
+num.names$ -- 60
+pop$ -- 259
 preamble$ -- 1
-purify$ -- 242
+purify$ -- 0
 quote$ -- 0
-skip$ -- 600
+skip$ -- 567
 stack$ -- 0
-substring$ -- 1188
-swap$ -- 282
-text.length$ -- 26
+substring$ -- 1266
+swap$ -- 378
+text.length$ -- 35
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 172
-warning$ -- 1
+type$ -- 0
+warning$ -- 3
 while$ -- 168
-width$ -- 46
-write$ -- 489
+width$ -- 62
+write$ -- 667
 (There were 4 error messages)

@@ -7,21 +7,64 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 \usepackage{algorithm}% http://ctan.org/pkg/algorithm
+\usepackage{rotating}
 \usepackage{adjustbox}
+\usepackage{dirtytalk}
+\usepackage{afterpage}
+\usepackage{rotating}
+\usepackage{pdflscape}
 \usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
 \usepackage{array,longtable}
-\usepackage{nth}
+\usepackage{subfig}
+\usepackage{amsmath}
+\DeclareMathOperator{\dis}{d}
 \renewcommand*{\arraystretch}{1.5}
-
+\newcolumntype{L}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 %input macros (i.e. write your own macros file called mymacros.tex 
 %and uncomment the next line)
 %\include{mymacros}
+\usepackage{xcolor,colortbl}
 
-\title{Codimension-Two\\[1ex]     %your thesis title,
-        Free Boundary Problems}   %note \\[1ex] is a line break in the title
+% A package which allows simple repetition counts, and some useful commands
 
-\author{Keith Gillow}             %your name
-\college{St Catherine's College}  %your college
+\usepackage{forloop}
+\newcounter{loopcntr}
+\newcommand{\rpt}[2][1]{%
+  \forloop{loopcntr}{0}{\value{loopcntr}<#1}{#2}%
+}
+\newcommand{\on}[1][1]{
+   \forloop{loopcntr}{0}{\value{loopcntr}<#1}{&\cellcolor{gray}}
+}
+\newcommand{\onx}[1][1]{
+  \forloop{loopcntr}{0}{\value{loopcntr}<#1}{&\cellcolor{orange}}
+}
+\newcommand{\ony}[1][1]{
+  \forloop{loopcntr}{0}{\value{loopcntr}<#1}{&\cellcolor{blue}}
+}
+\newcommand{\onj}[1][1]{
+  \forloop{loopcntr}{0}{\value{loopcntr}<#1}{&\cellcolor{majid}}
+}
+\newcommand{\ong}[1][1]{
+  \forloop{loopcntr}{0}{\value{loopcntr}<#1}{&\cellcolor{green}}
+}
+\newcommand{\off}[1][1]{
+  \forloop{loopcntr}{0}{\value{loopcntr}<#1}{&}
+}
+
+
+\definecolor{orange}{HTML}{BF3929}
+\definecolor{blue}{HTML}{45AAF4}
+\definecolor{majid}{HTML}{467597}
+\definecolor{green}{HTML}{78A73A}
+
+
+\title{Multi-objective Bayesian \\[1ex]     %your thesis title,
+       Optimisation and Applications}   %note \\[1ex] is a line break in the title
+
+\author{Majid Abdolshah}             %your name
+\college{School of IT}  %your college
 
 %\renewcommand{\submittedtext}{change the default text here if needed}
 \degree{Doctor of Philosophy}     %the degree
@@ -40,8 +83,8 @@
 
 
 \maketitle                  % create a title page from the preamble info0
-\include{dedication}        % include a dedication.tex file
-\include{acknowlegements}   % include an acknowledgements.tex file
+%\include{dedication}        % include a dedication.tex file
+%\include{acknowlegements}   % include an acknowledgements.tex file	
 \include{abstract}          % include the abstract
 
 \begin{romanpages}          % start roman page numbering
@@ -53,19 +96,24 @@
 \include{chapter1}
 \include{chapter2}
 \include{chapter3}
-\include{conclusions}
+\include{chapter4}
+\include{chapter5}
+\include{chapter6}
+\include{chapter7}
+%\include{conclusions}
 
 %now enable appendix numbering format and include any appendices
 \appendix
-\include{appendix1}
-\include{appendix2}
+%\include{appendix1}
+%\include{appendix2}
 
 %next line adds the Bibliography to the contents page
 \addcontentsline{toc}{chapter}{Bibliography}
 %uncomment next line to change bibliography name to references
 %\renewcommand{\bibname}{References}
 \bibliography{refs}        %use a bibtex bibliography file refs.bib
-\bibliographystyle{plain}  %use the plain bibliography style
+\bibliographystyle{unsrt}
+%\bibliographystyle{plain}  %use the plain bibliography style
 
 \end{document}
 

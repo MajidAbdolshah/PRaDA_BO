@@ -1,136 +1,22 @@
 \begin{thebibliography}{10}
 
-\bibitem{MajidPaper2018}
-Majid Abdolshah, Alistair Shilton, Santu Rana, Sunil Gupta, and Svetha
-  Venkatesh.
-\newblock Expected hypervolume improvement with constraints.
-\newblock In {\em Pattern Recognition (ICPR), 2018 25rd International
-  Conference on}. IEEE, 2018.
-
-\bibitem{brochu2010bayesian}
-Eric Brochu, Tyson Brochu, and Nando de~Freitas.
-\newblock A bayesian interactive optimization approach to procedural animation
-  design.
-\newblock In {\em Proceedings of the 2010 ACM SIGGRAPH/Eurographics Symposium
-  on Computer Animation}, pages 103--112. Eurographics Association, 2010.
-
-\bibitem{brochu2010tutorial}
-Eric Brochu, Vlad~M Cora, and Nando De~Freitas.
-\newblock A tutorial on bayesian optimization of expensive cost functions, with
-  application to active user modeling and hierarchical reinforcement learning.
-\newblock {\em arXiv preprint arXiv:1012.2599}, 2010.
-
-\bibitem{busa2017multi}
-Robert Busa-Fekete, Balazs Szorenyi, Paul Weng, and Shie Mannor.
-\newblock Multi-objective bandits: Optimizing the generalized gini index.
-\newblock {\em arXiv preprint arXiv:1706.04933}, 2017.
-
-\bibitem{calandra2014pareto}
-Roberto Calandra, Jan Peters, and MP~Deisenrothy.
-\newblock Pareto front modeling for sensitivity analysis in multi-objective
-  bayesian optimization.
-\newblock In {\em NIPS Workshop on Bayesian Optimization}, volume~5, 2014.
-
-\bibitem{campigotto2014active}
-Paolo Campigotto, Andrea Passerini, and Roberto Battiti.
-\newblock Active learning of pareto fronts.
-\newblock {\em IEEE transactions on neural networks and learning systems},
-  25(3):506--519, 2014.
-
-\bibitem{couckuyt2014fast}
-Ivo Couckuyt, Dirk Deschrijver, and Tom Dhaene.
-\newblock Fast calculation of multiobjective probability of improvement and
-  expected improvement criteria for pareto optimization.
-\newblock {\em Journal of Global Optimization}, 60(3):575--594, 2014.
-
-\bibitem{datta2016surrogate}
-Rituparna Datta and Rommel~G Regis.
-\newblock A surrogate-assisted evolution strategy for constrained
-  multi-objective optimization.
-\newblock {\em Expert Systems with Applications}, 57:270--284, 2016.
-
-\bibitem{deb2002fast}
-Kalyanmoy Deb, Amrit Pratap, Sameer Agarwal, and TAMT Meyarivan.
-\newblock A fast and elitist multiobjective genetic algorithm: Nsga-ii.
-\newblock {\em IEEE transactions on evolutionary computation}, 6(2):182--197,
-  2002.
-
-\bibitem{feliot2017bayesian}
-Paul Feliot, Julien Bect, and Emmanuel Vazquez.
-\newblock A bayesian approach to constrained single-and multi-objective
-  optimization.
-\newblock {\em Journal of Global Optimization}, 67(1-2):97--133, 2017.
-
-\bibitem{gardner2014bayesian}
-Jacob~R Gardner, Matt~J Kusner, Zhixiang~Eddie Xu, Kilian~Q Weinberger, and
-  John~P Cunningham.
-\newblock Bayesian optimization with inequality constraints.
-\newblock In {\em ICML}, pages 937--945, 2014.
-
-\bibitem{garnett2013active}
-Roman Garnett, Michael~A Osborne, and Philipp Hennig.
-\newblock Active learning of linear embeddings for gaussian processes.
-\newblock {\em arXiv preprint arXiv:1310.6740}, 2013.
-
-\bibitem{garnett2010bayesian}
-Roman Garnett, Michael~A Osborne, and Stephen~J Roberts.
-\newblock Bayesian optimization for sensor set selection.
-\newblock In {\em Proceedings of the 9th ACM/IEEE International Conference on
-  Information Processing in Sensor Networks}, pages 209--219. ACM, 2010.
-
-\bibitem{garrido2016predictive}
-Eduardo~C Garrido-Merch{\'a}n and Daniel Hern{\'a}ndez-Lobato.
-\newblock Predictive entropy search for multi-objective bayesian optimization
-  with constraints.
-\newblock {\em arXiv preprint arXiv:1609.01051}, 2016.
-
-\bibitem{gelbart2014bayesian}
-Michael~A Gelbart, Jasper Snoek, and Ryan~P Adams.
-\newblock Bayesian optimization with unknown constraints.
-\newblock {\em arXiv preprint arXiv:1403.5607}, 2014.
-
 \bibitem{gelbart2015constrained}
 Michael~Adam Gelbart.
 \newblock {\em Constrained Bayesian Optimization and Applications}.
 \newblock PhD thesis, 2015.
 
-\bibitem{hernandez2016predictive}
-Daniel Hern{\'a}ndez-Lobato, Jose Hernandez-Lobato, Amar Shah, and Ryan Adams.
-\newblock Predictive entropy search for multi-objective bayesian optimization.
-\newblock In {\em International Conference on Machine Learning}, pages
-  1492--1501, 2016.
+\bibitem{vellanki2017process}
+Pratibha Vellanki, Santu Rana, Sunil Gupta, David Rubin, Alessandra Sutti,
+  Thomas Dorin, Murray Height, Paul Sanders, and Svetha Venkatesh.
+\newblock Process-constrained batch bayesian optimisation.
+\newblock In {\em Advances in Neural Information Processing Systems}, pages
+  3417--3426, 2017.
 
-\bibitem{hoffman2014correlation}
-Matthew Hoffman, Bobak Shahriari, and Nando Freitas.
-\newblock On correlation and budget constraints in model-based bandit
-  optimization with application to automatic machine learning.
-\newblock In {\em Artificial Intelligence and Statistics}, pages 365--374,
-  2014.
-
-\bibitem{hupkens2014faster}
-Iris Hupkens, Michael Emmerich, and Andr{\'e} Deutz.
-\newblock Faster computation of expected hypervolume improvement.
-\newblock {\em arXiv preprint arXiv:1408.7114}, 2014.
-
-\bibitem{hussein2016generative}
-Rayan Hussein and Kalyanmoy Deb.
-\newblock A generative kriging surrogate model for constrained and
-  unconstrained multi-objective optimization.
-\newblock In {\em Proceedings of the Genetic and Evolutionary Computation
-  Conference 2016}, pages 573--580. ACM, 2016.
-
-\bibitem{hutter2011sequential}
-Frank Hutter, Holger~H Hoos, and Kevin Leyton-Brown.
-\newblock Sequential model-based optimization for general algorithm
-  configuration.
-\newblock In {\em International Conference on Learning and Intelligent
-  Optimization}, pages 507--523. Springer, 2011.
-
-\bibitem{jiang2015simple}
-Siwei Jiang, Jie Zhang, Yew-Soon Ong, Allan~N Zhang, and Puay~Siew Tan.
-\newblock A simple and fast hypervolume indicator-based multiobjective
-  evolutionary algorithm.
-\newblock {\em IEEE Transactions on Cybernetics}, 45(10):2202--2213, 2015.
+\bibitem{snoek2012practical}
+Jasper Snoek, Hugo Larochelle, and Ryan~P Adams.
+\newblock Practical bayesian optimization of machine learning algorithms.
+\newblock In {\em Advances in neural information processing systems}, pages
+  2951--2959, 2012.
 
 \bibitem{joy2016hyperparameter}
 Tinu~Theckel Joy, Santu Rana, Sunil Gupta, and Svetha Venkatesh.
@@ -138,11 +24,11 @@ Tinu~Theckel Joy, Santu Rana, Sunil Gupta, and Svetha Venkatesh.
 \newblock In {\em Pattern Recognition (ICPR), 2016 23rd International
   Conference on}, pages 2574--2579. IEEE, 2016.
 
-\bibitem{kukkonen2007ranking}
-Saku Kukkonen and Jouni Lampinen.
-\newblock Ranking-dominance and many-objective optimization.
-\newblock In {\em Evolutionary Computation, 2007. CEC 2007. IEEE Congress on},
-  pages 3983--3990. IEEE, 2007.
+\bibitem{tesch2013expensive}
+Matthew Tesch, Jeff Schneider, and Howie Choset.
+\newblock Expensive multiobjective optimization for robotics.
+\newblock In {\em Robotics and Automation (ICRA), 2013 IEEE International
+  Conference on}, pages 973--980. IEEE, 2013.
 
 \bibitem{li2017rapid}
 Cheng Li, David~Rub{\'\i}n de~Celis~Leal, Santu Rana, Sunil Gupta, Alessandra
@@ -151,16 +37,44 @@ Cheng Li, David~Rub{\'\i}n de~Celis~Leal, Santu Rana, Sunil Gupta, Alessandra
   materials.
 \newblock {\em Scientific reports}, 7(1):5683, 2017.
 
+\bibitem{couckuyt2014fast}
+Ivo Couckuyt, Dirk Deschrijver, and Tom Dhaene.
+\newblock Fast calculation of multiobjective probability of improvement and
+  expected improvement criteria for pareto optimization.
+\newblock {\em Journal of Global Optimization}, 60(3):575--594, 2014.
+
+\bibitem{calandra2014pareto}
+Roberto Calandra, Jan Peters, and MP~Deisenrothy.
+\newblock Pareto front modeling for sensitivity analysis in multi-objective
+  bayesian optimization.
+\newblock In {\em NIPS Workshop on Bayesian Optimization}, volume~5, 2014.
+
+\bibitem{rasmussen2006gaussian}
+Carl~Edward Rasmussen and Christopher~KI Williams.
+\newblock {\em Gaussian processes for machine learning}, volume~1.
+\newblock MIT press Cambridge, 2006.
+
+\bibitem{pardalos2017non}
+Panos~M Pardalos, Antanas {\v{Z}}ilinskas, and Julius {\v{Z}}ilinskas.
+\newblock {\em Non-convex multi-objective optimization}, volume 123.
+\newblock Springer, 2017.
+
+\bibitem{MajidPaper2018}
+Majid Abdolshah, Alistair Shilton, Santu Rana, Sunil Gupta, and Svetha
+  Venkatesh.
+\newblock Expected hypervolume improvement with constraints.
+\newblock In {\em Pattern Recognition (ICPR), 2018 25rd International
+  Conference on}. IEEE, 2018.
+
+\bibitem{gelbart2014bayesian}
+Michael~A Gelbart, Jasper Snoek, and Ryan~P Adams.
+\newblock Bayesian optimization with unknown constraints.
+\newblock {\em arXiv preprint arXiv:1403.5607}, 2014.
+
 \bibitem{lizotte2007automatic}
 Daniel~J Lizotte, Tao Wang, Michael~H Bowling, and Dale Schuurmans.
 \newblock Automatic gait optimization with gaussian process regression.
 \newblock In {\em IJCAI}, volume~7, pages 944--949, 2007.
-
-\bibitem{marchant2012bayesian}
-Roman Marchant and Fabio Ramos.
-\newblock Bayesian optimisation for intelligent environmental monitoring.
-\newblock In {\em Intelligent Robots and Systems (IROS), 2012 IEEE/RSJ
-  International Conference on}, pages 2242--2249. IEEE, 2012.
 
 \bibitem{martinez2007active}
 Ruben Martinez-Cantin, Nando de~Freitas, Arnaud Doucet, and Jos{\'e}~A
@@ -170,73 +84,18 @@ Ruben Martinez-Cantin, Nando de~Freitas, Arnaud Doucet, and Jos{\'e}~A
 \newblock In {\em Robotics: Science and Systems}, volume~3, pages 334--341,
   2007.
 
-\bibitem{oyama2007new}
-Akira Oyama, Koji Shimoyama, and Kozo Fujii.
-\newblock New constraint-handling method for multi-objective and
-  multi-constraint evolutionary optimization.
-\newblock {\em Transactions of the Japan Society for Aeronautical and Space
-  Sciences}, 50(167):56--62, 2007.
+\bibitem{marchant2012bayesian}
+Roman Marchant and Fabio Ramos.
+\newblock Bayesian optimisation for intelligent environmental monitoring.
+\newblock In {\em Intelligent Robots and Systems (IROS), 2012 IEEE/RSJ
+  International Conference on}, pages 2242--2249. IEEE, 2012.
 
-\bibitem{pardalos2017non}
-Panos~M Pardalos, Antanas {\v{Z}}ilinskas, and Julius {\v{Z}}ilinskas.
-\newblock {\em Non-convex multi-objective optimization}, volume 123.
-\newblock Springer, 2017.
-
-\bibitem{pirotta2015multi}
-Matteo Pirotta, Simone Parisi, and Marcello Restelli.
-\newblock Multi-objective reinforcement learning with continuous pareto
-  frontier approximation.
-\newblock In {\em 29th AAAI Conference on Artificial Intelligence, AAAI 2015
-  and the 27th Innovative Applications of Artificial Intelligence Conference,
-  IAAI 2015}, pages 2928--2934. AAAI Press, 2015.
-
-\bibitem{rasmussen2006gaussian}
-Carl~Edward Rasmussen and Christopher~KI Williams.
-\newblock {\em Gaussian processes for machine learning}, volume~1.
-\newblock MIT press Cambridge, 2006.
-
-\bibitem{shah2016pareto}
-Amar Shah and Zoubin Ghahramani.
-\newblock Pareto frontier learning with expensive correlated objectives.
-\newblock In {\em International Conference on Machine Learning}, pages
-  1919--1927, 2016.
-
-\bibitem{shahriari2016taking}
-Bobak Shahriari, Kevin Swersky, Ziyu Wang, Ryan~P Adams, and Nando De~Freitas.
-\newblock Taking the human out of the loop: A review of bayesian optimization.
-\newblock {\em Proceedings of the IEEE}, 104(1):148--175, 2016.
-
-\bibitem{snoek2012practical}
-Jasper Snoek, Hugo Larochelle, and Ryan~P Adams.
-\newblock Practical bayesian optimization of machine learning algorithms.
-\newblock In {\em Advances in neural information processing systems}, pages
-  2951--2959, 2012.
-
-\bibitem{srinivas2009gaussian}
-Niranjan Srinivas, Andreas Krause, Sham~M Kakade, and Matthias Seeger.
-\newblock Gaussian process optimization in the bandit setting: No regret and
-  experimental design.
-\newblock {\em arXiv preprint arXiv:0912.3995}, 2009.
-
-\bibitem{tesch2013expensive}
-Matthew Tesch, Jeff Schneider, and Howie Choset.
-\newblock Expensive multiobjective optimization for robotics.
-\newblock In {\em Robotics and Automation (ICRA), 2013 IEEE International
-  Conference on}, pages 973--980. IEEE, 2013.
-
-\bibitem{thornton2013auto}
-Chris Thornton, Frank Hutter, Holger~H Hoos, and Kevin Leyton-Brown.
-\newblock Auto-weka: Combined selection and hyperparameter optimization of
-  classification algorithms.
-\newblock In {\em Proceedings of the 19th ACM SIGKDD international conference
-  on Knowledge discovery and data mining}, pages 847--855. ACM, 2013.
-
-\bibitem{vellanki2017process}
-Pratibha Vellanki, Santu Rana, Sunil Gupta, David Rubin, Alessandra Sutti,
-  Thomas Dorin, Murray Height, Paul Sanders, and Svetha Venkatesh.
-\newblock Process-constrained batch bayesian optimisation.
-\newblock In {\em Advances in Neural Information Processing Systems}, pages
-  3417--3426, 2017.
+\bibitem{brochu2010bayesian}
+Eric Brochu, Tyson Brochu, and Nando de~Freitas.
+\newblock A bayesian interactive optimization approach to procedural animation
+  design.
+\newblock In {\em Proceedings of the 2010 ACM SIGGRAPH/Eurographics Symposium
+  on Computer Animation}, pages 103--112. Eurographics Association, 2010.
 
 \bibitem{wang2014bayesian}
 Ziyu Wang, Babak Shakibi, Lin Jin, and Nando de~Freitas.
@@ -249,21 +108,264 @@ Ziyu Wang, Masrour Zoghi, Frank Hutter, David Matheson, Nando De~Freitas,
 \newblock Bayesian optimization in high dimensions via random embeddings.
 \newblock In {\em IJCAI}, pages 1778--1784, 2013.
 
-\bibitem{wilson2013gaussian}
-Andrew Wilson and Ryan Adams.
-\newblock Gaussian process kernels for pattern discovery and extrapolation.
-\newblock In {\em International Conference on Machine Learning}, pages
-  1067--1075, 2013.
+\bibitem{hutter2011sequential}
+Frank Hutter, Holger~H Hoos, and Kevin Leyton-Brown.
+\newblock Sequential model-based optimization for general algorithm
+  configuration.
+\newblock In {\em International Conference on Learning and Intelligent
+  Optimization}, pages 507--523. Springer, 2011.
 
-\bibitem{zitzler2001spea2}
-Eckart Zitzler, Marco Laumanns, and Lothar Thiele.
-\newblock Spea2: Improving the strength pareto evolutionary algorithm.
-\newblock {\em TIK-report}, 103, 2001.
+\bibitem{brochu2010tutorial}
+Eric Brochu, Vlad~M Cora, and Nando De~Freitas.
+\newblock A tutorial on bayesian optimization of expensive cost functions, with
+  application to active user modeling and hierarchical reinforcement learning.
+\newblock {\em arXiv preprint arXiv:1012.2599}, 2010.
+
+\bibitem{garnett2010bayesian}
+Roman Garnett, Michael~A Osborne, and Stephen~J Roberts.
+\newblock Bayesian optimization for sensor set selection.
+\newblock In {\em Proceedings of the 9th ACM/IEEE International Conference on
+  Information Processing in Sensor Networks}, pages 209--219. ACM, 2010.
+
+\bibitem{srinivas2009gaussian}
+Niranjan Srinivas, Andreas Krause, Sham~M Kakade, and Matthias Seeger.
+\newblock Gaussian process optimization in the bandit setting: No regret and
+  experimental design.
+\newblock {\em arXiv preprint arXiv:0912.3995}, 2009.
+
+\bibitem{thornton2013auto}
+Chris Thornton, Frank Hutter, Holger~H Hoos, and Kevin Leyton-Brown.
+\newblock Auto-weka: Combined selection and hyperparameter optimization of
+  classification algorithms.
+\newblock In {\em Proceedings of the 19th ACM SIGKDD international conference
+  on Knowledge discovery and data mining}, pages 847--855. ACM, 2013.
+
+\bibitem{hoffman2014correlation}
+Matthew Hoffman, Bobak Shahriari, and Nando Freitas.
+\newblock On correlation and budget constraints in model-based bandit
+  optimization with application to automatic machine learning.
+\newblock In {\em Artificial Intelligence and Statistics}, pages 365--374,
+  2014.
+
+\bibitem{garnett2013active}
+Roman Garnett, Michael~A Osborne, and Philipp Hennig.
+\newblock Active learning of linear embeddings for gaussian processes.
+\newblock {\em arXiv preprint arXiv:1310.6740}, 2013.
+
+\bibitem{shahriari2016taking}
+Bobak Shahriari, Kevin Swersky, Ziyu Wang, Ryan~P Adams, and Nando De~Freitas.
+\newblock Taking the human out of the loop: A review of bayesian optimization.
+\newblock {\em Proceedings of the IEEE}, 104(1):148--175, 2016.
+
+\bibitem{gardner2014bayesian}
+Jacob~R Gardner, Matt~J Kusner, Zhixiang~Eddie Xu, Kilian~Q Weinberger, and
+  John~P Cunningham.
+\newblock Bayesian optimization with inequality constraints.
+\newblock In {\em ICML}, pages 937--945, 2014.
+
+\bibitem{feliot2017bayesian}
+Paul Feliot, Julien Bect, and Emmanuel Vazquez.
+\newblock A bayesian approach to constrained single-and multi-objective
+  optimization.
+\newblock {\em Journal of Global Optimization}, 67(1-2):97--133, 2017.
+
+\bibitem{garrido2016predictive}
+Eduardo~C Garrido-Merch{\'a}n and Daniel Hern{\'a}ndez-Lobato.
+\newblock Predictive entropy search for multi-objective bayesian optimization
+  with constraints.
+\newblock {\em arXiv preprint arXiv:1609.01051}, 2016.
+
+\bibitem{hernandez2016predictive}
+Daniel Hern{\'a}ndez-Lobato, Jose Hernandez-Lobato, Amar Shah, and Ryan Adams.
+\newblock Predictive entropy search for multi-objective bayesian optimization.
+\newblock In {\em International Conference on Machine Learning}, pages
+  1492--1501, 2016.
+
+\bibitem{shah2016pareto}
+Amar Shah and Zoubin Ghahramani.
+\newblock Pareto frontier learning with expensive correlated objectives.
+\newblock In {\em International Conference on Machine Learning}, pages
+  1919--1927, 2016.
+
+\bibitem{campigotto2014active}
+Paolo Campigotto, Andrea Passerini, and Roberto Battiti.
+\newblock Active learning of pareto fronts.
+\newblock {\em IEEE transactions on neural networks and learning systems},
+  25(3):506--519, 2014.
+
+\bibitem{hussein2016generative}
+Rayan Hussein and Kalyanmoy Deb.
+\newblock A generative kriging surrogate model for constrained and
+  unconstrained multi-objective optimization.
+\newblock In {\em Proceedings of the Genetic and Evolutionary Computation
+  Conference 2016}, pages 573--580. ACM, 2016.
+
+\bibitem{pirotta2015multi}
+Matteo Pirotta, Simone Parisi, and Marcello Restelli.
+\newblock Multi-objective reinforcement learning with continuous pareto
+  frontier approximation.
+\newblock In {\em 29th AAAI Conference on Artificial Intelligence, AAAI 2015
+  and the 27th Innovative Applications of Artificial Intelligence Conference,
+  IAAI 2015}, pages 2928--2934. AAAI Press, 2015.
 
 \bibitem{zuluaga2013active}
 Marcela Zuluaga, Guillaume Sergent, Andreas Krause, and Markus P{\"u}schel.
 \newblock Active learning for multi-objective optimization.
 \newblock In {\em International Conference on Machine Learning}, pages
   462--470, 2013.
+
+\bibitem{hupkens2014faster}
+Iris Hupkens, Michael Emmerich, and Andr{\'e} Deutz.
+\newblock Faster computation of expected hypervolume improvement.
+\newblock {\em arXiv preprint arXiv:1408.7114}, 2014.
+
+\bibitem{busa2017multi}
+Robert Busa-Fekete, Balazs Szorenyi, Paul Weng, and Shie Mannor.
+\newblock Multi-objective bandits: Optimizing the generalized gini index.
+\newblock {\em arXiv preprint arXiv:1706.04933}, 2017.
+
+\bibitem{oyama2007new}
+Akira Oyama, Koji Shimoyama, and Kozo Fujii.
+\newblock New constraint-handling method for multi-objective and
+  multi-constraint evolutionary optimization.
+\newblock {\em Transactions of the Japan Society for Aeronautical and Space
+  Sciences}, 50(167):56--62, 2007.
+
+\bibitem{datta2016surrogate}
+Rituparna Datta and Rommel~G Regis.
+\newblock A surrogate-assisted evolution strategy for constrained
+  multi-objective optimization.
+\newblock {\em Expert Systems with Applications}, 57:270--284, 2016.
+
+\bibitem{jiang2015simple}
+Siwei Jiang, Jie Zhang, Yew-Soon Ong, Allan~N Zhang, and Puay~Siew Tan.
+\newblock A simple and fast hypervolume indicator-based multiobjective
+  evolutionary algorithm.
+\newblock {\em IEEE Transactions on Cybernetics}, 45(10):2202--2213, 2015.
+
+\bibitem{deb2002fast}
+Kalyanmoy Deb, Amrit Pratap, Sameer Agarwal, and TAMT Meyarivan.
+\newblock A fast and elitist multiobjective genetic algorithm: Nsga-ii.
+\newblock {\em IEEE transactions on evolutionary computation}, 6(2):182--197,
+  2002.
+
+\bibitem{zitzler2001spea2}
+Eckart Zitzler, Marco Laumanns, and Lothar Thiele.
+\newblock Spea2: Improving the strength pareto evolutionary algorithm.
+\newblock {\em TIK-report}, 103, 2001.
+
+\bibitem{kukkonen2007ranking}
+Saku Kukkonen and Jouni Lampinen.
+\newblock Ranking-dominance and many-objective optimization.
+\newblock In {\em Evolutionary Computation, 2007. CEC 2007. IEEE Congress on},
+  pages 3983--3990. IEEE, 2007.
+
+\bibitem{wilson2013gaussian}
+Andrew Wilson and Ryan Adams.
+\newblock Gaussian process kernels for pattern discovery and extrapolation.
+\newblock In {\em International Conference on Machine Learning}, pages
+  1067--1075, 2013.
+
+\bibitem{rasmussen2004gaussian}
+Carl~Edward Rasmussen.
+\newblock Gaussian processes in machine learning.
+\newblock In {\em Advanced lectures on machine learning}, pages 63--71.
+  Springer, 2004.
+
+\bibitem{schulz2017tutorial}
+Eric Schulz, Maarten Speekenbrink, and Andreas Krause.
+\newblock A tutorial on gaussian process regression: Modelling, exploring, and
+  exploiting functions.
+\newblock {\em bioRxiv}, page 095190, 2017.
+
+\bibitem{hernandez2015predictive}
+Jos{\'e}~Miguel Hern{\'a}ndez-Lobato, Michael~A Gelbart, Matthew~W Hoffman,
+  Ryan~P Adams, and Zoubin Ghahramani.
+\newblock Predictive entropy search for bayesian optimization with unknown
+  constraints.
+\newblock 2015.
+
+\bibitem{rousis2011pareto}
+Damon~A Rousis.
+\newblock {\em A Pareto frontier intersection-based approach for efficient
+  multiobjective optimization of competing concept alternatives}.
+\newblock Georgia Institute of Technology, 2011.
+
+\bibitem{emmerich2008computation}
+Michael Emmerich and Jan-willem Klinkenberg.
+\newblock The computation of the expected improvement in dominated hypervolume
+  of pareto front approximations.
+\newblock {\em Rapport technique, Leiden University}, 34, 2008.
+
+\bibitem{laumanns2000unified}
+Marco Laumanns, Eckart Zitzler, and Lothar Thiele.
+\newblock A unified model for multi-objective evolutionary algorithms with
+  elitism.
+\newblock In {\em Evolutionary Computation, 2000. Proceedings of the 2000
+  Congress on}, volume~1, pages 46--53. IEEE, 2000.
+
+\bibitem{hernandez2016general}
+Jos{\'e}~Miguel Hern{\'a}ndez-Lobato, Michael~A Gelbart, Ryan~P Adams,
+  Matthew~W Hoffman, and Zoubin Ghahramani.
+\newblock A general framework for constrained bayesian optimization using
+  information-based search.
+\newblock 2016.
+
+\bibitem{emmerich2006single}
+Michael~TM Emmerich, Kyriakos~C Giannakoglou, and Boris Naujoks.
+\newblock Single-and multiobjective evolutionary optimization assisted by
+  gaussian random field metamodels.
+\newblock {\em IEEE Transactions on Evolutionary Computation}, 10(4):421--439,
+  2006.
+
+\bibitem{lapeyre2013poppy}
+Matthieu Lapeyre, Pierre Rouanet, and Pierre-Yves Oudeyer.
+\newblock The poppy humanoid robot: Leg design for biped locomotion.
+\newblock In {\em Intelligent Robots and Systems (IROS), 2013 IEEE/RSJ
+  International Conference on}, pages 349--356. IEEE, 2013.
+
+\bibitem{ly2011bio}
+Olivier Ly, Matthieu Lapeyre, and Pierre-Yves Oudeyer.
+\newblock Bio-inspired vertebral column, compliance and semi-passive dynamics
+  in a lightweight humanoid robot.
+\newblock In {\em Intelligent Robots and Systems (IROS), 2011 IEEE/RSJ
+  International Conference on}, pages 1465--1472. IEEE, 2011.
+
+\bibitem{hughes1990importance}
+Janey Hughes, Peter Clark, and Leslie Klenerman.
+\newblock The importance of the toes in walking.
+\newblock {\em Bone \& Joint Journal}, 72(2):245--251, 1990.
+
+\bibitem{sellaouti2006faster}
+Ramzi Sellaouti, Olivier Stasse, Shuuji Kajita, Kazuhito Yokoi, and
+  Abderrahmane Kheddar.
+\newblock Faster and smoother walking of humanoid hrp-2 with passive toe
+  joints.
+\newblock In {\em Intelligent Robots and Systems, 2006 IEEE/RSJ International
+  Conference on}, pages 4909--4914. IEEE, 2006.
+
+\bibitem{pautrat2017bayesian}
+R{\'e}mi Pautrat, Konstantinos Chatzilygeroudis, and Jean-Baptiste Mouret.
+\newblock Bayesian optimization with automatic prior selection for
+  data-efficient direct policy search.
+\newblock {\em arXiv preprint arXiv:1709.06919}, 2017.
+
+\bibitem{calandra2014bayesian}
+Roberto Calandra, Nakul Gopalan, Andr{\'e} Seyfarth, Jan Peters, and Marc~Peter
+  Deisenroth.
+\newblock Bayesian gait optimization for bipedal locomotion.
+\newblock In {\em International Conference on Learning and Intelligent
+  Optimization}, pages 274--290. Springer, 2014.
+
+\bibitem{jin2011surrogate}
+Yaochu Jin.
+\newblock Surrogate-assisted evolutionary computation: Recent advances and
+  future challenges.
+\newblock {\em Swarm and Evolutionary Computation}, 1(2):61--70, 2011.
+
+\bibitem{barbera2004ranking}
+Salvador Barber{\`a}, Walter Bossert, and Prasanta~K Pattanaik.
+\newblock Ranking sets of objects.
+\newblock In {\em Handbook of utility theory}, pages 893--977. Springer, 2004.
 
 \end{thebibliography}

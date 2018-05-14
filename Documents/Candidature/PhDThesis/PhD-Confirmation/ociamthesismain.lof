@@ -1,6 +1,38 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Gaussian process fitted at five points, blue line indicates the mean function, the black points indicates the observations.\relax }}{16}{figure.caption.3}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Comparison of different kernels in Gaussian processes.\relax }}{17}{figure.caption.4}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Linear Kernel}}}{17}{subfigure.2.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Matern32 Kernel}}}{17}{subfigure.2.2}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Multilayer Perceptron Kernel}}}{17}{subfigure.2.3}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Periodic Matern52 Kernel}}}{17}{subfigure.2.4}
+\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {RBF Kernel}}}{17}{subfigure.2.5}
+\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {Bias Kernel}}}{17}{subfigure.2.6}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Illustration of Pareto optimal solutions, dominated solutions, and Pareto frontier.\relax }}{21}{figure.caption.5}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Sample bi-objective case with partitioned cells. The black points are in set of $P(\mathcal {Y})$ and dominated the $\textbf {y}^{ref}$. Also the upper ($\textbf {u}$) bound and lower bound ($\textbf {l}$) for a sample point $\textbf {y}$ in a cell is illustrated. The $b_1^{(i)}$ and $b_2^{(i)}$, $\{i=1,...,p+1\}$ are representative of first and second coordinate.\relax }}{22}{figure.caption.6}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Poppy open source robot, sitting on a chair!.\relax }}{30}{figure.caption.7}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Comparison of feasible dominated region with the whole dominated region for evaluation of a sample Pareto set. Although the sample Pareto set covered more than $80 \%$ of the dominated region, but almost $40 \%$ of the feasible dominated region has not been dominated by the sample Pareto set. \relax }}{32}{figure.caption.8}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Result of EHVIC algorithm on test problems explained in Table \ref {tab:func} for $128$ evaluations of test functions. Black dots represent non-dominated solutions while the area in gray is the feasible region for each test function. \relax }}{34}{figure.caption.10}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {BNH}}}{34}{subfigure.2.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {SRN}}}{34}{subfigure.2.2}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {TNK}}}{34}{subfigure.2.3}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {OSY}}}{34}{subfigure.2.4}
+\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {BNH}}}{34}{subfigure.2.5}
+\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {SRN}}}{34}{subfigure.2.6}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Comparing NSGAII method with EHVIC on the TNK function (see Table \ref {tab:func}). Optimising the TNK function subject to constraints. (a) FET $\simeq 0\ ms$, (b) FET= $10\ ms$, (c) FET= $100\ ms$, and (d) FET= $1\ s$. Experiments for each algorithm are repeated $10$ times, the mean performance and standard deviation are plotted. \relax }}{35}{figure.caption.11}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {FET $\simeq 0\ ms$}}}{35}{subfigure.3.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {FET $ = 10\ ms$}}}{35}{subfigure.3.2}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {FET $ = 100\ ms$}}}{35}{subfigure.3.3}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {FET $ = 1\ s$}}}{35}{subfigure.3.4}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Set of solutions obtained by EHVIC for maximizing $\eta $ and minimizing $\sigma $ in compositions. Each point represents a feasible solution. \relax }}{35}{figure.caption.12}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Evaluating the proposed method with three conditions. (a): Objective $f_1$ is more important than $f_2$. (b): Objective $f_2$ is more important than objective $f_1$. Both objectives are similarly important $r_1 \equiv r_2$. The density of Pareto optimal points in a region indicates the importance of those solution sets with regard to the specific objective. \relax }}{38}{figure.caption.13}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces { $r_1 > r_2 $}}}{38}{subfigure.5.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces { $r_2 > r_1$}}}{38}{subfigure.5.2}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces { $r_1 \equiv r_2$}}}{38}{subfigure.5.3}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Certificate of Research Integrity Training.\relax }}{43}{figure.caption.14}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Certificate of Human Research Ethics.\relax }}{43}{figure.caption.15}

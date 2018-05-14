@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.2.1)  9 MAY 2018 15:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.2.1)  14 MAY 2018 16:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -250,6 +250,14 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@every@algorithm=\toks22
 \c@algorithm=\count111
 )
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/rotating.sty
+Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
+\c@r@tfl@t=\count112
+\rotFPtop=\skip47
+\rotFPbot=\skip48
+\rot@float@box=\box30
+\rot@mess@toks=\toks23
+)
 (/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjustbox.sty
 Package: adjustbox 2012/05/21 v1.0 Adjusting TeX boxes (trim, clip, ...)
 
@@ -258,10 +266,10 @@ Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 
 (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
 (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks23
-\XKV@tempa@toks=\toks24
+\XKV@toks=\toks24
+\XKV@tempa@toks=\toks25
 )
-\XKV@depth=\count112
+\XKV@depth=\count113
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjcalc.sty
@@ -273,7 +281,7 @@ Package: trimclip 2012/05/16 v1.0 Trim and clip general TeX material
 
 (/usr/share/texlive/texmf-dist/tex/latex/collectbox/collectbox.sty
 Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
-\collectedbox=\box30
+\collectedbox=\box31
 )
 \tc@llx=\dimen118
 \tc@lly=\dimen119
@@ -291,15 +299,33 @@ File: tc-pdftex.def 2012/05/13 v1.0 Clipping driver for pdftex
 
 (/usr/share/texlive/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count113
+\c@checkoddpage=\count114
 )
 (/usr/share/texlive/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box31
-\sift@deathcycles=\count114
+\@vwid@box=\box32
+\sift@deathcycles=\count115
 \@vwid@loff=\dimen126
 \@vwid@roff=\dimen127
 ))
+(/usr/share/texlive/texmf-dist/tex/latex/dirtytalk/dirtytalk.sty
+Package: dirtytalk 2010/11/21 A package making "quoting" easier
+\c@dirtytalk@qdepth=\count116
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/afterpage.sty
+Package: afterpage 2014/10/28 v1.08 After-Page Package (DPC)
+\AP@output=\toks26
+\AP@partial=\box33
+\AP@footins=\box34
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/pdflscape.sty
+Package: pdflscape 2016/05/14 v0.11 Display of landscape pages in PDF (HO)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+)
 (/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
 Package: algpseudocode 
 
@@ -307,86 +333,183 @@ Package: algpseudocode
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count115
-\c@ALG@rem=\count116
-\c@ALG@nested=\count117
-\ALG@tlm=\skip47
-\ALG@thistlm=\skip48
-\c@ALG@Lnr=\count118
-\c@ALG@blocknr=\count119
-\c@ALG@storecount=\count120
-\c@ALG@tmpcounter=\count121
-\ALG@tmplength=\skip49
+\c@ALG@line=\count117
+\c@ALG@rem=\count118
+\c@ALG@nested=\count119
+\ALG@tlm=\skip49
+\ALG@thistlm=\skip50
+\c@ALG@Lnr=\count120
+\c@ALG@blocknr=\count121
+\c@ALG@storecount=\count122
+\c@ALG@tmpcounter=\count123
+\ALG@tmplength=\skip51
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
 ) (/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
 Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
 \col@sep=\dimen128
 \extrarowheight=\dimen129
-\NC@list=\toks25
-\extratabsurround=\skip50
-\backup@length=\skip51
+\NC@list=\toks27
+\extratabsurround=\skip52
+\backup@length=\skip53
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
-\LTleft=\skip52
-\LTright=\skip53
-\LTpre=\skip54
-\LTpost=\skip55
-\LTchunksize=\count122
+\LTleft=\skip54
+\LTright=\skip55
+\LTpre=\skip56
+\LTpost=\skip57
+\LTchunksize=\count124
 \LTcapwidth=\dimen130
-\LT@head=\box32
-\LT@firsthead=\box33
-\LT@foot=\box34
-\LT@lastfoot=\box35
-\LT@cols=\count123
-\LT@rows=\count124
-\c@LT@tables=\count125
-\c@LT@chunks=\count126
-\LT@p@ftn=\toks26
+\LT@head=\box35
+\LT@firsthead=\box36
+\LT@foot=\box37
+\LT@lastfoot=\box38
+\LT@cols=\count125
+\LT@rows=\count126
+\c@LT@tables=\count127
+\c@LT@chunks=\count128
+\LT@p@ftn=\toks28
 )
-(/usr/share/texlive/texmf-dist/tex/generic/genmisc/nth.sty
-Package: nth 2002/02/27
+(/usr/share/texlive/texmf-dist/tex/latex/subfig/subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen131
+\captionmargin@=\dimen132
+\captionwidth=\dimen133
+\caption@tempdima=\dimen134
+\caption@indent=\dimen135
+\caption@parindent=\dimen136
+\caption@hangindent=\dimen137
 )
-(./ociamthesismain.aux (./dedication.aux) (./acknowlegements.aux)
-(./abstract.aux) (./chapter1.aux) (./chapter2.aux) (./chapter3.aux
+\c@ContinuedFloat=\count129
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: longtable package is loaded.
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2013/06/09 v1.4-94 longtable captions (AR)
+)
+Package caption Info: rotating package is loaded.
+)
+\c@KVtest=\count130
+\sf@farskip=\skip58
+\sf@captopadj=\dimen138
+\sf@capskip=\skip59
+\sf@nearskip=\skip60
+\c@subfigure=\count131
+\c@subfigure@save=\count132
+\c@lofdepth=\count133
+\c@subtable=\count134
+\c@subtable@save=\count135
+\c@lotdepth=\count136
+\sf@top=\skip61
+\sf@bottom=\skip62
+)
+(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
+\everycr=\toks29
+\minrowclearance=\skip63
+)
+(/usr/share/texlive/texmf-dist/tex/latex/forloop/forloop.sty
+Package: forloop 2006/09/18 v3.0 For Loops for LaTeX
+)
+\c@loopcntr=\count137
+
+(./ociamthesismain.aux (./abstract.aux) (./chapter1.aux) (./chapter2.aux)
+(./chapter3.aux
 
 LaTeX Warning: Label `eq:1' multiply defined.
 
 
 LaTeX Warning: Label `eq:2' multiply defined.
 
-) (./conclusions.aux) (./appendix1.aux) (./appendix2.aux))
+
+LaTeX Warning: Label `1c' multiply defined.
+
+
+LaTeX Warning: Label `1c' multiply defined.
+
+
+LaTeX Warning: Label `eq:1' multiply defined.
+
+
+LaTeX Warning: Label `eq:2' multiply defined.
+
+
+LaTeX Warning: Label `eq:3' multiply defined.
+
+) (./chapter4.aux
+
+LaTeX Warning: Label `algo1' multiply defined.
+
+) (./chapter5.aux
+
+LaTeX Warning: Label `tab:2' multiply defined.
+
+) (./chapter6.aux) (./chapter7.aux
+
+LaTeX Warning: Label `sec:prog' multiply defined.
+
+
+LaTeX Warning: Label `fig:gp' multiply defined.
+
+
+LaTeX Warning: Label `fig:gp' multiply defined.
+
+))
 \openout1 = `ociamthesismain.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-
-(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+ (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count127
-\scratchdimen=\dimen131
-\scratchbox=\box36
-\nofMPsegments=\count128
-\nofMParguments=\count129
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count130
-\MPscratchDim=\dimen132
-\MPnumerator=\count131
-\makeMPintoPDFobject=\count132
-\everyMPtoPDFconversion=\toks28
+\scratchcounter=\count138
+\scratchdimen=\dimen139
+\scratchbox=\box39
+\nofMPsegments=\count139
+\nofMParguments=\count140
+\everyMPshowfont=\toks30
+\MPscratchCnt=\count141
+\MPscratchDim=\dimen140
+\MPnumerator=\count142
+\makeMPintoPDFobject=\count143
+\everyMPtoPDFconversion=\toks31
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -404,8 +527,8 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\AtBeginShipoutBox=\box37
-Package hyperref Info: Link coloring OFF on input line 31.
+\AtBeginShipoutBox=\box40
+Package hyperref Info: Link coloring OFF on input line 74.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -413,47 +536,36 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count133
+\c@section@level=\count144
 )
-LaTeX Info: Redefining \ref on input line 31.
-LaTeX Info: Redefining \pageref on input line 31.
-LaTeX Info: Redefining \nameref on input line 31.
+LaTeX Info: Redefining \ref on input line 74.
+LaTeX Info: Redefining \pageref on input line 74.
+LaTeX Info: Redefining \nameref on input line 74.
 
 (./ociamthesismain.out) (./ociamthesismain.out)
 \@outlinefile=\write3
 \openout3 = `ociamthesismain.out'.
 
-<oxlogo.png, id=67, 115.43124pt x 115.43124pt>
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: End \AtBeginDocument code.
+<oxlogo.png, id=160, 579.16376pt x 579.16376pt>
 File: oxlogo.png Graphic file (type png)
 <use oxlogo.png>
-Package pdftex.def Info: oxlogo.png  used on input line 43. on input line 43.
-Package pdftex.def Info: Requested size: 91.04881pt x 91.04877pt on input line 
-43.
+Package pdftex.def Info: oxlogo.png  used on input line 88. on input line 88.
+Package pdftex.def Info: Requested size: 91.04881pt x 91.04202pt on input line 
+88.
  [1
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./oxlogo.png>]
-\openout2 = `dedication.aux'.
-
- (./dedication.tex [2
-
-
-])
-\openout2 = `acknowlegements.aux'.
-
-
-(./acknowlegements.tex [3
-
-
-
-])
 \openout2 = `abstract.aux'.
 
- (./abstract.tex [4
+ (./abstract.tex [2
 
 
-
-]) (./ociamthesismain.toc
+])
+(./ociamthesismain.toc
 LaTeX Font Info:    Try loading font information for U+msa on input line 2.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -463,22 +575,28 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 2.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-))
+) [1
+
+
+
+])
 \tf@toc=\write4
 \openout4 = `ociamthesismain.toc'.
 
- [1
+ [2]
+(./ociamthesismain.lof
+Overfull \hbox (5.7519pt too wide) in paragraph at lines 12--12
+ [][] [][]\OT1/cmr/m/n/12 Illustration of Pareto op-ti-mal so-lu-tions, dom-i-n
+ated so-lu-tions, and Pareto 
+ []
 
+[3
 
-
-]
-(./ociamthesismain.lof)
+])
 \tf@lof=\write5
 \openout5 = `ociamthesismain.lof'.
 
- [2
-
-]
+ [4]
 \openout2 = `chapter1.aux'.
 
  (./chapter1.tex
@@ -508,18 +626,8 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 40.
-pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.42 \item D
-            iscussion of the issues involved in the method in terms of the e...
-[3])pdfTeX warning (ext4): destination with the same identifier (name{page.4}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.53 \include{chapter1}
-                        [4]
+ [3])
+[4]
 \openout2 = `chapter2.aux'.
 
  (./chapter2.tex
@@ -535,67 +643,57 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no Œ in font cmr12!
  [6]
-Underfull \hbox (badness 10000) in paragraph at lines 63--63
+Underfull \hbox (badness 10000) in paragraph at lines 64--64
 \OT1/cmr/m/n/12 for Re-gres-sion
  []
 
 
-Underfull \hbox (badness 1596) in paragraph at lines 63--63
+Underfull \hbox (badness 1596) in paragraph at lines 64--64
 \OT1/cmr/m/n/12 Task; Gaus-sian
  []
 
 
-Underfull \hbox (badness 3209) in paragraph at lines 64--64
+Underfull \hbox (badness 3209) in paragraph at lines 65--65
 []|\OT1/cmr/m/n/12 Generative sur-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 65--65
+Underfull \hbox (badness 10000) in paragraph at lines 66--66
 []|\OT1/cmr/m/n/12 gradient-based
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 67--67
+Underfull \hbox (badness 10000) in paragraph at lines 68--68
 []|\OT1/cmr/m/n/12 Expected Hy-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 67--67
+Underfull \hbox (badness 10000) in paragraph at lines 68--68
 \OT1/cmr/m/n/12 per-vol-ume
  []
 
 
-Overfull \hbox (0.49214pt too wide) in alignment at lines 51--82
+Overfull \hbox (0.49214pt too wide) in alignment at lines 52--83
  [] [] [] [] 
  []
 
-[7]
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
- [8] [9]
-Overfull \hbox (12.37573pt too wide) in paragraph at lines 101--101
+[7] [8] [9]
+Overfull \hbox (12.37573pt too wide) in paragraph at lines 103--103
 []\OT1/cmr/bx/n/17.28 Multi-objective Bayesian op-ti-mi-sa-tion with con-
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 112--112
+Underfull \hbox (badness 10000) in paragraph at lines 115--115
 []|\OT1/cmr/m/n/12 Surrogate-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 112--112
+Underfull \hbox (badness 10000) in paragraph at lines 115--115
 \OT1/cmr/m/n/12 assisted evo-lu-
  []
 
 
-Overfull \hbox (0.49214pt too wide) in alignment at lines 109--119
+Overfull \hbox (0.49214pt too wide) in alignment at lines 111--121
  [] [] [] [] 
  []
 
@@ -615,84 +713,591 @@ s-tri-bu-tion of $[\OML/cmm/m/it/12 f\OT1/cmr/m/n/12 ([][])\OML/cmm/m/it/12 ; f
 
 
 
-]) [15]
-\openout2 = `conclusions.aux'.
+]
+<Images/GP.pdf, id=490, pagebox=cropbox, 433.62pt x 289.08pt>
+File: Images/GP.pdf Graphic file (type pdf)
+<use Images/GP.pdf>
+Package pdftex.def Info: Images/GP.pdf  used on input line 58. on input line 58
+.
+Package pdftex.def Info: Requested size: 433.61894pt x 289.07928pt on input lin
+e 58.
 
- (./conclusions.tex
+Overfull \hbox (8.80037pt too wide) in paragraph at lines 52--62
+$\OML/cmm/m/it/12 k$ \OT1/cmr/m/n/12 in equa-tion []3.16[] and []3.17[], is a k
+er-nel vec-tor such that $\OML/cmm/m/it/12 k \OT1/cmr/m/n/12 = [\OML/cmm/m/it/1
+2 k\OT1/cmr/m/n/12 ([][]\OML/cmm/m/it/12 ; [][]\OT1/cmr/m/n/12 )\OML/cmm/m/it/1
+2 ; :::; k\OT1/cmr/m/n/12 ([][]\OML/cmm/m/it/12 ; [][]\OT1/cmr/m/n/12 )][]$.
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[15]
+<Images/Linear.pdf, id=503, pagebox=cropbox, 382.42876pt x 250.9375pt>
+File: Images/Linear.pdf Graphic file (type pdf)
+<use Images/Linear.pdf>
+Package pdftex.def Info: Images/Linear.pdf  used on input line 93. on input lin
+e 93.
+Package pdftex.def Info: Requested size: 195.12767pt x 128.03769pt on input lin
+e 93.
+<Images/Matern32.pdf, id=504, pagebox=cropbox, 373.395pt x 250.9375pt>
+File: Images/Matern32.pdf Graphic file (type pdf)
+<use Images/Matern32.pdf>
+Package pdftex.def Info: Images/Matern32.pdf  used on input line 96. on input l
+ine 96.
+Package pdftex.def Info: Requested size: 195.12767pt x 131.13535pt on input lin
+e 96.
+<Images/MLP.pdf, id=505, pagebox=cropbox, 389.455pt x 250.9375pt>
+File: Images/MLP.pdf Graphic file (type pdf)
+<use Images/MLP.pdf>
+Package pdftex.def Info: Images/MLP.pdf  used on input line 99. on input line 9
+9.
+Package pdftex.def Info: Requested size: 195.12767pt x 125.72498pt on input lin
+e 99.
+<Images/PeriodicMatern52.pdf, id=506, pagebox=cropbox, 382.42876pt x 250.9375pt
+>
+File: Images/PeriodicMatern52.pdf Graphic file (type pdf)
+<use Images/PeriodicMatern52.pdf>
+Package pdftex.def Info: Images/PeriodicMatern52.pdf  used on input line 102. o
+n input line 102.
+Package pdftex.def Info: Requested size: 195.12767pt x 128.03769pt on input lin
+e 102.
+<Images/RBF.pdf, id=507, pagebox=cropbox, 373.395pt x 250.9375pt>
+File: Images/RBF.pdf Graphic file (type pdf)
+<use Images/RBF.pdf>
+Package pdftex.def Info: Images/RBF.pdf  used on input line 105. on input line 
+105.
+Package pdftex.def Info: Requested size: 195.12767pt x 131.13535pt on input lin
+e 105.
+<Images/Bias.pdf, id=508, pagebox=cropbox, 373.395pt x 250.9375pt>
+File: Images/Bias.pdf Graphic file (type pdf)
+<use Images/Bias.pdf>
+Package pdftex.def Info: Images/Bias.pdf  used on input line 108. on input line
+ 108.
+Package pdftex.def Info: Requested size: 195.12767pt x 131.13535pt on input lin
+e 108.
+ [16 <./Images/GP.pdf>] [17 <./Images/Linear.pdf> <./Images/Matern32.pdf
+
+pdfTeX warning: pdflatex (file ./Images/Matern32.pdf): PDF inclusion: multiple 
+pdfs with page group included in a single page
+> <./Images/MLP.pdf
+
+pdfTeX warning: pdflatex (file ./Images/MLP.pdf): PDF inclusion: multiple pdfs 
+with page group included in a single page
+> <./Images/PeriodicMatern52.pdf
+
+pdfTeX warning: pdflatex (file ./Images/PeriodicMatern52.pdf): PDF inclusion: m
+ultiple pdfs with page group included in a single page
+> <./Images/RBF.pdf
+
+pdfTeX warning: pdflatex (file ./Images/RBF.pdf): PDF inclusion: multiple pdfs 
+with page group included in a single page
+> <./Images/Bias.pdf
+
+pdfTeX warning: pdflatex (file ./Images/Bias.pdf): PDF inclusion: multiple pdfs
+ with page group included in a single page
+>]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no Œ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no Œ in font cmr12!
+ [18] [19]
+<Images/pareto.pdf, id=703, pagebox=cropbox, 433.62pt x 289.08pt>
+File: Images/pareto.pdf Graphic file (type pdf)
+<use Images/pareto.pdf>
+Package pdftex.def Info: Images/pareto.pdf  used on input line 177. on input li
+ne 177.
+Package pdftex.def Info: Requested size: 433.61894pt x 289.07928pt on input lin
+e 177.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[20] [21 <./Images/pareto.pdf>]
+<Images/EHVI.pdf, id=764, pagebox=cropbox, 326.21875pt x 249.93375pt>
+File: Images/EHVI.pdf Graphic file (type pdf)
+<use Images/EHVI.pdf>
+Package pdftex.def Info: Images/EHVI.pdf  used on input line 231. on input line
+ 231.
+Package pdftex.def Info: Requested size: 326.21794pt x 249.93314pt on input lin
+e 231.
+ [22 <./Images/EHVI.pdf>]) [23]
+\openout2 = `chapter4.aux'.
+
+ (./chapter4.tex
 Chapter 4.
-) [16
+
+Overfull \hbox (13.03972pt too wide) in paragraph at lines 5--5
+[]\OT1/cmr/bx/n/17.28 Expected Hy-per-vol-ume Im-prove-ment with Con-
+ []
+
+[24
 
 
 
 ]
-\openout2 = `appendix1.aux'.
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no Œ in font cmr12!
+ [25]
+Overfull \hbox (23.62769pt too wide) in paragraph at lines 128--128
+[]\OT1/cmr/bx/n/17.28 Multi-objective op-ti-mi-sa-tion with ob-jec-tive rank-
+ []
 
- (./appendix1.tex
-Appendix A.
-) [17
+[26] [27]
+Overfull \hbox (26.66373pt too wide) in paragraph at lines 165--165
+[]\OT1/cmr/bx/n/17.28 Multi-objective bayesian op-ti-mi-sa-tion in Robotics 
+ []
 
+[28]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+<Images/poppy.jpg, id=860, 501.875pt x 669.50125pt>
+File: Images/poppy.jpg Graphic file (type jpg)
+<use Images/poppy.jpg>
+Package pdftex.def Info: Images/poppy.jpg  used on input line 184. on input lin
+e 184.
+Package pdftex.def Info: Requested size: 200.74643pt x 267.79576pt on input lin
+e 184.
+ [29]) [30 <./Images/poppy.jpg>]
+\openout2 = `chapter5.aux'.
+
+ (./chapter5.tex
+Chapter 5.
+<Images/Images/BNH-Example.png, id=886, 1204.5pt x 885.3075pt>
+File: Images/Images/BNH-Example.png Graphic file (type png)
+<use Images/Images/BNH-Example.png>
+Package pdftex.def Info: Images/Images/BNH-Example.png  used on input line 15. 
+on input line 15.
+Package pdftex.def Info: Requested size: 361.35278pt x 265.5943pt on input line
+ 15.
+[31
+
+
+
+] [32 <./Images/Images/BNH-Example.png>]
+<Images/Images/BNH.png, id=904, 1204.5pt x 885.3075pt>
+File: Images/Images/BNH.png Graphic file (type png)
+<use Images/Images/BNH.png>
+Package pdftex.def Info: Images/Images/BNH.png  used on input line 300. on inpu
+t line 300.
+Package pdftex.def Info: Requested size: 216.81pt x 159.34846pt on input line 3
+00.
+<Images/Images/SRN.png, id=905, 1204.5pt x 864.98157pt>
+File: Images/Images/SRN.png Graphic file (type png)
+<use Images/Images/SRN.png>
+Package pdftex.def Info: Images/Images/SRN.png  used on input line 301. on inpu
+t line 301.
+Package pdftex.def Info: Requested size: 216.81pt x 155.68996pt on input line 3
+01.
+<Images/Images/TNK.png, id=906, 1204.5pt x 890.5772pt>
+File: Images/Images/TNK.png Graphic file (type png)
+<use Images/Images/TNK.png>
+Package pdftex.def Info: Images/Images/TNK.png  used on input line 302. on inpu
+t line 302.
+Package pdftex.def Info: Requested size: 216.81pt x 160.29698pt on input line 3
+02.
+<Images/Images/OSY.png, id=907, 1204.5pt x 883.04906pt>
+File: Images/Images/OSY.png Graphic file (type png)
+<use Images/Images/OSY.png>
+Package pdftex.def Info: Images/Images/OSY.png  used on input line 303. on inpu
+t line 303.
+Package pdftex.def Info: Requested size: 216.81pt x 158.94197pt on input line 3
+03.
+<Images/Images/TwoBar.png, id=908, 1204.5pt x 846.16125pt>
+File: Images/Images/TwoBar.png Graphic file (type png)
+<use Images/Images/TwoBar.png>
+Package pdftex.def Info: Images/Images/TwoBar.png  used on input line 304. on i
+nput line 304.
+Package pdftex.def Info: Requested size: 216.81pt x 152.30244pt on input line 3
+04.
+<Images/Images/CONSTR.png, id=909, 1204.5pt x 909.3975pt>
+File: Images/Images/CONSTR.png Graphic file (type png)
+<use Images/Images/CONSTR.png>
+Package pdftex.def Info: Images/Images/CONSTR.png  used on input line 305. on i
+nput line 305.
+Package pdftex.def Info: Requested size: 216.81pt x 163.68448pt on input line 3
+05.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<Images/Images/TNK_com_0.pdf, id=918, pagebox=cropbox, 433.62pt x 289.08pt>
+File: Images/Images/TNK_com_0.pdf Graphic file (type pdf)
+<use Images/Images/TNK_com_0.pdf>
+Package pdftex.def Info: Images/Images/TNK_com_0.pdf  used on input line 331. o
+n input line 331.
+Package pdftex.def Info: Requested size: 216.81pt x 144.53964pt on input line 3
+31.
+<Images/Images/TNK_com_10.pdf, id=919, pagebox=cropbox, 418.56375pt x 262.9825p
+t>
+File: Images/Images/TNK_com_10.pdf Graphic file (type pdf)
+<use Images/Images/TNK_com_10.pdf>
+Package pdftex.def Info: Images/Images/TNK_com_10.pdf  used on input line 332. 
+on input line 332.
+Package pdftex.def Info: Requested size: 216.81pt x 136.21797pt on input line 3
+32.
+<Images/Images/TNK_com_100.pdf, id=920, pagebox=cropbox, 418.56375pt x 262.9825
+pt>
+File: Images/Images/TNK_com_100.pdf Graphic file (type pdf)
+<use Images/Images/TNK_com_100.pdf>
+Package pdftex.def Info: Images/Images/TNK_com_100.pdf  used on input line 333.
+ on input line 333.
+Package pdftex.def Info: Requested size: 216.81pt x 136.21797pt on input line 3
+33.
+<Images/Images/TNK_com_1000.pdf, id=921, pagebox=cropbox, 418.56375pt x 262.982
+5pt>
+File: Images/Images/TNK_com_1000.pdf Graphic file (type pdf)
+<use Images/Images/TNK_com_1000.pdf>
+Package pdftex.def Info: Images/Images/TNK_com_1000.pdf  used on input line 334
+. on input line 334.
+Package pdftex.def Info: Requested size: 216.81pt x 136.21797pt on input line 3
+34.
+<Images/Images/Alloy.pdf, id=924, pagebox=cropbox, 433.62pt x 289.08pt>
+File: Images/Images/Alloy.pdf Graphic file (type pdf)
+<use Images/Images/Alloy.pdf>
+Package pdftex.def Info: Images/Images/Alloy.pdf  used on input line 346. on in
+put line 346.
+Package pdftex.def Info: Requested size: 260.17464pt x 173.45815pt on input lin
+e 346.
+[33]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[34 <./Images/Images/BNH.png> <./Images/Images/SRN.png> <./Images/Images/TNK.pn
+g> <./Images/Images/OSY.png> <./Images/Images/TwoBar.png> <./Images/Images/CONS
+TR.png>] [35 <./Images/Images/TNK_com_0.pdf> <./Images/Images/TNK_com_10.pdf
+
+pdfTeX warning: pdflatex (file ./Images/Images/TNK_com_10.pdf): PDF inclusion: 
+multiple pdfs with page group included in a single page
+> <./Images/Images/TNK_com_100.pdf
+
+pdfTeX warning: pdflatex (file ./Images/Images/TNK_com_100.pdf): PDF inclusion:
+ multiple pdfs with page group included in a single page
+> <./Images/Images/TNK_com_1000.pdf
+
+pdfTeX warning: pdflatex (file ./Images/Images/TNK_com_1000.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
+> <./Images/Images/Alloy.pdf
+
+pdfTeX warning: pdflatex (file ./Images/Images/Alloy.pdf): PDF inclusion: multi
+ple pdfs with page group included in a single page
+>]
+Overfull \hbox (6.73192pt too wide) in paragraph at lines 353--353
+[]$|  
+ []
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 353.
+See the caption package documentation for explanation.
+
+
+Overfull \hbox (60.89325pt too wide) in paragraph at lines 353--353
+ [] 
+ []
+
+[36
 
 
 ]
-\openout2 = `appendix2.aux'.
+Overfull \hbox (23.62769pt too wide) in paragraph at lines 359--359
+[]\OT1/cmr/bx/n/17.28 Multi-objective op-ti-mi-sa-tion with ob-jec-tive rank-
+ []
 
- (./appendix2.tex
-Appendix B.
-) [18
+<Images/plotF1.png, id=1183, 433.62pt x 289.08pt>
+File: Images/plotF1.png Graphic file (type png)
+<use Images/plotF1.png>
+Package pdftex.def Info: Images/plotF1.png  used on input line 371. on input li
+ne 371.
+Package pdftex.def Info: Requested size: 281.85034pt x 187.90858pt on input lin
+e 371.
+<Images/plotF2.png, id=1184, 433.62pt x 289.08pt>
+File: Images/plotF2.png Graphic file (type png)
+<use Images/plotF2.png>
+Package pdftex.def Info: Images/plotF2.png  used on input line 372. on input li
+ne 372.
+Package pdftex.def Info: Requested size: 281.85034pt x 187.90858pt on input lin
+e 372.
+<Images/plotF12.png, id=1185, 433.62pt x 289.08pt>
+File: Images/plotF12.png Graphic file (type png)
+<use Images/plotF12.png>
+Package pdftex.def Info: Images/plotF12.png  used on input line 373. on input l
+ine 373.
+Package pdftex.def Info: Requested size: 281.85034pt x 187.90858pt on input lin
+e 373.
+
+LaTeX Warning: Float too large for page by 72.79575pt on input line 379.
+
+) [37
+
+
+] [38 <./Images/plotF1.png> <./Images/plotF2.png> <./Images/plotF12.png>]
+\openout2 = `chapter6.aux'.
+
+
+(./chapter6.tex
+Chapter 6.
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no Œ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no Œ in font cmr12!
+[39
 
 
 
-] (./ociamthesismain.bbl [19
+] [40] [41]
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 6| 
+ []
 
 
-] [20]
-Underfull \hbox (badness 1968) in paragraph at lines 174--179
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 7| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 8| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 9| 
+ []
+
+
+Overfull \hbox (6.6162pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/10.95 10| 
+ []
+
+
+Overfull \hbox (6.6162pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/10.95 12| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 1| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 2| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 4| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 6| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 7| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 8| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 9| 
+ []
+
+
+Overfull \hbox (6.6162pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/10.95 10| 
+ []
+
+
+Overfull \hbox (6.6162pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/10.95 12| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 1| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 2| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 4| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 6| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 7| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 8| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 9| 
+ []
+
+
+Overfull \hbox (6.6162pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/10.95 10| 
+ []
+
+
+Overfull \hbox (6.6162pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/10.95 12| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 1| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--48
+[]|\OT1/cmr/m/n/12 2| 
+ []
+
+
+Overfull \hbox (1.54112pt too wide) in paragraph at lines 48--49
+[]|\OT1/cmr/m/n/12 4| 
+ []
+
+
+Underfull \hbox (badness 2529) in paragraph at lines 59--59
+[]|\OT1/cmr/m/n/10.95 Studying on Up-per Bound Con-fi-dence in multi-
+ []
+
+
+Underfull \hbox (badness 1708) in paragraph at lines 65--65
+[]|\OT1/cmr/m/n/10.95 Investigating on di-rect search pol-icy and BO in
+ []
+
+
+Overfull \hbox (76.17181pt too wide) in paragraph at lines 36--98
+[] 
+ []
+
+[42
+
+])
+\openout2 = `chapter7.aux'.
+
+ (./chapter7.tex
+Chapter 7.
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no Œ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no Œ in font cmr12!
+<Images/research.png, id=1225, 631.35875pt x 204.765pt>
+File: Images/research.png Graphic file (type png)
+<use Images/research.png>
+Package pdftex.def Info: Images/research.png  used on input line 9. on input li
+ne 9.
+Package pdftex.def Info: Requested size: 315.6786pt x 102.38223pt on input line
+ 9.
+<Images/human.png, id=1226, 776.9025pt x 319.1925pt>
+File: Images/human.png Graphic file (type png)
+<use Images/human.png>
+Package pdftex.def Info: Images/human.png  used on input line 16. on input line
+ 16.
+Package pdftex.def Info: Requested size: 388.45029pt x 159.59586pt on input lin
+e 16.
+) [43
+
+
+
+
+ <./Images/research.png (PNG copy)> <./Images/human.png (PNG copy)>]
+(./ociamthesismain.bbl [44
+
+
+] [45] [46]
+Underfull \hbox (badness 1968) in paragraph at lines 228--233
 \OT1/cmr/m/it/12 Trans-ac-tions of the Japan So-ci-ety for Aero-nau-ti-cal and 
 Space Sci-ences\OT1/cmr/m/n/12 ,
  []
 
-[21] [22])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 70.
- [23]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 70.
- (./ociamthesismain.aux (./dedication.aux)
-(./acknowlegements.aux) (./abstract.aux) (./chapter1.aux) (./chapter2.aux)
-(./chapter3.aux) (./conclusions.aux) (./appendix1.aux) (./appendix2.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 70.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 70.
+[47] [48]
+Underfull \hbox (badness 1178) in paragraph at lines 348--352
+[]\OT1/cmr/m/n/12 R^^Semi Pau-trat, Kon-stanti-nos Chatzi-lyger-oudis, and Jean
+-Baptiste Mouret.
+ []
+
+[49])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 118.
+ [50]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 118.
+ (./ociamthesismain.aux (./abstract.aux) (./chapter1.aux)
+(./chapter2.aux) (./chapter3.aux) (./chapter4.aux) (./chapter5.aux)
+(./chapter6.aux) (./chapter7.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 118.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 118.
 Package rerunfilecheck Info: File `ociamthesismain.out' has not changed.
-(rerunfilecheck)             Checksum: 411EFBB603C3FE04D5B8BFEE296DF2BF;1129.
+(rerunfilecheck)             Checksum: B187200A3CE4C30BEA28C515A5971A1E;2931.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 70.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 118.
  ) 
 Here is how much of TeX's memory you used:
- 7703 strings out of 492990
- 111700 string characters out of 6135006
- 221868 words of memory out of 5000000
- 10973 multiletter control sequences out of 15000+600000
- 12023 words of font info for 44 fonts, out of 8000000 for 9000
+ 9937 strings out of 492990
+ 148304 string characters out of 6135006
+ 305649 words of memory out of 5000000
+ 13019 multiletter control sequences out of 15000+600000
+ 15272 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,17n,37p,1157b,430s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,20n,96p,1184b,528s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ociamthesismain.pdf (29 pages, 213961 bytes).
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/symbols/msbm10.pfb>
+Output written on ociamthesismain.pdf (56 pages, 5375733 bytes).
 PDF statistics:
- 431 PDF objects out of 1000 (max. 8388607)
- 380 compressed objects within 4 object streams
- 102 named destinations out of 1000 (max. 500000)
- 134 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1383 PDF objects out of 1440 (max. 8388607)
+ 936 compressed objects within 10 object streams
+ 224 named destinations out of 1000 (max. 500000)
+ 453 words of extra memory for PDF output out of 10000 (max. 10000000)
 

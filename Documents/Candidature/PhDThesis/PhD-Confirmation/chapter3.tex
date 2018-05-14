@@ -1,8 +1,8 @@
 \chapter{Background}
 This chapter describes the background and related work on which this proposal builds.
-We will start from Gaussian process as a power tool for placing the prior belief and compute the uncertainty over the function space. Then we will the  Bayesian optimisation and the acquisition functions. Finally we will explain about multi-objective Bayesian optimisation and Exptected Hypervolume Improvement.
+We will start from Gaussian process as a power tool for placing the prior belief and compute the uncertainty over the function space. Then we will cover the  Bayesian optimisation and the acquisition functions. Finally we will explain about multi-objective Bayesian optimisation and exptected hypervolume improvement.
 
-\section{Gaussian Processes}
+\section{Gaussian processes}
 A Gaussian process is a collection of random variables $\{f(\textbf{x}) : \textbf{x} \in \mathcal{X}\}$ in which any finite collection of random variables has a multivariate
 Gaussian distribution \cite{rasmussen2006gaussian}. GPs are determined by using a mean function $\mu(\textbf{x}): \mathcal{X} \rightarrow \mathbb{R}$ and 
 a covariance function $k(\textbf{x}): \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}^+$:
@@ -20,7 +20,7 @@ K = \begin{bmatrix}
     k(\textbf{x}_t,\textbf{x}_1) & \dots  & k(\textbf{x}_t,\textbf{x}_t)
     \end{bmatrix}.
 \]
-\subsection{Computing the Posterior}
+\subsection{Computing the posterior}
 The posterior can be similarly derived the way how the update equations for the Kalman filter was derived. First we need to find the joint distribution of $[f(\textbf{x}_{t+1}),f(\textbf{x}_1),\\ f(\textbf{x}_2),...,f(\textbf{x}_t)]$.
 Considering $t$  observations of the objective function, for a new point $\textbf{x}_{t+1}$, $P(f(\textbf{x}_{t+1})|\textbf{x}_{1..t},f(\textbf{x}_{1..t})) = \mathcal{N}(\mu_t(\textbf{x}_{t+1}),\sigma^2_t(\textbf{x}_{t+1}))$:
 \begin{align}
@@ -52,6 +52,208 @@ Where posterior mean and variance are calculated as:
 \end{equation}
 $k$ in equation \ref{eq:1} and \ref{eq:2}, is a kernel vector such that $k = [k(\textbf{x}_{t+1},\textbf{x}_1),...,k(\textbf{x}_{t+1},\textbf{x}_t)]^T$.
 After modelling the observations with GP, it is required to find the best possible point for next iteration of optimisation ($\textbf{x}_{t+1}$).
+Figure \ref{fig:gp} illustrates an example on Gaussian processes fitting process.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1]{Images/GP.pdf}
+\caption{Gaussian process fitted at five points, blue line indicates the mean function, the black points indicates the observations.}
+\label{fig:gp}
+\end{figure}
+
 
 \subsection{A few basic kernels}
+In this section we will briefly mention to some basic kernels for Gaussian processes. Figure \ref{fig:kernel} illustrates different kernels.
+\subsubsection{Linear Kernel}
+We are simply doing Bayesian linear regression when working with linear kernel.
+\begin{equation}
+k_{lin} = \sigma_f^2(x-c)(x'-c)
+\end{equation}
+
+\subsubsection{Matern32 Kernel}
+The Matern kernel is likely the second most popular kernel. Many believe the smoothness of the squared exponential kernel is unrealistic for modelling physical processes \cite{rasmussen2006gaussian}.
+\begin{equation}
+\sigma_f^2(1+\frac{\sqrt{3}(x-x')}{\sigma_l}) exp(-\frac{\sqrt{3}(x-x')}{\sigma_l})
+\end{equation}
+
+\subsubsection{Squared Exponential Kernel}
+The squared exponential (SE) kernel, also called the Gaussian, radial, basis function (RBF) or exponentiated quadratic kernel, is probably the most widely-used kernel in Gaussian processes.
+\begin{equation}
+k_{SE} = \sigma^2 exp(-\frac{(x-x')^2}{2l^2})
+\end{equation}
+
+\subsubsection{Periodic Kernel}
+This kernel is mostly useful in combination with other covariance functions.
+\begin{equation}
+k_{periodic}(x,x') = exp(\frac{-2 sin^2 (\pi(x-x'))/2)}{l^2})
+\end{equation}
+
+\begin{figure} 
+    \centering
+  \subfloat[Linear Kernel]{%
+       \includegraphics[width=0.45\linewidth]{Images/Linear.pdf}}
+    \label{1a}\hfill
+  \subfloat[Matern32 Kernel]{%
+        \includegraphics[width=0.45\linewidth]{Images/Matern32.pdf}}
+    \label{1b}\\
+  \subfloat[Multilayer Perceptron Kernel]{%
+        \includegraphics[width=0.45\linewidth]{Images/MLP.pdf}}
+    \label{1c}\hfill
+  \subfloat[Periodic Matern52 Kernel]{%
+        \includegraphics[width=0.45\linewidth]{Images/PeriodicMatern52.pdf}}
+     \label{1d} 
+  \subfloat[RBF Kernel]{%
+        \includegraphics[width=0.45\linewidth]{Images/RBF.pdf}}
+    \label{1c}\hfill
+  \subfloat[Bias Kernel]{%
+        \includegraphics[width=0.45\linewidth]{Images/Bias.pdf}}
+    \label{1c}\hfill
+  \caption{Comparison of different kernels in Gaussian processes.}
+  \label{fig:kernel} 
+\end{figure}
+\newpage
+\section{Bayesian optimisation}
+In Bayesian optimisation, we use GP to define a prior. The sequential nature of the Bayesian optimization leads the sampling of the continuous search space \cite{rasmussen2004gaussian}. In order to to optimise the expensive functions, Bayesian optimisation uses a surrogate function
+called acquisition functions. Acquisition function denoted by $\alpha: \mathcal{X} \rightarrow \mathbb{R}^+$, determines the point in $\mathcal{X}$ that should be evaluated next:
+\begin{equation}
+\textbf{x}_{t+1} = \underset{\textbf{x}   \in \mathcal{X}}{\mathrm{argmax}}\ \ \alpha(\textbf{x}).
+\end{equation}
+Acquisition functions depend on the both previous observations and the GP hyper-parameters and kernel functions \cite{snoek2012practical}. 
+For explaining the exact mechanism for selecting  the sequence of query points, we need to first explain the acquisition function.
+The standard Bayesian optimisation algorithm is illustrated in Algorithm \ref{alg:1} (section \ref{sec:lit}).
+
+\section{Acquisition function}
+Whereas in experimental design and decision theory, the function $\alpha$  is called expected utility,  in Bayesian optimisation it is often called Acquisition function. While optimising the expensive black-box function, one could simply select arbitrary points, however that would be wasteful. Instead, there is a proper mechanism that utilizes the posterior model on selection strategies and guiding the sequential search.‌ One of the most import features of acquisition functions must be \textit{the balance in the exploration of the search and exploitation of current promising area} \cite{shahriari2016taking}. Based on this criteria, three types of acquisition functions are introduced. The first category is \textit{Improvement-Based Acquisition Functions}, the second one is based on \textit{Optimistic Policies}\cite{shahriari2016taking} and the third on is based on \textit{Information-Based Policies}. 
+\subsection{Improvement-Based}
+Improvement-Based acquisition functions are in favor of points which are likely to make an improvement on the observations.
+The most naive strategy based on this idea is Probability of Improvement (PI) acquisition function. PI‌ is formulated as follow:
+\begin{equation}
+\alpha_{PI} (\textbf{x};\mathcal{D}_t) = \Phi \Big(\frac{\mu_t(\textbf{x}) - f(\textbf{x}^+))}{\sigma_{t}(\textbf{x})} \Big)
+\label{eq:pi}
+\end{equation}
+where $\Phi(.)$ is the standard normal cumulative distribution function. Current best observation after $t$ observations is $\textbf{x}^+$, where $\textbf{x}^+ = \underset{\textbf{x}_i \in \mathcal{X}_{1..t}}{\mathrm{argmax}}\ \ \alpha(\textbf{x}_i)$. Although PI could be a good solution in some scenarios but it is clear that it can excessively focus on exploitation. 
+\par
+Expected Improvement (EI) is one of the most widely-use acquisition function in this area. 
+Whereas PI can lead to an overly greedy optimisation \cite{shahriari2016taking}, it works reasonably as a part of EI.
+Then $\alpha_{EI}(\textbf{x})$ is defined as:
+\begin{equation}
+\alpha_{EI}(\textbf{x}) = 
+\begin{cases}
+ (\mu(\textbf{x}) - f(\textbf{x}^+))\Phi(Z(\textbf{x})) + \sigma(\textbf{x})\phi(Z(\textbf{x})) ,& \text{if } \sigma(\textbf{x}) > 0\\
+    0,              & \text{if } \sigma(\textbf{x}) = 0
+\end{cases}
+\end{equation}
+Where $\phi(.)$ is PDF of normal distribution. $Z(\textbf{x})$ is also defined as:
+\begin{equation}
+Z(\textbf{x}) = 
+\begin{cases}
+ \frac{(\mu(\textbf{x}) - f(\textbf{x}^+))}{\sigma(x)} ,& \text{if } \sigma(\textbf{x}) > 0\\
+    0,              & \text{if } \sigma(\textbf{x}) = 0
+\end{cases}
+\end{equation}
+
+\subsection{Optimistic policy}
+The major guideline behind this category of acquisition functions is to be optimistic in the face of uncertainty. In a bandit task, there are multiple options as arms. These arms have unknown probability of generating a reward and the aim of the agent is to select the best arm in order to maximise the overall reward. Let us consider the current situation of iteratively point selection as arms of a multi-armed bandit problem. Consequently the evaluation value of these points represents the reward of the arm. What distinguishes the current situation from the basic bandit problem is the fact that the rewards of the arms are correlated in dependency of the underlying covariance kernel \cite{schulz2017tutorial}. As a result of viewing this problem in a multi-arm bandit setting, the popular strategy called upper confidence bound (UCB) can be used in this context.
+\begin{equation}
+\alpha_{UCB}(\textbf{x};\mathcal{D}_t) = \mu_t(\textbf{x}) + \beta_t \sigma_t(\textbf{x})
+\end{equation}
+There are theoretically motivated guidelines for setting the hyperparameter $\beta_t$ \cite{srinivas2009gaussian}.
+
+\subsection{Information-Based policy}
+Information-Based acquisition functions consider the posterior distribution over the unknown minimizer $x^*$, $p_*(\textbf{x}|\mathcal{D})$. The Entropy Search selects a point which is most likely offer a great deal of information about the unknown $\textbf{x}^*$ \cite{hernandez2015predictive}. The goal of entropy search  is to reduce the uncertainty in the location of $\textbf{x}^*$ by selecting the point that is expected to cause the highest reduction in entropy of the distribution  $p_*(\textbf{x}|\mathcal{D})$ \cite{shahriari2016taking}:
+\begin{equation}
+\alpha_{ES}(\textbf{x};\mathcal{D}_t) =  \mathrm{H}(\textbf{x}^*|\mathcal{D}_t) - \mathbb{E}_{y|\mathcal{D}_{n,\textbf{x}}} \mathrm{H}(\textbf{x}^*|\mathcal{D}_t \cup \{(\textbf{x},y)\})
+\label{eq:ES}
+\end{equation}
+In equation \ref{eq:ES}, $\mathrm{H}(\textbf{x}^*|\mathcal{D}_t)$ denotes the differential entropy of the posterior distribution  $p_*(\textbf{x}|\mathcal{D})$. It is noteworthy to mention that the expectation is over the distribution of the random variable $y \sim \mathcal{N} (\mu_t(\textbf{x}),\sigma_{t}^{2}(\textbf{x}))$. Since Mutual Information is symmetric, entropy is defined to be symmetric too \cite{hernandez2015predictive}. Thus Predictive Entropy Search (PES) removes the need for discretization and approximates the acquisition function. Therefore $\alpha_{PES}$ is defined as:
+\begin{equation}
+\alpha_{PES}(\textbf{x};\mathcal{D}_t) = \mathrm{H}(y|\mathcal{D}_t,\textbf{x}) - \mathbb{E}_{\textbf{x}^*|\mathcal{D}_t} [\mathrm{H}(y|\mathcal{D}_t),\textbf{x},\textbf{x}^*)]
+\label{eq:PES}
+\end{equation}
+\section{Multi-objective Bayesian optimisation}
+In single-objective problems, the optimiser looks for the best single answer. For example, selection of a single best design, selection of the best set of parameters for a machine learning method regarding the final accuracy. However, in many real-world problems, it is very common to deal with multiple competing objectives. Competition arises through incommensurability of objectives in real-world systems, usually bounded by physical laws \cite{rousis2011pareto}. Consider a Robotic for an example. in Robotics, one of the current problems researches are working on, is about overheating of motors or power consumption of them. While other objectives such as the accuracy of movements with some constraints are also play a role in this problem.
+For the multi-objective problem, the optimization task involves identification of those solutions that are \textit{Pareto optimal}. A solution is said to be Pareto optimal if none of the objectives can be improved without degrading in at least one other objective \cite{rousis2011pareto}. Consider Figure \ref{fig:par} as an example.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1]{Images/pareto.pdf}
+\caption{Illustration of Pareto optimal solutions, dominated solutions, and Pareto frontier.}
+\label{fig:par}
+\end{figure}
+There may exist many or even an infinite number of points that structures a Pareto optimal set where each point represents a specific solution. Rather than locating the potentially infinite number of Pareto optimal solutions, a theoretical boundary of Pareto optimality can be drawn called a Pareto frontier \cite{rousis2011pareto}. All points that fall on the frontier are Pareto optimal. 
+\par
+So in multi-objective optimisation problems, we are dealing with Pareto points and not just single solution. Now the main question is: \say{How to calculate the expected improvement of the selected points in more than one dimension?}. In the next section we are going to explain expected hypervolume improvement for calculating the expected improvement in this context.
+
+\subsection{Expected Hypervolume Improvement (EHVI)}
+In this study we are particularly interested in the EHVI with a closed form expression
+introduced in \cite{emmerich2008computation}.
+Our aim is to jointly minimize $m>1$ objective functions $f_m: \mathcal{X} \rightarrow
+\mathbb{R}$ for $m=1,...,M$.
+A point $\textbf{y} \in \mathbb{R}^M$, is said to dominate  a point $\textbf{y}' \in
+\mathbb{R}^M$, iff $\forall i \in \{{1,...,M}\}: y_i \leq y'_i $ and $\textbf{y} \neq \textbf{y}'$;
+written as $\textbf{y} \preceq \textbf{y}'$. For a set of points $\mathcal{Y} = \{\textbf{y}_1,\textbf{y}_2,...,\textbf{y}_N\}$,
+Pareto efficient points $P(\mathcal{Y})$, $P(\mathcal{Y}) \subset \mathcal{Y}$  is defined as $P(\mathcal{Y}) = \{\textbf{y}_i \in
+\mathcal{Y}: \textbf{y}_j \npreceq \textbf{y}_i, \forall \textbf{y}_j \in \mathcal{Y} \setminus \{\textbf{y}_i\} \}$ \cite{shah2016pareto}. 
+A point is Pareto efficient if there is no other point that can improve any one objective without making at least one other objective worse.
+\par
+One of the most popular indicators for multi-objective optimisation is hypervolume, otherwise known as The S-metric or Lebesgue measure \cite{laumanns2000unified}. We denote the Lebesgue measure of a set $U$ by $Vol(U)$. The S-metric or Lebesgue measure for $P(\mathcal{Y}) =
+\{\textbf{y}_1,\textbf{y}_2,...,\textbf{y}_P\}$ is defined to be:
+\begin{equation}
+  S(P(\mathcal{Y}),\textbf{y}^{ref}) = Vol(\{\textbf{y} \in \mathbb{R}^M| P(\mathcal{Y}) \preceq \textbf{y}
+  \preceq \textbf{y}^{ref}\}),
+\label{eq:1}
+\end{equation}
+where $\textbf{y}^{ref}$  is a reference point in $\mathbb{R}^M$ which is always dominated
+by all elements of $P(\mathcal{Y})$. By considering equation \ref{eq:1}, the improvement in hypervolume
+is defined to be $I(\textbf{y},P(\mathcal{Y})) = S(P(\mathcal{Y}) \cup \{\textbf{y}\}) - S(P(\mathcal{Y}))$,
+ Therefore the expected hypervolume improvement ${\rm EHVI}(\textbf{x})$ is:
+\begin{equation}
+  {\rm EHVI}(\textbf{x}) = \int_{\textbf{y} \in \mathbb{R}^M} I(\textbf{y},P(\mathcal{Y}))\\
+  \times {P}_{{f}_{\textbf{x}}}(\textbf{y}) \mathrm{d}(\textbf{y}),
+\label{eq:2}
+\end{equation}
+where the ${P}_{{f}_{\textbf{x}}}(\textbf{y})$ is a probability density function of a predictive distribution
+of objective function vectors.
+\par
+The EHVI can be computed by piecewise integration over a set of cells. These cells
+are formed by horizontal and vertical lines through the set of
+Pareto efficient points ($P$) and $\textbf{y}^{ref}$ (see figure \ref{fig:1}).
+The cuboidal set of interest considered to be the space: $S \equiv \{y \in
+\mathbb{R}^M: \textbf{y} \preceq \textbf{y}^{ref} \}$. Let us assume $b_i^{(1)}, b_i^{(2)},...,b_i^{(p)}$
+are the sorted list of $i-th$ coordinate for $P(\mathcal{Y})$. For simplicity, let $b_i^{(0)} = -\infty$,
+$b_i^{(p+1)} = \textbf{y}^{ref}$ and also $b_i^{(p+2)} = \infty$. As a result of this partitioning,
+for each $(i_1,i_2,..., i_M) \in \{0,...,p\}^M$, a grid cell
+$S(i_1,...,i_M)$ is defined by $(b_1^{(i_1)},b_1^{(i_1 + 1)}] \times (b_2^{(i_2)},b_2^{(i_2 + 1)}]
+\times ... \times (b_M^{(i_M)},b_M^{(i_M + 1)}]$.
+For each given cell $S(i_1,...,i_M)$, we define $\textbf{l}(i_1,...,i_M) = (b_1^{(i_1)},...,b_M^{(i_M)})^T$
+as the lower bound and $\textbf{u}(i_1,...,i_M) = (b_1^{(i_1+1)},...,b_M^{(i_M+1)})^T$ as the upper
+bound \cite{emmerich2008computation}.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1]{Images/EHVI.pdf}
+\caption{Sample bi-objective case with partitioned cells. The black points
+are in set of $P(\mathcal{Y})$ and dominated the $\textbf{y}^{ref}$.
+Also the upper ($\textbf{u}$) bound and lower bound ($\textbf{l}$) for a sample point $\textbf{y}$
+in a cell is illustrated. The $b_1^{(i)}$ and $b_2^{(i)}$, $\{i=1,...,p+1\}$ are
+representative of first and second coordinate.}
+\label{fig:1}
+\end{figure}
+\par 
+The EHVI can be computed using piecewise integration over a set of
+cells defined by $P(\mathcal{Y})$ as shown in Fig. 1 (see \cite{emmerich2008computation} for details).  
+We denote this set of cells $S$. After partitioning the integration space into grid cells, it can be inferred that the expected
+ improvement integral is the sum of improvement integral over the set of non-dominated cells. Non-dominated cells are the one whose
+ points are not dominated by any member of Pareto efficient set \cite{shah2016pareto}:
+$S^+ = \{s \in S: \forall \textbf{y} \in s, \textbf{y}' \in P(\mathcal{Y}), \textbf{y}' \npreceq \textbf{y}\}$. So the expected hypervolume
+improvement over the cells is defined to be:
+\begin{equation}
+\begin{aligned}
+{\rm EHVI} (\textbf{x}) = \sum_{s \in S^+} \int_{{\textbf y} \in s} I ( {\textbf y},
+P (\mathcal{Y}) ) {P}_{{f}_{\textbf{x}}}(\textbf{y}) \mathrm{d}{\textbf y}
+  \end{aligned}
+\label{eq:3}
+\end{equation}
+as $f_1, \ldots, f_M$ are assumed to be generated from independent GPs, the EHVI can be computed analytically \cite{emmerich2008computation}.
+
+
+
+
 
