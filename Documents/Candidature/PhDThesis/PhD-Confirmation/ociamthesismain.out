@@ -1,39 +1,40 @@
 \BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.1.1}{Motivation}{chapter.1}% 2
-\BOOKMARK [1][-]{section.1.2}{Summary of contributions}{chapter.1}% 3
-\BOOKMARK [0][-]{chapter.2}{Literature Review}{}% 4
-\BOOKMARK [1][-]{section.2.1}{Constrained single-objective Bayesian optimisation}{chapter.2}% 5
-\BOOKMARK [1][-]{section.2.2}{Multi-objective optimisation and Bayesian optimisation}{chapter.2}% 6
-\BOOKMARK [1][-]{section.2.3}{Multi-objective Bayesian optimisation with constraints}{chapter.2}% 7
-\BOOKMARK [1][-]{section.2.4}{Evolutionary algorithms and Multi-objective problems with constraints}{chapter.2}% 8
-\BOOKMARK [1][-]{section.2.5}{Multi-objective problems with constraints and objective rankings}{chapter.2}% 9
-\BOOKMARK [0][-]{chapter.3}{Background}{}% 10
-\BOOKMARK [1][-]{section.3.1}{Gaussian processes}{chapter.3}% 11
-\BOOKMARK [2][-]{subsection.3.1.1}{Computing the posterior}{section.3.1}% 12
-\BOOKMARK [2][-]{subsection.3.1.2}{A few basic kernels}{section.3.1}% 13
-\BOOKMARK [3][-]{subsubsection.3.1.2.1}{Linear Kernel}{subsection.3.1.2}% 14
-\BOOKMARK [3][-]{subsubsection.3.1.2.2}{Matern32 Kernel}{subsection.3.1.2}% 15
-\BOOKMARK [3][-]{subsubsection.3.1.2.3}{Squared Exponential Kernel}{subsection.3.1.2}% 16
-\BOOKMARK [3][-]{subsubsection.3.1.2.4}{Periodic Kernel}{subsection.3.1.2}% 17
-\BOOKMARK [1][-]{section.3.2}{Bayesian optimisation}{chapter.3}% 18
-\BOOKMARK [1][-]{section.3.3}{Acquisition function}{chapter.3}% 19
-\BOOKMARK [2][-]{subsection.3.3.1}{Improvement-Based}{section.3.3}% 20
-\BOOKMARK [2][-]{subsection.3.3.2}{Optimistic policy}{section.3.3}% 21
-\BOOKMARK [2][-]{subsection.3.3.3}{Information-Based policy}{section.3.3}% 22
-\BOOKMARK [1][-]{section.3.4}{Multi-objective Bayesian optimisation}{chapter.3}% 23
-\BOOKMARK [2][-]{subsection.3.4.1}{Expected Hypervolume Improvement \(EHVI\)}{section.3.4}% 24
-\BOOKMARK [0][-]{chapter.4}{Aims and Approaches}{}% 25
-\BOOKMARK [1][-]{section.4.1}{Expected Hypervolume Improvement with Constraints \(EHVIC\)}{chapter.4}% 26
-\BOOKMARK [2][-]{subsection.4.1.1}{Proposed method}{section.4.1}% 27
-\BOOKMARK [1][-]{section.4.2}{Multi-objective optimisation with objective ranking}{chapter.4}% 28
-\BOOKMARK [2][-]{subsection.4.2.1}{Proposed method}{section.4.2}% 29
-\BOOKMARK [1][-]{section.4.3}{Multi-objective bayesian optimisation in Robotics}{chapter.4}% 30
+\BOOKMARK [0][-]{chapter.2}{Literature Review}{}% 3
+\BOOKMARK [1][-]{section.2.1}{Constrained single-objective Bayesian optimisation}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.2}{Multi-objective optimisation and Bayesian optimisation}{chapter.2}% 5
+\BOOKMARK [1][-]{section.2.3}{Multi-objective Bayesian optimisation with constraints}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.4}{Evolutionary algorithms and Multi-objective problems with constraints}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.5}{Multi-objective problems with constraints and objective rankings}{chapter.2}% 8
+\BOOKMARK [0][-]{chapter.3}{Background}{}% 9
+\BOOKMARK [1][-]{section.3.1}{Gaussian processes}{chapter.3}% 10
+\BOOKMARK [2][-]{subsection.3.1.1}{Computing the posterior}{section.3.1}% 11
+\BOOKMARK [2][-]{subsection.3.1.2}{A few basic kernels}{section.3.1}% 12
+\BOOKMARK [3][-]{subsubsection.3.1.2.1}{Linear Kernel}{subsection.3.1.2}% 13
+\BOOKMARK [3][-]{subsubsection.3.1.2.2}{Matern32 Kernel}{subsection.3.1.2}% 14
+\BOOKMARK [3][-]{subsubsection.3.1.2.3}{Squared Exponential Kernel}{subsection.3.1.2}% 15
+\BOOKMARK [3][-]{subsubsection.3.1.2.4}{Periodic Kernel}{subsection.3.1.2}% 16
+\BOOKMARK [1][-]{section.3.2}{Bayesian optimisation}{chapter.3}% 17
+\BOOKMARK [1][-]{section.3.3}{Acquisition function}{chapter.3}% 18
+\BOOKMARK [2][-]{subsection.3.3.1}{Improvement-Based}{section.3.3}% 19
+\BOOKMARK [2][-]{subsection.3.3.2}{Optimistic policy}{section.3.3}% 20
+\BOOKMARK [2][-]{subsection.3.3.3}{Information-Based policy}{section.3.3}% 21
+\BOOKMARK [1][-]{section.3.4}{Multi-objective Bayesian optimisation}{chapter.3}% 22
+\BOOKMARK [2][-]{subsection.3.4.1}{Expected Hypervolume Improvement \(EHVI\)}{section.3.4}% 23
+\BOOKMARK [0][-]{chapter.4}{Aims and Approaches}{}% 24
+\BOOKMARK [1][-]{section.4.1}{Aims}{chapter.4}% 25
+\BOOKMARK [1][-]{section.4.2}{Expected Hypervolume Improvement with Constraints \(EHVIC\)}{chapter.4}% 26
+\BOOKMARK [2][-]{subsection.4.2.1}{Proposed method}{section.4.2}% 27
+\BOOKMARK [1][-]{section.4.3}{Multi-objective optimisation with objective ranking}{chapter.4}% 28
+\BOOKMARK [2][-]{subsection.4.3.1}{Proposed method}{section.4.3}% 29
+\BOOKMARK [1][-]{section.4.4}{Multi-objective Bayesian optimisation in Robotics}{chapter.4}% 30
 \BOOKMARK [0][-]{chapter.5}{Experiments}{}% 31
 \BOOKMARK [1][-]{section.5.1}{EHVIC}{chapter.5}% 32
 \BOOKMARK [1][-]{section.5.2}{Multi-objective optimisation with objective ranking}{chapter.5}% 33
 \BOOKMARK [0][-]{chapter.6}{Progress Report}{}% 34
 \BOOKMARK [1][-]{section.6.1}{EHVIC, first aim}{chapter.6}% 35
 \BOOKMARK [1][-]{section.6.2}{Working with objective rankings, second aim}{chapter.6}% 36
-\BOOKMARK [1][-]{section.6.3}{Publication}{chapter.6}% 37
-\BOOKMARK [0][-]{chapter.7}{Approval and Training}{}% 38
-\BOOKMARK [0][-]{figure.caption.15}{Bibliography}{}% 39
+\BOOKMARK [1][-]{section.6.3}{Working with complex parameters in Robotics, second aim}{chapter.6}% 37
+\BOOKMARK [1][-]{section.6.4}{Publication}{chapter.6}% 38
+\BOOKMARK [0][-]{chapter.7}{Approval and Training}{}% 39
+\BOOKMARK [0][-]{figure.caption.17}{Bibliography}{}% 40

@@ -31,45 +31,45 @@ I'm skipping whatever remains of this entry
 Warning--empty school in gelbart2015constrained
 Warning--empty journal in hernandez2015predictive
 Warning--empty journal in hernandez2016general
-You've used 60 entries,
+You've used 63 entries,
             1791 wiz_defined-function locations,
-            773 strings with 15971 characters,
-and the built_in function-call counts, 17857 in all, are:
-= -- 1690
-> -- 728
-< -- 35
-+ -- 264
-- -- 204
-* -- 1077
-:= -- 2542
-add.period$ -- 198
-call.type$ -- 60
-change.case$ -- 56
+            789 strings with 16609 characters,
+and the built_in function-call counts, 18663 in all, are:
+= -- 1764
+> -- 767
+< -- 37
++ -- 278
+- -- 215
+* -- 1133
+:= -- 2666
+add.period$ -- 208
+call.type$ -- 63
+change.case$ -- 59
 chr.to.int$ -- 0
-cite$ -- 63
-duplicate$ -- 909
-empty$ -- 1710
-format.name$ -- 204
-if$ -- 4226
+cite$ -- 66
+duplicate$ -- 945
+empty$ -- 1784
+format.name$ -- 215
+if$ -- 4409
 int.to.chr$ -- 0
-int.to.str$ -- 60
-missing$ -- 62
-newline$ -- 303
-num.names$ -- 60
-pop$ -- 259
+int.to.str$ -- 63
+missing$ -- 65
+newline$ -- 318
+num.names$ -- 63
+pop$ -- 268
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 567
+skip$ -- 586
 stack$ -- 0
-substring$ -- 1266
-swap$ -- 378
-text.length$ -- 35
+substring$ -- 1318
+swap$ -- 390
+text.length$ -- 37
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 3
-while$ -- 168
-width$ -- 62
-write$ -- 667
+while$ -- 176
+width$ -- 65
+write$ -- 701
 (There were 4 error messages)

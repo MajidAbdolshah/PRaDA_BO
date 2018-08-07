@@ -3,7 +3,7 @@ This chapter describes the background and related work on which this proposal bu
 We will start from Gaussian process as a power tool for placing the prior belief and compute the uncertainty over the function space. Then we will cover the  Bayesian optimisation and the acquisition functions. Finally we will explain about multi-objective Bayesian optimisation and exptected hypervolume improvement.
 
 \section{Gaussian processes}
-A Gaussian process is a collection of random variables $\{f(\textbf{x}) : \textbf{x} \in \mathcal{X}\}$ in which any finite collection of random variables has a multivariate
+A Gaussian process (GP) is a collection of random variables $\{f(\textbf{x}) : \textbf{x} \in \mathcal{X}\}$ in which any finite collection of random variables has a multivariate
 Gaussian distribution \cite{rasmussen2006gaussian}. GPs are determined by using a mean function $\mu(\textbf{x}): \mathcal{X} \rightarrow \mathbb{R}$ and 
 a covariance function $k(\textbf{x}): \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}^+$:
 \begin{equation}
@@ -66,25 +66,25 @@ In this section we will briefly mention to some basic kernels for Gaussian proce
 \subsubsection{Linear Kernel}
 We are simply doing Bayesian linear regression when working with linear kernel.
 \begin{equation}
-k_{lin} = \sigma_f^2(x-c)(x'-c)
+k_{lin}(\textbf{x},\textbf{x}') = \sigma_f^2(\textbf{x}-\textbf{c})^T (\textbf{x}-\textbf{c})
 \end{equation}
 
 \subsubsection{Matern32 Kernel}
 The Matern kernel is likely the second most popular kernel. Many believe the smoothness of the squared exponential kernel is unrealistic for modelling physical processes \cite{rasmussen2006gaussian}.
 \begin{equation}
-\sigma_f^2(1+\frac{\sqrt{3}(x-x')}{\sigma_l}) exp(-\frac{\sqrt{3}(x-x')}{\sigma_l})
+k_{Matern32}(\textbf{x},\textbf{x}') = \sigma_f^2(1+\frac{\sqrt{3}({\lVert \textbf{x} - \textbf{x}' \lVert}_2)}{\sigma_l}) exp(-\frac{\sqrt{3}({\lVert \textbf{x} - \textbf{x}' \lVert}_2)}{\sigma_l})
 \end{equation}
 
 \subsubsection{Squared Exponential Kernel}
 The squared exponential (SE) kernel, also called the Gaussian, radial, basis function (RBF) or exponentiated quadratic kernel, is probably the most widely-used kernel in Gaussian processes.
 \begin{equation}
-k_{SE} = \sigma^2 exp(-\frac{(x-x')^2}{2l^2})
+k_{SE}(\textbf{x},\textbf{x}') = \sigma^2 exp(-\frac{{\lVert \textbf{x} - \textbf{x}' \lVert}_2^2}{2l^2})
 \end{equation}
 
 \subsubsection{Periodic Kernel}
 This kernel is mostly useful in combination with other covariance functions.
 \begin{equation}
-k_{periodic}(x,x') = exp(\frac{-2 sin^2 (\pi(x-x'))/2)}{l^2})
+k_{periodic}(\textbf{x},\textbf{x}') = exp(\frac{-2 sin^2 (\pi({\lVert \textbf{x} - \textbf{x}' \lVert}_2))/2)}{l^2})
 \end{equation}
 
 \begin{figure} 
@@ -170,7 +170,7 @@ In equation \ref{eq:ES}, $\mathrm{H}(\textbf{x}^*|\mathcal{D}_t)$ denotes the di
 \label{eq:PES}
 \end{equation}
 \section{Multi-objective Bayesian optimisation}
-In single-objective problems, the optimiser looks for the best single answer. For example, selection of a single best design, selection of the best set of parameters for a machine learning method regarding the final accuracy. However, in many real-world problems, it is very common to deal with multiple competing objectives. Competition arises through incommensurability of objectives in real-world systems, usually bounded by physical laws \cite{rousis2011pareto}. Consider a Robotic for an example. in Robotics, one of the current problems researches are working on, is about overheating of motors or power consumption of them. While other objectives such as the accuracy of movements with some constraints are also play a role in this problem.
+In single-objective problems, the optimiser looks for the best single answer. For example, selection of a single best design, selection of the best set of parameters for a machine learning method regarding the final accuracy. However, in many real-world problems, it is very common to deal with multiple competing objectives. Competition arises through incommensurability of objectives in real-world systems, usually bounded by physical laws \cite{rousis2011pareto}. Consider a Robotic for an example. in Robotics, one of the current problems researches are working on, is about overheating of motors or power consumption. While other objectives such as the accuracy of movements with some constraints are also play a role in this problem.
 For the multi-objective problem, the optimization task involves identification of those solutions that are \textit{Pareto optimal}. A solution is said to be Pareto optimal if none of the objectives can be improved without degrading in at least one other objective \cite{rousis2011pareto}. Consider Figure \ref{fig:par} as an example.
 \begin{figure}[h]
 \centering

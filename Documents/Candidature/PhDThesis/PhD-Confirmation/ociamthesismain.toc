@@ -1,39 +1,40 @@
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Motivation}{3}{section.1.1}
-\contentsline {section}{\numberline {1.2}Summary of contributions}{3}{section.1.2}
 \contentsline {chapter}{\numberline {2}Literature Review}{5}{chapter.2}
 \contentsline {section}{\numberline {2.1}Constrained single-objective Bayesian optimisation}{6}{section.2.1}
 \contentsline {section}{\numberline {2.2}Multi-objective optimisation and Bayesian optimisation}{7}{section.2.2}
-\contentsline {section}{\numberline {2.3}Multi-objective Bayesian optimisation with constraints}{10}{section.2.3}
+\contentsline {section}{\numberline {2.3}Multi-objective Bayesian optimisation with constraints}{11}{section.2.3}
 \contentsline {section}{\numberline {2.4}Evolutionary algorithms and Multi-objective problems with constraints}{11}{section.2.4}
-\contentsline {section}{\numberline {2.5}Multi-objective problems with constraints and objective rankings}{12}{section.2.5}
-\contentsline {chapter}{\numberline {3}Background}{14}{chapter.3}
-\contentsline {section}{\numberline {3.1}Gaussian processes}{14}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Computing the posterior}{15}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}A few basic kernels}{15}{subsection.3.1.2}
-\contentsline {subsubsection}{\numberline {3.1.2.1}Linear Kernel}{15}{subsubsection.3.1.2.1}
-\contentsline {subsubsection}{\numberline {3.1.2.2}Matern32 Kernel}{15}{subsubsection.3.1.2.2}
-\contentsline {subsubsection}{\numberline {3.1.2.3}Squared Exponential Kernel}{16}{subsubsection.3.1.2.3}
-\contentsline {subsubsection}{\numberline {3.1.2.4}Periodic Kernel}{16}{subsubsection.3.1.2.4}
-\contentsline {section}{\numberline {3.2}Bayesian optimisation}{18}{section.3.2}
-\contentsline {section}{\numberline {3.3}Acquisition function}{18}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Improvement-Based}{18}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Optimistic policy}{19}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Information-Based policy}{19}{subsection.3.3.3}
-\contentsline {section}{\numberline {3.4}Multi-objective Bayesian optimisation}{20}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Expected Hypervolume Improvement (EHVI)}{20}{subsection.3.4.1}
-\contentsline {chapter}{\numberline {4}Aims and Approaches}{24}{chapter.4}
-\contentsline {section}{\numberline {4.1}Expected Hypervolume Improvement with Constraints (EHVIC)}{24}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Proposed method}{25}{subsection.4.1.1}
-\contentsline {section}{\numberline {4.2}Multi-objective optimisation with objective ranking}{27}{section.4.2}
+\contentsline {section}{\numberline {2.5}Multi-objective problems with constraints and objective rankings}{13}{section.2.5}
+\contentsline {chapter}{\numberline {3}Background}{15}{chapter.3}
+\contentsline {section}{\numberline {3.1}Gaussian processes}{15}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Computing the posterior}{16}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}A few basic kernels}{16}{subsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.2.1}Linear Kernel}{17}{subsubsection.3.1.2.1}
+\contentsline {subsubsection}{\numberline {3.1.2.2}Matern32 Kernel}{17}{subsubsection.3.1.2.2}
+\contentsline {subsubsection}{\numberline {3.1.2.3}Squared Exponential Kernel}{18}{subsubsection.3.1.2.3}
+\contentsline {subsubsection}{\numberline {3.1.2.4}Periodic Kernel}{18}{subsubsection.3.1.2.4}
+\contentsline {section}{\numberline {3.2}Bayesian optimisation}{20}{section.3.2}
+\contentsline {section}{\numberline {3.3}Acquisition function}{20}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Improvement-Based}{20}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Optimistic policy}{21}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Information-Based policy}{22}{subsection.3.3.3}
+\contentsline {section}{\numberline {3.4}Multi-objective Bayesian optimisation}{22}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Expected Hypervolume Improvement (EHVI)}{24}{subsection.3.4.1}
+\contentsline {chapter}{\numberline {4}Aims and Approaches}{26}{chapter.4}
+\contentsline {section}{\numberline {4.1}Aims}{26}{section.4.1}
+\contentsline {section}{\numberline {4.2}Expected Hypervolume Improvement with Constraints (EHVIC)}{27}{section.4.2}
 \contentsline {subsection}{\numberline {4.2.1}Proposed method}{28}{subsection.4.2.1}
-\contentsline {section}{\numberline {4.3}Multi-objective bayesian optimisation in Robotics}{29}{section.4.3}
-\contentsline {chapter}{\numberline {5}Experiments}{31}{chapter.5}
-\contentsline {section}{\numberline {5.1}EHVIC}{31}{section.5.1}
-\contentsline {section}{\numberline {5.2}Multi-objective optimisation with objective ranking}{37}{section.5.2}
-\contentsline {chapter}{\numberline {6}Progress Report}{39}{chapter.6}
-\contentsline {section}{\numberline {6.1}EHVIC, first aim}{40}{section.6.1}
-\contentsline {section}{\numberline {6.2}Working with objective rankings, second aim}{40}{section.6.2}
-\contentsline {section}{\numberline {6.3}Publication}{41}{section.6.3}
-\contentsline {chapter}{\numberline {7}Approval and Training}{43}{chapter.7}
-\contentsline {chapter}{Bibliography}{44}{figure.caption.15}
+\contentsline {section}{\numberline {4.3}Multi-objective optimisation with objective ranking}{30}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Proposed method}{31}{subsection.4.3.1}
+\contentsline {section}{\numberline {4.4}Multi-objective Bayesian optimisation in Robotics}{33}{section.4.4}
+\contentsline {chapter}{\numberline {5}Experiments}{35}{chapter.5}
+\contentsline {section}{\numberline {5.1}EHVIC}{35}{section.5.1}
+\contentsline {section}{\numberline {5.2}Multi-objective optimisation with objective ranking}{42}{section.5.2}
+\contentsline {chapter}{\numberline {6}Progress Report}{44}{chapter.6}
+\contentsline {section}{\numberline {6.1}EHVIC, first aim}{45}{section.6.1}
+\contentsline {section}{\numberline {6.2}Working with objective rankings, second aim}{45}{section.6.2}
+\contentsline {section}{\numberline {6.3}Working with complex parameters in Robotics, second aim}{45}{section.6.3}
+\contentsline {section}{\numberline {6.4}Publication}{46}{section.6.4}
+\contentsline {chapter}{\numberline {7}Approval and Training}{48}{chapter.7}
+\contentsline {chapter}{Bibliography}{50}{figure.caption.17}

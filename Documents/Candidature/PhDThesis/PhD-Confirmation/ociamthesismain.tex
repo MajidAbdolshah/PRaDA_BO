@@ -10,18 +10,19 @@
 \usepackage{rotating}
 \usepackage{adjustbox}
 \usepackage{dirtytalk}
-\usepackage{afterpage}
 \usepackage{rotating}
 \usepackage{pdflscape}
 \usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
 \usepackage{array,longtable}
 \usepackage{subfig}
+\usepackage{geometry}
+\usepackage{afterpage}
 \usepackage{amsmath}
 \DeclareMathOperator{\dis}{d}
 \renewcommand*{\arraystretch}{1.5}
 \newcolumntype{L}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{R}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}} 
 %input macros (i.e. write your own macros file called mymacros.tex 
 %and uncomment the next line)
 %\include{mymacros}
@@ -90,6 +91,7 @@
 \begin{romanpages}          % start roman page numbering
 \tableofcontents            % generate and include a table of contents
 \listoffigures              % generate and include a list of figures
+\listoftables
 \end{romanpages}            % end roman page numbering
 
 %now include the files of latex for each of the chapters etc

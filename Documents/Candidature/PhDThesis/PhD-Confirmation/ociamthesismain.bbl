@@ -1,5 +1,11 @@
 \begin{thebibliography}{10}
 
+\bibitem{feliot2017bayesian}
+Paul Feliot, Julien Bect, and Emmanuel Vazquez.
+\newblock A bayesian approach to constrained single-and multi-objective
+  optimization.
+\newblock {\em Journal of Global Optimization}, 67(1-2):97--133, 2017.
+
 \bibitem{gelbart2015constrained}
 Michael~Adam Gelbart.
 \newblock {\em Constrained Bayesian Optimization and Applications}.
@@ -54,10 +60,27 @@ Carl~Edward Rasmussen and Christopher~KI Williams.
 \newblock {\em Gaussian processes for machine learning}, volume~1.
 \newblock MIT press Cambridge, 2006.
 
+\bibitem{tan2002evolutionary}
+Kay~Chen Tan, Tong~Heng Lee, and Eik~Fun Khor.
+\newblock Evolutionary algorithms for multi-objective optimization: Performance
+  assessments and comparisons.
+\newblock {\em Artificial intelligence review}, 17(4):251--290, 2002.
+
 \bibitem{pardalos2017non}
 Panos~M Pardalos, Antanas {\v{Z}}ilinskas, and Julius {\v{Z}}ilinskas.
 \newblock {\em Non-convex multi-objective optimization}, volume 123.
 \newblock Springer, 2017.
+
+\bibitem{deb2002fast}
+Kalyanmoy Deb, Amrit Pratap, Sameer Agarwal, and TAMT Meyarivan.
+\newblock A fast and elitist multiobjective genetic algorithm: Nsga-ii.
+\newblock {\em IEEE transactions on evolutionary computation}, 6(2):182--197,
+  2002.
+
+\bibitem{zitzler2001spea2}
+Eckart Zitzler, Marco Laumanns, and Lothar Thiele.
+\newblock Spea2: Improving the strength pareto evolutionary algorithm.
+\newblock {\em TIK-report}, 103, 2001.
 
 \bibitem{MajidPaper2018}
 Majid Abdolshah, Alistair Shilton, Santu Rana, Sunil Gupta, and Svetha
@@ -163,12 +186,6 @@ Jacob~R Gardner, Matt~J Kusner, Zhixiang~Eddie Xu, Kilian~Q Weinberger, and
 \newblock Bayesian optimization with inequality constraints.
 \newblock In {\em ICML}, pages 937--945, 2014.
 
-\bibitem{feliot2017bayesian}
-Paul Feliot, Julien Bect, and Emmanuel Vazquez.
-\newblock A bayesian approach to constrained single-and multi-objective
-  optimization.
-\newblock {\em Journal of Global Optimization}, 67(1-2):97--133, 2017.
-
 \bibitem{garrido2016predictive}
 Eduardo~C Garrido-Merch{\'a}n and Daniel Hern{\'a}ndez-Lobato.
 \newblock Predictive entropy search for multi-objective bayesian optimization
@@ -243,17 +260,6 @@ Siwei Jiang, Jie Zhang, Yew-Soon Ong, Allan~N Zhang, and Puay~Siew Tan.
   evolutionary algorithm.
 \newblock {\em IEEE Transactions on Cybernetics}, 45(10):2202--2213, 2015.
 
-\bibitem{deb2002fast}
-Kalyanmoy Deb, Amrit Pratap, Sameer Agarwal, and TAMT Meyarivan.
-\newblock A fast and elitist multiobjective genetic algorithm: Nsga-ii.
-\newblock {\em IEEE transactions on evolutionary computation}, 6(2):182--197,
-  2002.
-
-\bibitem{zitzler2001spea2}
-Eckart Zitzler, Marco Laumanns, and Lothar Thiele.
-\newblock Spea2: Improving the strength pareto evolutionary algorithm.
-\newblock {\em TIK-report}, 103, 2001.
-
 \bibitem{kukkonen2007ranking}
 Saku Kukkonen and Jouni Lampinen.
 \newblock Ranking-dominance and many-objective optimization.
@@ -304,6 +310,18 @@ Marco Laumanns, Eckart Zitzler, and Lothar Thiele.
 \newblock In {\em Evolutionary Computation, 2000. Proceedings of the 2000
   Congress on}, volume~1, pages 46--53. IEEE, 2000.
 
+\bibitem{li2018high}
+Cheng Li, Sunil Gupta, Santu Rana, Vu~Nguyen, Svetha Venkatesh, and Alistair
+  Shilton.
+\newblock High dimensional bayesian optimization using dropout.
+\newblock {\em arXiv preprint arXiv:1802.05400}, 2018.
+
+\bibitem{pautrat2017bayesian}
+R{\'e}mi Pautrat, Konstantinos Chatzilygeroudis, and Jean-Baptiste Mouret.
+\newblock Bayesian optimization with automatic prior selection for
+  data-efficient direct policy search.
+\newblock {\em arXiv preprint arXiv:1709.06919}, 2017.
+
 \bibitem{hernandez2016general}
 Jos{\'e}~Miguel Hern{\'a}ndez-Lobato, Michael~A Gelbart, Ryan~P Adams,
   Matthew~W Hoffman, and Zoubin Ghahramani.
@@ -344,12 +362,6 @@ Ramzi Sellaouti, Olivier Stasse, Shuuji Kajita, Kazuhito Yokoi, and
 \newblock In {\em Intelligent Robots and Systems, 2006 IEEE/RSJ International
   Conference on}, pages 4909--4914. IEEE, 2006.
 
-\bibitem{pautrat2017bayesian}
-R{\'e}mi Pautrat, Konstantinos Chatzilygeroudis, and Jean-Baptiste Mouret.
-\newblock Bayesian optimization with automatic prior selection for
-  data-efficient direct policy search.
-\newblock {\em arXiv preprint arXiv:1709.06919}, 2017.
-
 \bibitem{calandra2014bayesian}
 Roberto Calandra, Nakul Gopalan, Andr{\'e} Seyfarth, Jan Peters, and Marc~Peter
   Deisenroth.
@@ -362,6 +374,13 @@ Yaochu Jin.
 \newblock Surrogate-assisted evolutionary computation: Recent advances and
   future challenges.
 \newblock {\em Swarm and Evolutionary Computation}, 1(2):61--70, 2011.
+
+\bibitem{knowles1999pareto}
+Joshua Knowles and David Corne.
+\newblock The pareto archived evolution strategy: A new baseline algorithm for
+  pareto multiobjective optimisation.
+\newblock In {\em Evolutionary Computation, 1999. CEC 99. Proceedings of the
+  1999 Congress on}, volume~1, pages 98--105. IEEE, 1999.
 
 \bibitem{barbera2004ranking}
 Salvador Barber{\`a}, Walter Bossert, and Prasanta~K Pattanaik.

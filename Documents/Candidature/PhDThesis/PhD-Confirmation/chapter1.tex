@@ -1,19 +1,19 @@
 \chapter{Introduction}
-Bayesian optimisation is considered to be the specific case of model-based optimisation methods which is structured based on the Bayesian formulations. Like the most cases of Bayesian approaches, there is a prior distribution over a function, a likelihood function, and a posterior distribution over the unknown functions given data \cite{gelbart2015constrained}. Bayesian optimisation aims to solve a difficult though concise problem:
+Bayesian optimisation is considered to be the specific case of model-based optimisation based on the Bayesian formulations. Like most Bayesian approaches, there is a prior distribution over a function, a likelihood function, and a posterior distribution over the unknown functions given data \cite{gelbart2015constrained}. Bayesian optimisation aims to solve a difficult though concise problem:
 \begin{equation}
 	\operatorname*{min}_{x \in \mathcal{X}} f(x)	
 \label{eq:ch1_1}
 \end{equation}
-However $f(x)$ is considered to have following features \cite{gelbart2015constrained}:
+where $f(x)$ has the following features \cite{gelbart2015constrained}:
 \begin{enumerate}
 \item \textbf{Expensive to Evaluate: } Evaluation of $f(x)$ is highly expensive. Such as most of engineering problems like making alloys \cite{vellanki2017process}, designing a pharmaceutical drug, optimising machine learning algorithms \cite{snoek2012practical} and many other engineering problems.
-\item \textbf{Black-box: } The exact formulation of $f(x)$ function or the derivatives of $f(x)$ is not available. Like the most of the engineering problems that we have already mentioned.
+\item \textbf{Black-box: } The exact formulation of $f(x)$ function and/or the derivatives of $f(x)$ is not available. Like the most of the engineering problems that we have already mentioned.
 \item \textbf{Noisy Evaluations: } The value of $f(x)$ for a specific $x$ usually corrupted with a noise. So for the same values of $x$, $f(x)$ would result in different values.
 \item \textbf{Global and non-convex: } Bayesian optimization of $f(x)$ is a global optimisation problem for a non-convex function in the $\mathcal{X}$ domain.
 \end{enumerate}
-While traditional numerical methods have proved ineffective for solving some optimisation problems, Bayesian optimisation has proved to be effective in variety of optimisation problems dealing with black-box objective functions, expensive to evaluate. There have been number of studies on the use of Bayesian optimisation on hyperparameter tuning in machine learning and big data \cite{joy2016hyperparameter}, expensive multi-objective optimisation for Robotics \cite{tesch2013expensive}, and experimentation optimisation in product design such as short polymer fiber materials \cite{li2017rapid}.
+While traditional numerical methods have proved ineffective for solving some optimisation problems, Bayesian optimisation has proved to be effective in variety of optimisation problems dealing with black-box objective functions taht are expensive to evaluate. There have been number of studies on the use of Bayesian optimisation on hyperparameter tuning in machine learning and big data \cite{joy2016hyperparameter}, expensive multi-objective optimisation for Robotics \cite{tesch2013expensive}, and experimentation optimisation in product design such as short polymer fiber materials \cite{li2017rapid}.
 \par
-Practical problems are often involved in several non-commensurable objectives. In other words, the real-world problems consist of multiple, conflicting black-box objectives. In Multi-Objective Optimisation (MOO) potential solutions are assessed  by their performance in more than one objective \cite{couckuyt2014fast}. In MOO, based on definition of Pareto optimality, we wish to return a Pareto front that represents the best trade-off  possible considering all criteria \cite{calandra2014pareto}.  More generally, MOO includes $M$ objective functions $f_1, f_2, \ldots, f_M$ which are usually modelled by Gaussian Process (GP) \cite{rasmussen2006gaussian}. Formally:
+Practical problems are often involved in several non-commensurable objectives. In other words, the real-world problems consist of multiple, conflicting black-box objectives. In Multi-Objective Optimisation (MOO) potential solutions are assessed  by their performance in more than one objective \cite{couckuyt2014fast}. In MOO, based on definition of Pareto optimality, we wish to return a Pareto front that represents the best trade-off  possible considering all criteria \cite{calandra2014pareto}. A solution is Pareto optimal if no objective can be improved on without making at least one other objective worse. More generally, MOO includes $M$ objective functions $f_1, f_2, \ldots, f_M$ which are usually modelled by Gaussian Process (GP) \cite{rasmussen2006gaussian}. Formally:
 \begin{equation*}
 \begin{aligned}
 & \underset{\textbf{x}}{\text{minimize}}
@@ -25,26 +25,27 @@ Practical problems are often involved in several non-commensurable objectives. I
 \end{aligned}
 \end{equation*}
 \par
-Generally two categories of solutions are available for solving multi-objective problems. In such scenarios it is customary to seek for a set of Pareto optimal outcomes often called the Pareto front \cite{couckuyt2014fast}. The first category uses scalarization for transforming a multi-objective problem into single-objective problem. The single-objective problem is then tackled using different evolutionary algorithms such as Genetics Algorithm (GA). So in this case, such solutions are not suited for the highly expensive and black-box $f(x)$ function. But there are studies trying to solve the transformed single-objective problem by Bayesian optimisation or entropy search methods. In this case, researchers try to eliminate the highly expensive costs of evolutionary algorithms. In such studies, there are differnt methods of scalarization in order to solve the multi-objective problems. Tchebycheff Method, $k^{\text{th}}$-Objective Weighted-Constraint, and  Pascoletti and Serafini Scalarization are the three most popular approaches for scalarization among researchers \cite{pardalos2017non}.
+Generally two categories of solutions are available for solving multi-objective problems. In such scenarios it is customary to seek for a set of Pareto optimal outcomes often called the Pareto front \cite{couckuyt2014fast}. The first category uses scalarization for transforming a multi-objective problem into single-objective problem. The single-objective problem is then tackled using different optimisation methods.
+To obtain an accurate approximation of the whole Pareto set, sequence of auxiliary single-objective optimization problems should be solved \cite{tan2002evolutionary}. So in this case, such solutions are not suited for the highly expensive and black-box $f(x)$ function. In such studies, there are differnt methods of scalarization in order to solve the multi-objective problems. Tchebycheff Method, $k^{\text{th}}$-Objective Weighted-Constraint, and  Pascoletti and Serafini Scalarization are the three most popular approaches for scalarization among researchers \cite{pardalos2017non}.
 \par
-The next category of solutions are focused on the multi-objective structure of the problem. These methods do not transform the multi-objective problems into single-objective space. Instead, these methods tend to use more complex acquisition functions based on Expected Hypervolume Improvement (EHI) or Entropy Search (ES) in order to handle the multidimensionality of the problem. So they provide a set of solutions by optimizing all $M$ objective simultaneously.  
+The next category of solutions are focused on the multi-objective structure of the problem. These methods do not transform the multi-objective problems into single-objective space. Instead, these methods tend to use more complex acquisition functions based on Expected Hypervolume Improvement (EHI) or Entropy Search (ES) in order to handle the multidimensionality of the problem. So they provide a set of solutions by optimizing all $M$ objective simultaneously. Also there are many well-known evolutionary-based methods in this category such as NSGA-II \cite{deb2002fast} or SPEA2 \cite{zitzler2001spea2}.
 
 \section{Motivation}\label{sec:mot}
 Large diversity of optimisation problems take the form described above. Examples include increasing the Pouring Temperature of an alloy to withstand enormously high temperature of molten metals while overall alloy hardness must not increase drastically; or tuning training parameters of an SVM‌ model to maximize the accuracy and minimizing the consumption of resources. In addition to expensive evaluation of objective functions, many optimisation problems deal with similarly expensive black-box constraints. Unknown constraints are part of many black-box multi-objective optimisation problems. For example, when tuning SVM hyperparameters we may want to optimise performance subject to a limit on the number of support vectors (and hence the complexity of evaluating the trained classifier) if the trained machine is to be implemented on limited hardware (such as accessible memory). The goal of optimisation
 in such cases is to minimize the number of black-box function evaluations to find the global optimum of the function with respect to constraints. Bayesian optimisation has recently been used successfully in this area \cite{MajidPaper2018}.
 Another use of multi-objective with constraints problem arises when there is a priori such as Ranking of the objectives. In many real-world problems, there are more important objectives we would like to have a slight advantage over other objectives. For example, in autonomous flying airplanes, the nature of the problem demands a huge advantage on safety measures of the airplane than the fuel consumption; or in Robotics, one of the current problems researches are working on, is about overheating of motors or power consumption of them. While other objectives such as the accuracy of movements with some constraints are also play a role in this problem. One may like to focus on the safety of motors or the accuracy of the movements. So ranking of the objectives as a priori information could be really useful in many real-world problems.
-
-\section{Summary of contributions}
-The main contribution of our first proposed method is to characterize a general formulation for Multi-objective Bayesian optimisation with unknown constraints based on hypervolume calculation. The other related contributions are:
-\begin{itemize}
-\item Formulation of the expected hypervolume improvement with constraints based on the simple but effective expected improvement acquisition function.
-\item Evaluation of the proposed algorithm based on feasible dominated region on all related benchmark test functions for the first time. We also estimated the volume of the feasible region of the test functions for more accurate evaluation.
-\item Discussion of the issues involved in the method in terms of the efficiency and size of the problem.
-\end{itemize}
-The main contribution of multi-objective Bayesian optimisation with constraints and objective rankings is incorporating the rankings as a feature to multi-objective Bayesian optimisation. The contributions of the proposed model are summarized in the following three aspects:
-\begin{itemize}
-\item We formulated a single-objective constrained Bayesian optimisation problem for mapping a multi-objective Bayesian optimisation with constraints and 
-objective rankings into a more feasible space.
-\item For evaluation of the proposed algorithm, we will introduce new measurements which should contain both diversity/density and accuracy of the obtained Pareto set.
-\item It is the first time that multi-objective Bayesian optimisation has been incorporated in ranking or planning problems.
-\end{itemize}
+%
+%\section{Summary of contributions}
+%The main contribution of our first proposed method is to characterize a general formulation for Multi-objective Bayesian optimisation with unknown constraints based on hypervolume calculation. The other related contributions are:
+%\begin{itemize}
+%\item Formulation of the expected hypervolume improvement with constraints based on the simple but effective expected improvement acquisition function.
+%\item Evaluation of the proposed algorithm based on feasible dominated region on all related benchmark test functions for the first time. We also estimated the volume of the feasible region of the test functions for more accurate evaluation.
+%\item Discussion of the issues involved in the method in terms of the efficiency and size of the problem.
+%\end{itemize}
+%The main contribution of multi-objective Bayesian optimisation with constraints and objective rankings is incorporating the rankings as a feature to multi-objective Bayesian optimisation. The contributions of the proposed model are summarized in the following three aspects:
+%\begin{itemize}
+%\item We formulated a single-objective constrained Bayesian optimisation problem for mapping a multi-objective Bayesian optimisation with constraints and 
+%objective rankings into a more feasible space.
+%\item For evaluation of the proposed algorithm, we will introduce new measurements which should contain both diversity/density and accuracy of the obtained Pareto set.
+%\item It is the first time that multi-objective Bayesian optimisation has been incorporated in ranking or planning problems.
+%\end{itemize}
