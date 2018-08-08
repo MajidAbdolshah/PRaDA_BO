@@ -18,20 +18,24 @@ from tqdm import *
 import time
 import random
 
-INPUT_DIM = 2
-OUTPUT_DIM = 1
+INPUT_DIM = 1
+OUTPUT_DIM = 2
 MAX_ITER = 200
 EPSILON = 10**-6
 
 class DataComplex:
     
     data = np.empty((0,INPUT_DIM))
+    outputs = np.empty((0,OUTPUT_DIM))
     rankers = np.empty((0,INPUT_DIM))
-    def __init__(self, iData,iRank):
+    def __init__(self, iData,iOut, iRank):
         self.data = iData
+        self.outputs = iOut
         self.rankers = iRank
     def newData(self,newPoint):
         self.data = np.append(self.data,[newPoint],axis=0)
+    def newOut(self,newPoint):
+        self.outputs = np.append(self.outputs,[newPoint],axis=0)
     def newRank(self,newRank):
         self.rankers = np.append(self.rankers,[newRank],axis=0)
     
@@ -63,12 +67,34 @@ def mPareto(y):
                 tMin = val[1]
         return pSet
         
+def f(x,fNum):
+
+    def firstfun(x):
+        return x**2
+    def secondfun(x):
+        return (x-2)**2
+    options = {0 : firstfun,
+               1 : secondfun,}
+    return options[fNum](x)
     
+    
+def function(XpR):
+    x = XpR[0:INPUT_DIM]
+    r = XpR[INPUT_DIM:INPUT_DIM+OUTPUT_DIM]
+    fSum = 0
+    for i in range(0,OUTPUT_DIM):
+        fSum = fSum + r[i]*f(x,i)
+    return fSum
+
+   
 
 #############################################################
-X = np.array([[1,2],[2,2.02],[2,1.5],[3,1],[4,0.9],[5,0.5],[2.5,1.8],
-              [3.5,1],[1,1.8],[1,1.5],[2.5,1.2],[3,2],[1,1.6],
-              [1.5,1.4],[4.5,0.8]])
+print(function(np.array([1,3,4])))
+
+X = np.array([1,2,3])
+Y = np.array([[1,2],[2,2.02],[2,1.5]])
+
+
 
 plt.plot(X[:,0],X[:,1],'ob')
 
