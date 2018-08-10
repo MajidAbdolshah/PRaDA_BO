@@ -16,10 +16,12 @@ import pprint
 from scipy.spatial import ConvexHull
 from tqdm import *
 import time
+from sklearn.preprocessing import scale
 import random
 
 INPUT_DIM = 1
-INITIAL = 10
+INITIAL = 5
+0
 OUTPUT_DIM = 2
 MAX_ITER = 200
 EPSILON = 10**-6
@@ -83,6 +85,7 @@ def function(XpR):
     return np.array(fVal)
 
 def initvals_(bounds):
+    print("Initialing Data As:\n")
     gData = np.zeros([INITIAL,INPUT_DIM+OUTPUT_DIM])
     for i in range(0,INITIAL):
         for j in range(0,INPUT_DIM):
@@ -98,18 +101,79 @@ def initvals_(bounds):
     
     return gData,gDataY
     
+def extractF(x):
+    yOut = np.zeros([len(x),OUTPUT_DIM])
+    print(yOut.shape)
+    for i in range(yOut.shape[0]):
+        for j in range(yOut.shape[1]):
+            yOut[i,j] = f(x[i,0:INPUT_DIM],j)
+    return yOut
     
+def info(*arg):
+    for i in range(len(arg)):
+        print("Shape of "+str(i)+" is "+str(arg[i].shape))
 
+
+def ctKernel(no,dInput,*arg):
+    names_ = {}
+    for i in range(no):
+        text_ = "ker" + str(i)
+        names_[text_] = GPy.kern.RBF(input_dim=dInput,lengthscale=arg[i],ARD=False) 
+    return names_
+
+        
+def trainModel(X,Y,Ker,eVal):
+    model_ = GPy.models.GPRegression(X,Y,Ker)
+    model_.optimize(max_f_eval = eVal)    
+    return model_
+ 
+def testModel(model_,x):
+    [mu_per,sig_per] = model_.predict(x,full_cov=1)
+    return mu_per[0,0],sig_per[0,0]
+    
+    
 #############################################################
 bounds = dict()
 bounds  = {'min': [-10],'max':[10]}
-initvals_(bounds)
+xData,yData = initvals_(bounds)
+yReal = extractF(xData)
+info(xData,yData,yReal)
+
+Kernels = ctKernel(2,2,0.1,0.1)
+
+mod1 = trainModel(xData,np.matrix(yReal[:,0]).T,Kernels['ker0'],400)
+mod2 = trainModel(xData,np.matrix(yReal[:,1]).T,Kernels['ker1'],400)
 
 
+x = np.array([[0.4,0.3,0.6]])
+[mu_,sigma_] = testModel(mod1,x)
+[mu__,sigma__] = testModel(mod2,x)
+print(mu_," ", sigma_)
+print(mu__," ", sigma__)
 
 
 #############################################################
 '''
+[mu_per,sig_per] 
+
+x = np.array([[0.4,0.3,0.6]])
+[mu_per,sig_per] = mod1.predict(x,full_cov=1)
+print("\nResults: \n")
+print(mu_per[0,0]," <--> ",sig_per[0,0])
+
+
+x = np.array([[0.4,0.3,0.6]])
+[mu_per,sig_per] = mod2.predict(x,full_cov=1)
+print("\nResults: \n")
+print(mu_per[0,0]," <--> ",sig_per[0,0])
+
+mod1 = GPy.models.GPRegression(xData,np.matrix(yReal[:,0]).T,Kernels['ker0'])
+mod1.optimize(max_f_eval = 400)
+
+mod2 = GPy.models.GPRegression(xData,np.matrix(yReal[:,1]).T,Kernels['ker1'])
+mod2.optimize(max_f_eval = 400)
+
+
 X = np.array([[1,2,3],[2,2,3]])
 
 X = np.array([[1,2,3],[2,3,4],[5,6,7]])
