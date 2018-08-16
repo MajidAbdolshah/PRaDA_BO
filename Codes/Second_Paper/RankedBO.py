@@ -21,10 +21,11 @@ import random
 
 INPUT_DIM = 1
 INITIAL = 5
-0
 OUTPUT_DIM = 2
 MAX_ITER = 200
 EPSILON = 10**-6
+REF = [2,2]
+LEN_SCALE = 0.1
 
 class DataComplex:
     data = np.empty((0,INPUT_DIM+OUTPUT_DIM))
@@ -40,10 +41,9 @@ class DataComplex:
 def mPareto(y):
     pFlag = 0
     pSet = np.empty((0,y.shape[1]))
-    sortedx = y[:,np.argsort(y[0,:])]
+    sortedx = y[y[:,0].argsort()]
     uSortedx = np.empty((0,y.shape[1]))
     tMin = float('inf')
-       
     if np.unique(sortedx[:,0]).shape[0] != sortedx[:,0].shape[0]:
         print('Some points in a row...\nHandling that....\n')
         pFlag = 1
@@ -131,13 +131,141 @@ def testModel(model_,x):
     [mu_per,sig_per] = model_.predict(x,full_cov=1)
     return mu_per[0,0],sig_per[0,0]
     
+def samplePareto(par):
+    infoDic = {}
+    uPartsX = np.sort(par[:,0])
+    uMapX = np.concatenate([[0],uPartsX,[REF[0]]])
+    uPartsY = np.sort(par[:,1])
+    uMapY = np.concatenate([[0],uPartsY,[REF[0]]])
+    cells_ = np.empty((0,OUTPUT_DIM*2))
+    for i in range(0,len(uMapX)-1):
+        for j in range(0,len(uMapY)-1):
+            
+            pos_st = np.array([uMapX[i],uMapY[j]])
+            pos_en = np.array([uMapX[i+1],uMapY[j+1]])
+            pos_ = np.matrix(np.append(pos_st,pos_en,axis=0))
+            mid_point = np.array([(pos_[0,0]+pos_[0,2])/2,
+                                  (pos_[0,1]+pos_[0,3])/2])
+            cells_ = np.vstack([cells_,pos_])
+            infoDic[repr(pos_)] = ruPareto(mid_point,par)
+    return cells_,infoDic
+            
+    
+def ruPareto(x,par):
+    for val in par:
+        if(x[0]>val[0] and x[1]>val[1]):
+            return False
+    return True
+    
+def dvt_mu(xs,Data,Kernels,yReal):
+    
+    len_matrix = -np.linalg.inv(np.identity(INPUT_DIM+OUTPUT_DIM)*LEN_SCALE**2)
+    XsT = (Data - xs).T
+    tmpI = np.dot(len_matrix,XsT)
+    KxsX = Kernels['ker1'].K(xs,Data).T
+    tmpII = np.dot(np.linalg.inv(Kernels['ker1'].K(Data,Data)),np.matrix(yReal[:,0]).T)
+    tmpIII = np.multiply(KxsX,tmpII)
+    res_ = np.dot(tmpI,tmpIII)
+    print(tmpI.shape)
+    print(KxsX.shape)
+    print(tmpII.shape)
+    print(tmpIII.shape)
+    print(res_.shape)
+    return res_
+    
+def dvt_var(xs,Data,Kernels,yReal):
+    
+    len_matrix = -np.linalg.inv(np.identity(INPUT_DIM+OUTPUT_DIM)*LEN_SCALE**2)
+    KxsX = Kernels['ker1'].K(xs,Data)
+    KXxs = Kernels['ker1'].K(Data,xs)
+    
+    tmpI = np.dot(len_matrix,(xs - Data).T)
+    tmpIII = np.dot(-len_matrix,(Data - xs).T).T
+    tmpII = np.dot(np.dot(KxsX,np.linalg.inv(Kernels['ker1'].K(Data,Data))),KXxs)
+
+    print('A',len_matrix.shape)
+    print('tmpI',tmpI.shape)
+    print('tmpII',tmpII.shape)
+    print('tmpIII',tmpIII.shape)
+
+    
+    mu_ = dvt_mu(x,xData,Kernels,yReal)
+    res_ = len_matrix - np.dot((tmpI*tmpII),tmpIII) + np.dot(mu_,mu_.T)
+
+    print('res_',res_.shape)
+    return res_
+
     
 #############################################################
+
+INITIAL = 100
 bounds = dict()
 bounds  = {'min': [-10],'max':[10]}
 xData,yData = initvals_(bounds)
 yReal = extractF(xData)
 info(xData,yData,yReal)
+Kernels = ctKernel(OUTPUT_DIM,INPUT_DIM,LEN_SCALE,LEN_SCALE)
+ 
+
+anotherY = mPareto(yReal)
+grid_,dic = samplePareto(anotherY)
+
+x = np.array([[0.4,0.3,0.6]])
+mu_ = (dvt_mu(x,xData,Kernels,yReal))
+print(mu_)
+print(dvt_var(x,xData,Kernels,yReal))
+
+#############################################################
+
+
+
+
+'''
+showme,dic = samplePareto(par)
+
+Kernels = ctKernel(OUTPUT_DIM,INPUT_DIM,LEN_SCALE,LEN_SCALE)
+
+mod1 = trainModel(xData,np.matrix(yReal[:,0]).T,Kernels['ker0'],400)
+mod2 = trainModel(xData,np.matrix(yReal[:,1]).T,Kernels['ker1'],400)
+x = np.array([[0.4,0.3,0.6]])
+[mu_,sigma_] = testModel(mod1,x)
+[mu__,sigma__] = testModel(mod2,x)
+print(mu_,mu__)
+
+
+for val in grid_:
+    if (dic[repr(val)]):
+        plt.plot(val[0,2],val[0,3],'*g',markersize=10)        
+        plt.plot(val[0,0],val[0,1],'*g',markersize=10)  
+    else:
+        plt.plot(val[0,0],val[0,1],'*r',markersize=12)        
+        plt.plot(val[0,2],val[0,3],'*r',markersize=12)     
+
+plt.scatter(anotherY[:,0],anotherY[:,1],color="red",marker="x",s=400)
+plt.savefig('Firstplot.pdf',dpi=200)
+plt.show()
+
+################### GOOD PARTS
+#tested
+par =  np.array([[0.5,3],[1,2],[2,1],[3,0.5],[2,2]])
+grid_,dic = samplePareto(par)
+
+for val in grid_:
+    if (dic[repr(val)]):
+        plt.plot(val[0,0],val[0,1],'*g',markersize=20)        
+        plt.plot(val[0,2],val[0,3],'*g',markersize=20)        
+    else:
+        plt.plot(val[0,2],val[0,3],'*r',markersize=22)        
+
+plt.scatter(par[:,0],par[:,1],color="red",marker="x",s=400)
+plt.savefig('Firstplot.pdf',dpi=200)
+plt.show()
+
+par = np.array([[1,2],[2,1],[3,1],[2,2]])
+
+x = np.array([1.1,5])
+print(ruPareto(x,par))
+
 
 Kernels = ctKernel(2,2,0.1,0.1)
 
@@ -150,10 +278,7 @@ x = np.array([[0.4,0.3,0.6]])
 [mu__,sigma__] = testModel(mod2,x)
 print(mu_," ", sigma_)
 print(mu__," ", sigma__)
-
-
-#############################################################
-'''
+##################
 [mu_per,sig_per] 
 
 x = np.array([[0.4,0.3,0.6]])
