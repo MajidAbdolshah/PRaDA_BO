@@ -118,7 +118,7 @@ def ctKernel(no,dInput,*arg):
     names_ = {}
     for i in range(no):
         text_ = "ker" + str(i)
-        names_[text_] = GPy.kern.RBF(input_dim=dInput,lengthscale=arg[i],ARD=False) 
+        names_[text_] = GPy.kern.RBF(input_dim=dInput,lengthscale=arg[i],ARD=False)
     return names_
 
         
@@ -159,11 +159,11 @@ def ruPareto(x,par):
     
 def dvt_mu(xs,Data,Kernels,yReal):
     
-    len_matrix = -np.linalg.inv(np.identity(INPUT_DIM+OUTPUT_DIM)*LEN_SCALE**2)
+    len_matrix = -np.linalg.pinv(np.identity(INPUT_DIM+OUTPUT_DIM)*LEN_SCALE**2)
     XsT = (Data - xs).T
     tmpI = np.dot(len_matrix,XsT)
     KxsX = Kernels['ker1'].K(xs,Data).T
-    tmpII = np.dot(np.linalg.inv(Kernels['ker1'].K(Data,Data)),np.matrix(yReal[:,0]).T)
+    tmpII = np.dot(np.linalg.pinv(Kernels['ker1'].K(Data,Data)),np.matrix(yReal[:,0]).T)
     tmpIII = np.multiply(KxsX,tmpII)
     res_ = np.dot(tmpI,tmpIII)
     print(tmpI.shape)
@@ -175,10 +175,9 @@ def dvt_mu(xs,Data,Kernels,yReal):
     
 def dvt_var(xs,Data,Kernels,yReal):
     
-    len_matrix = -np.linalg.inv(np.identity(INPUT_DIM+OUTPUT_DIM)*LEN_SCALE**2)
+    len_matrix = -np.linalg.pinv(np.identity(INPUT_DIM+OUTPUT_DIM)*LEN_SCALE**2)
     KxsX = Kernels['ker1'].K(xs,Data)
     KXxs = Kernels['ker1'].K(Data,xs)
-    
     tmpI = np.dot(len_matrix,(xs - Data).T)
     tmpIII = np.dot(-len_matrix,(Data - xs).T).T
     tmpII = np.dot(np.dot(KxsX,np.linalg.inv(Kernels['ker1'].K(Data,Data))),KXxs)
@@ -187,9 +186,8 @@ def dvt_var(xs,Data,Kernels,yReal):
     print('tmpI',tmpI.shape)
     print('tmpII',tmpII.shape)
     print('tmpIII',tmpIII.shape)
-
     
-    mu_ = dvt_mu(x,xData,Kernels,yReal)
+    mu_ = dvt_mu(xs,Data,Kernels,yReal)
     res_ = len_matrix - np.dot((tmpI*tmpII),tmpIII) + np.dot(mu_,mu_.T)
 
     print('res_',res_.shape)
@@ -197,7 +195,6 @@ def dvt_var(xs,Data,Kernels,yReal):
 
     
 #############################################################
-
 INITIAL = 100
 bounds = dict()
 bounds  = {'min': [-10],'max':[10]}
