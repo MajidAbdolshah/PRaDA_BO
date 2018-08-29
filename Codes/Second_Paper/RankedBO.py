@@ -118,7 +118,7 @@ def ctKernel(no,dInput,*arg):
     names_ = {}
     for i in range(no):
         text_ = "ker" + str(i)
-        names_[text_] = GPy.kern.RBF(input_dim=dInput,lengthscale=arg[i],ARD=False)
+        names_[text_] = GPy.kern.RBF(input_dim=dInput,lengthscale=arg[i],ARD=False)+GPy.kern.White(input_dim=dInput)
     return names_
 
         
@@ -166,21 +166,188 @@ def dvt_mu(xs,Data,Kernels,yReal):
     tmpII = np.dot(np.linalg.pinv(Kernels['ker1'].K(Data,Data)),np.matrix(yReal[:,0]).T)
     tmpIII = np.multiply(KxsX,tmpII)
     res_ = np.dot(tmpI,tmpIII)
+    '''
     print(tmpI.shape)
     print(KxsX.shape)
     print(tmpII.shape)
     print(tmpIII.shape)
     print(res_.shape)
+    '''
     return res_
     
-def dvt_var(xs,Data,Kernels,yReal):
+def dvt_var(xs,Data,Kernels):
     
-    len_matrix = -np.linalg.pinv(np.identity(INPUT_DIM+OUTPUT_DIM)*LEN_SCALE**2)
+    sizeD = Data.shape[0]
+    sizeX = xs.shape[1]
+    
+    len_matrix = np.linalg.inv(np.identity(INPUT_DIM+OUTPUT_DIM)*LEN_SCALE**2)
+    #len_matrix = np.linalg.inv(np.identity(OUTPUT_DIM)*LEN_SCALE)
+    KXX_m1 = np.linalg.pinv(Kernels['ker1'].K(Data,Data))
     KxsX = Kernels['ker1'].K(xs,Data)
     KXxs = Kernels['ker1'].K(Data,xs)
+    X_xs = (Data-xs).T
+    
+    sumup_ = np.zeros([sizeX,sizeX])
+        
+    print("----len_matrix-----")
+    print(len_matrix)
+    print("----KXX_m1-----")
+    print(KXX_m1)
+    print("----KxsX-----")
+    print(KxsX)
+    print("-----KXxs----")
+    print(KXxs)
+    print("------X_xs---")
+    print(X_xs)
+
+
+    Alis_ = 0
+    for i in range(0,sizeD):
+        for j in range(0,sizeD):
+            
+            tmpI = np.dot(np.dot(np.matrix(X_xs[:,i]).T,np.matrix(X_xs[:,j])),len_matrix**2)
+            tmp1 = KXX_m1[i,j]*KxsX[0,i]*KxsX[0,j]
+            Alis_ += tmp1*tmpI
+    
+    
+    
+    print(len_matrix + Alis_)       
+            
+            
+            
+            
+
+    
+    #print("Result: ")
+    #print(len_matrix - sumup_)
+ 
+            
+            
+        
+
+    
+    
+    
+
+    
+#############################################################
+INITIAL = 10
+bounds = dict()
+bounds  = {'min': [-10],'max':[10]}
+xData,yData = initvals_(bounds)
+yReal = extractF(xData)
+info(xData,yData,yReal)
+Kernels = ctKernel(OUTPUT_DIM,INPUT_DIM,LEN_SCALE,LEN_SCALE)
+
+
+#anotherY = mPareto(yReal)
+#grid_,dic = samplePareto(anotherY)
+
+x = np.array([[0.4,0.3,0.6]])
+#### FUCK
+
+####
+#mod1 = trainModel(xData,np.matrix(yReal[:,0]).T,Kernels['ker0'],400)
+#mod2 = trainModel(xData,np.matrix(yReal[:,1]).T,Kernels['ker1'],400)
+#mod1 = trainModel(xData,yData,Kernels['ker0'],400)
+#mod2 = trainModel(xData,yData,Kernels['ker1'],400)
+
+
+
+
+
+
+#mu_ = (dvt_mu(x,xData,Kernels,yReal))
+#print(mu_)
+
+#### FUCK
+####
+####
+#xData = np.array([[-1,-1],[2,7]])
+#x = np.array([[2,2]])
+print(dvt_var(x,xData,Kernels))
+
+
+'''
+print('GP: ')
+print(mod1.predict(x))
+print('Gradient: ')
+print(mod1.predictive_gradients(x))
+
+mu_ = (dvt_mu(x,xData,Kernels,yReal))
+print(mu_)
+print(dvt_var(x,xData,Kernels,yReal))
+
+
+print('GP: ')
+print(mod1.predict(x))
+print('Gradient: ')
+print(mod1.predictive_gradients(x))
+
+print('GP: ')
+print(mod2.predict(x))
+print('Gradient: ')
+print(mod2.predictive_gradients(x))
+
+
+mu_ = (dvt_mu(x,xData,Kernels,yReal))
+print(mu_)
+print(dvt_var(x,xData,Kernels,yReal))
+
+gp_model = GPy.models.GPRegression(X, Y, mean_function=mf)
+gp_model.optimize_restarts()
+print(gp_model)
+print(gp_model.predict(x_test)[0])
+print(gp_model.predictive_gradients(x_test)[0])
+'''
+#############################################################
+'''
+    tmpI = np.dot(len_matrix,np.matrix(X_xs[:,0]).T)
+    tmpII = np.dot(np.matrix(X_xs[:,0]),len_matrix)
+    tmpIII = np.dot(tmpI,tmpII)
+    print('+++++++++')
+    print(tmpI.shape)
+    print(tmpII.shape)
+    print(tmpIII.shape)
+    #print(tmpI.shape)
+    #print(tmpII.shape)
+    #print('+++++++++')
+    #print(np.matrix(X_xs[:,0]).shape)
+    
+    
+def dvt_var(xs,Data,Kernels,yReal):
+
+    len_matrix = -np.linalg.pinv(np.identity(INPUT_DIM+OUTPUT_DIM)*LEN_SCALE**2)
+    
+    tmpI = np.dot(-len_matrix,np.identity(INPUT_DIM+OUTPUT_DIM))*Kernels['ker1'].K(xs,xs)
+    
+    
+    KXX = Kernels['ker1'].K(Data,Data)
+    tmpII_1 = np.array(Kernels['ker1'].K(Data,xs))
+    tmpII_2 = np.array((Data - xs))
+    YYY = (tmpII_1 * tmpII_2)
+    tmpII_3 = np.dot(YYY,len_matrix)
+    print('NEWWWWWWWWWWWW: ')
+    print(tmpII_1.shape)
+    print(tmpII_2.shape)
+    print(YYY.shape)
+    print(tmpII_3.shape)
+    
+    res_ = tmpI - np.dot(np.dot(tmpII_3.T,np.linalg.inv(KXX)),tmpII_3)
+    
+
+    KxsX = Kernels['ker1'].K(xs,Data)
+    KXxs = Kernels['ker1'].K(Data,xs)
+    KXX = Kernels['ker1'].K(Data,Data)
+    
+    print('Shapes: ')
+    print(KxsX.shape)
+    print(KXxs.shape)
+    print(KXX.shape)
+    
     tmpI = np.dot(len_matrix,(xs - Data).T)
     tmpIII = np.dot(-len_matrix,(Data - xs).T).T
-    tmpII = np.dot(np.dot(KxsX,np.linalg.inv(Kernels['ker1'].K(Data,Data))),KXxs)
+    tmpII = np.dot(np.dot(KxsX,np.linalg.inv(KXX)),KXxs)
 
     print('A',len_matrix.shape)
     print('tmpI',tmpI.shape)
@@ -189,148 +356,8 @@ def dvt_var(xs,Data,Kernels,yReal):
     
     mu_ = dvt_mu(xs,Data,Kernels,yReal)
     res_ = len_matrix - np.dot((tmpI*tmpII),tmpIII) + np.dot(mu_,mu_.T)
-
-    print('res_',res_.shape)
-    return res_
-
     
-#############################################################
-INITIAL = 100
-bounds = dict()
-bounds  = {'min': [-10],'max':[10]}
-xData,yData = initvals_(bounds)
-yReal = extractF(xData)
-info(xData,yData,yReal)
-Kernels = ctKernel(OUTPUT_DIM,INPUT_DIM,LEN_SCALE,LEN_SCALE)
- 
 
-anotherY = mPareto(yReal)
-grid_,dic = samplePareto(anotherY)
-
-x = np.array([[0.4,0.3,0.6]])
-mu_ = (dvt_mu(x,xData,Kernels,yReal))
-print(mu_)
-print(dvt_var(x,xData,Kernels,yReal))
-
-#############################################################
-
-
-
-
-'''
-showme,dic = samplePareto(par)
-
-Kernels = ctKernel(OUTPUT_DIM,INPUT_DIM,LEN_SCALE,LEN_SCALE)
-
-mod1 = trainModel(xData,np.matrix(yReal[:,0]).T,Kernels['ker0'],400)
-mod2 = trainModel(xData,np.matrix(yReal[:,1]).T,Kernels['ker1'],400)
-x = np.array([[0.4,0.3,0.6]])
-[mu_,sigma_] = testModel(mod1,x)
-[mu__,sigma__] = testModel(mod2,x)
-print(mu_,mu__)
-
-
-for val in grid_:
-    if (dic[repr(val)]):
-        plt.plot(val[0,2],val[0,3],'*g',markersize=10)        
-        plt.plot(val[0,0],val[0,1],'*g',markersize=10)  
-    else:
-        plt.plot(val[0,0],val[0,1],'*r',markersize=12)        
-        plt.plot(val[0,2],val[0,3],'*r',markersize=12)     
-
-plt.scatter(anotherY[:,0],anotherY[:,1],color="red",marker="x",s=400)
-plt.savefig('Firstplot.pdf',dpi=200)
-plt.show()
-
-################### GOOD PARTS
-#tested
-par =  np.array([[0.5,3],[1,2],[2,1],[3,0.5],[2,2]])
-grid_,dic = samplePareto(par)
-
-for val in grid_:
-    if (dic[repr(val)]):
-        plt.plot(val[0,0],val[0,1],'*g',markersize=20)        
-        plt.plot(val[0,2],val[0,3],'*g',markersize=20)        
-    else:
-        plt.plot(val[0,2],val[0,3],'*r',markersize=22)        
-
-plt.scatter(par[:,0],par[:,1],color="red",marker="x",s=400)
-plt.savefig('Firstplot.pdf',dpi=200)
-plt.show()
-
-par = np.array([[1,2],[2,1],[3,1],[2,2]])
-
-x = np.array([1.1,5])
-print(ruPareto(x,par))
-
-
-Kernels = ctKernel(2,2,0.1,0.1)
-
-mod1 = trainModel(xData,np.matrix(yReal[:,0]).T,Kernels['ker0'],400)
-mod2 = trainModel(xData,np.matrix(yReal[:,1]).T,Kernels['ker1'],400)
-
-
-x = np.array([[0.4,0.3,0.6]])
-[mu_,sigma_] = testModel(mod1,x)
-[mu__,sigma__] = testModel(mod2,x)
-print(mu_," ", sigma_)
-print(mu__," ", sigma__)
-##################
-[mu_per,sig_per] 
-
-x = np.array([[0.4,0.3,0.6]])
-[mu_per,sig_per] = mod1.predict(x,full_cov=1)
-print("\nResults: \n")
-print(mu_per[0,0]," <--> ",sig_per[0,0])
-
-
-x = np.array([[0.4,0.3,0.6]])
-[mu_per,sig_per] = mod2.predict(x,full_cov=1)
-print("\nResults: \n")
-print(mu_per[0,0]," <--> ",sig_per[0,0])
-
-mod1 = GPy.models.GPRegression(xData,np.matrix(yReal[:,0]).T,Kernels['ker0'])
-mod1.optimize(max_f_eval = 400)
-
-mod2 = GPy.models.GPRegression(xData,np.matrix(yReal[:,1]).T,Kernels['ker1'])
-mod2.optimize(max_f_eval = 400)
-
-
-X = np.array([[1,2,3],[2,2,3]])
-
-X = np.array([[1,2,3],[2,3,4],[5,6,7]])
-Y = np.array([[1,2],[2,2.02],[2,1.5]])
-
-data = DataComplex(X,Y,)
-print(function(X))
-print(data.data)
-print(data.outputs)
-data.newData(np.array([8,9,9]))
-data.newOut(np.array([3,4]))
-print(data.data)
-print(data.outputs)
-
-print(function(np.array([1,3,4])))
-
-X = np.array([1,2,3])
-Y = np.array([[1,2],[2,2.02],[2,1.5]])
-R = np.array([[1,2],[2,2.02],[2,1.5]])
-data = DataComplex(X,Y,R)
-print(data.data)
-print(data.outputs)
-print(data.rankers)
-data.newData(4)
-data.newOut(np.array([3,4]))
-data.newRank(np.array([0.1,0.2]))
-print(data.data)
-print(data.outputs)
-print(data.rankers)
-plt.plot(X[:,0],X[:,1],'ob')
-XX = mPareto(X)
-plt.plot(XX[:,0],XX[:,1],'*r',markersize=13)
-plt.show()
-
-datapointer = DataComplex(X,np.array([X[-1]]))
-datapointer.newData(X[-1])
-datapointer.newRank(X[-1])
+    print('res_______>',res_)
+    return res_
 '''
