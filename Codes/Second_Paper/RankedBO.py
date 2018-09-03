@@ -24,7 +24,7 @@ INITIAL = 5
 OUTPUT_DIM = 2
 MAX_ITER = 200
 EPSILON = 10**-6
-REF = [2,2]
+REF = [10,10]
 LEN_SCALE = 0.1
 
 class DataComplex:
@@ -136,13 +136,15 @@ def samplePareto(par):
     uPartsX = np.sort(par[:,0])
     uMapX = np.concatenate([[0],uPartsX,[REF[0]]])
     uPartsY = np.sort(par[:,1])
-    uMapY = np.concatenate([[0],uPartsY,[REF[0]]])
+    uMapY = np.concatenate([[0],uPartsY,[REF[1]]])
+    
     cells_ = np.empty((0,OUTPUT_DIM*2))
     for i in range(0,len(uMapX)-1):
         for j in range(0,len(uMapY)-1):
             
             pos_st = np.array([uMapX[i],uMapY[j]])
             pos_en = np.array([uMapX[i+1],uMapY[j+1]])
+            
             pos_ = np.matrix(np.append(pos_st,pos_en,axis=0))
             mid_point = np.array([(pos_[0,0]+pos_[0,2])/2,
                                   (pos_[0,1]+pos_[0,3])/2])
@@ -189,6 +191,7 @@ def dvt_var(xs,Data,Kernels):
     
     sumup_ = np.zeros([sizeX,sizeX])
         
+    '''
     print("----len_matrix-----")
     print(len_matrix)
     print("----KXX_m1-----")
@@ -199,7 +202,7 @@ def dvt_var(xs,Data,Kernels):
     print(KXxs)
     print("------X_xs---")
     print(X_xs)
-
+    '''
 
     Alis_ = 0
     for i in range(0,sizeD):
@@ -211,19 +214,56 @@ def dvt_var(xs,Data,Kernels):
     
     
     
-    print(len_matrix + Alis_)       
+    return (len_matrix + Alis_)       
             
-            
-            
-            
+         
 
+
+def cell_point_dom(points,cell):
     
-    #print("Result: ")
-    #print(len_matrix - sumup_)
- 
+    #print(cell)
+    #print()
+    #print(points)
+    res_ = []
+    for i in range(0,len(points)):
+        if ((cell[0,0] >= points[i,0]) and (cell[0,1] >= points[i,1])):
+            res_.append(i)
+    return res_
+            
+    
+
+def Expected_HVI(points,weights):
+    
+    grid_,pMap_ = samplePareto(points)
+    wPoints = {}
+    for val in grid_:
+        if (~pMap_[repr(val)]):
+            wPoints[repr(val)] = cell_point_dom(points,val)
             
             
+    print(wPoints)    
+    
+    
+    
+    
+    '''
+    plt.plot(points[:,0],points[:,1],'.b')
+    grid_,dic = samplePareto(points)
+    for val in grid_:
+        print(val)
+        mean_ = np.array([(val[0,0]+val[0,2])/2,(val[0,1]+val[0,3])/2])
+        if (dic[repr(val)]):
+            print("Hi")
+            plt.plot(mean_[0],mean_[1],'*g')
+        print(mean_)
         
+    plt.show()
+    print(grid_.shape,dic)
+    '''
+    
+    
+    
+    
 
     
     
@@ -231,7 +271,7 @@ def dvt_var(xs,Data,Kernels):
 
     
 #############################################################
-INITIAL = 10
+INITIAL = 5
 bounds = dict()
 bounds  = {'min': [-10],'max':[10]}
 xData,yData = initvals_(bounds)
@@ -240,11 +280,14 @@ info(xData,yData,yReal)
 Kernels = ctKernel(OUTPUT_DIM,INPUT_DIM,LEN_SCALE,LEN_SCALE)
 
 
-#anotherY = mPareto(yReal)
-#grid_,dic = samplePareto(anotherY)
+anotherY = mPareto(yReal)
+#print(anotherY)
+grid_,dic = samplePareto(anotherY)
+
+
 
 x = np.array([[0.4,0.3,0.6]])
-#### FUCK
+
 
 ####
 #mod1 = trainModel(xData,np.matrix(yReal[:,0]).T,Kernels['ker0'],400)
@@ -253,111 +296,13 @@ x = np.array([[0.4,0.3,0.6]])
 #mod2 = trainModel(xData,yData,Kernels['ker1'],400)
 
 
-
-
-
+sWeights = np.random.rand(1,anotherY.shape[0])
+Expected_HVI(anotherY,sWeights)
+#print(cell_point_dom(anotherY,np.array([[3,3,4,4]])))
+#print("**********")
+#print(grid_)
 
 #mu_ = (dvt_mu(x,xData,Kernels,yReal))
 #print(mu_)
+#print(dvt_var(x,xData,Kernels))
 
-#### FUCK
-####
-####
-#xData = np.array([[-1,-1],[2,7]])
-#x = np.array([[2,2]])
-print(dvt_var(x,xData,Kernels))
-
-
-'''
-print('GP: ')
-print(mod1.predict(x))
-print('Gradient: ')
-print(mod1.predictive_gradients(x))
-
-mu_ = (dvt_mu(x,xData,Kernels,yReal))
-print(mu_)
-print(dvt_var(x,xData,Kernels,yReal))
-
-
-print('GP: ')
-print(mod1.predict(x))
-print('Gradient: ')
-print(mod1.predictive_gradients(x))
-
-print('GP: ')
-print(mod2.predict(x))
-print('Gradient: ')
-print(mod2.predictive_gradients(x))
-
-
-mu_ = (dvt_mu(x,xData,Kernels,yReal))
-print(mu_)
-print(dvt_var(x,xData,Kernels,yReal))
-
-gp_model = GPy.models.GPRegression(X, Y, mean_function=mf)
-gp_model.optimize_restarts()
-print(gp_model)
-print(gp_model.predict(x_test)[0])
-print(gp_model.predictive_gradients(x_test)[0])
-'''
-#############################################################
-'''
-    tmpI = np.dot(len_matrix,np.matrix(X_xs[:,0]).T)
-    tmpII = np.dot(np.matrix(X_xs[:,0]),len_matrix)
-    tmpIII = np.dot(tmpI,tmpII)
-    print('+++++++++')
-    print(tmpI.shape)
-    print(tmpII.shape)
-    print(tmpIII.shape)
-    #print(tmpI.shape)
-    #print(tmpII.shape)
-    #print('+++++++++')
-    #print(np.matrix(X_xs[:,0]).shape)
-    
-    
-def dvt_var(xs,Data,Kernels,yReal):
-
-    len_matrix = -np.linalg.pinv(np.identity(INPUT_DIM+OUTPUT_DIM)*LEN_SCALE**2)
-    
-    tmpI = np.dot(-len_matrix,np.identity(INPUT_DIM+OUTPUT_DIM))*Kernels['ker1'].K(xs,xs)
-    
-    
-    KXX = Kernels['ker1'].K(Data,Data)
-    tmpII_1 = np.array(Kernels['ker1'].K(Data,xs))
-    tmpII_2 = np.array((Data - xs))
-    YYY = (tmpII_1 * tmpII_2)
-    tmpII_3 = np.dot(YYY,len_matrix)
-    print('NEWWWWWWWWWWWW: ')
-    print(tmpII_1.shape)
-    print(tmpII_2.shape)
-    print(YYY.shape)
-    print(tmpII_3.shape)
-    
-    res_ = tmpI - np.dot(np.dot(tmpII_3.T,np.linalg.inv(KXX)),tmpII_3)
-    
-
-    KxsX = Kernels['ker1'].K(xs,Data)
-    KXxs = Kernels['ker1'].K(Data,xs)
-    KXX = Kernels['ker1'].K(Data,Data)
-    
-    print('Shapes: ')
-    print(KxsX.shape)
-    print(KXxs.shape)
-    print(KXX.shape)
-    
-    tmpI = np.dot(len_matrix,(xs - Data).T)
-    tmpIII = np.dot(-len_matrix,(Data - xs).T).T
-    tmpII = np.dot(np.dot(KxsX,np.linalg.inv(KXX)),KXxs)
-
-    print('A',len_matrix.shape)
-    print('tmpI',tmpI.shape)
-    print('tmpII',tmpII.shape)
-    print('tmpIII',tmpIII.shape)
-    
-    mu_ = dvt_mu(xs,Data,Kernels,yReal)
-    res_ = len_matrix - np.dot((tmpI*tmpII),tmpIII) + np.dot(mu_,mu_.T)
-    
-
-    print('res_______>',res_)
-    return res_
-'''
