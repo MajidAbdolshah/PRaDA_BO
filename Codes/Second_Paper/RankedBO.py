@@ -212,66 +212,53 @@ def dvt_var(xs,Data,Kernels):
             tmp1 = KXX_m1[i,j]*KxsX[0,i]*KxsX[0,j]
             Alis_ += tmp1*tmpI
     
-    
-    
     return (len_matrix + Alis_)       
             
-         
-
+def Helpme_(points):
+    grid_,dic = samplePareto(points)
+    for val in grid_:
+        if np.invert(dic[repr(val)]):
+            plt.plot(val[0,2],val[0,3],'*r',markersize=20)
+    plt.plot(anotherY[:,0],anotherY[:,1],'*b',markersize=15)
+    plt.show()        
 
 def cell_point_dom(points,cell):
-    
-    #print(cell)
-    #print()
-    #print(points)
+
     res_ = []
     for i in range(0,len(points)):
         if ((cell[0,0] >= points[i,0]) and (cell[0,1] >= points[i,1])):
             res_.append(i)
     return res_
             
-    
-
 def Expected_HVI(points,weights):
     
     grid_,pMap_ = samplePareto(points)
+    fSum = 0
     wPoints = {}
+    Weightsdic = {}
     for val in grid_:
-        if (~pMap_[repr(val)]):
+        if np.invert(pMap_[repr(val)]):
             wPoints[repr(val)] = cell_point_dom(points,val)
-            
-            
-    print(wPoints)    
-    
-    
-    
-    
-    '''
-    plt.plot(points[:,0],points[:,1],'.b')
-    grid_,dic = samplePareto(points)
-    for val in grid_:
-        print(val)
-        mean_ = np.array([(val[0,0]+val[0,2])/2,(val[0,1]+val[0,3])/2])
-        if (dic[repr(val)]):
-            print("Hi")
-            plt.plot(mean_[0],mean_[1],'*g')
-        print(mean_)
-        
-    plt.show()
-    print(grid_.shape,dic)
-    '''
-    
-    
-    
+            if (len(wPoints[repr(val)])):
+                exWeights = 1 - np.prod(np.take(weights,wPoints[repr(val)]))
+            else:
+                exWeights = 1
+            #print(exWeights)
+            fSum += exWeights*(val[0,3] - val[0,1])*(val[0,2] - val[0,0])
+            Weightsdic[repr(val)] = exWeights       
+    #print(wPoints)
+    return fSum,Weightsdic
     
 
-    
-    
+   
     
 
-    
 #############################################################
-INITIAL = 5
+#############################################################
+#############################################################
+#############################################################
+#############################################################
+INITIAL = 20
 bounds = dict()
 bounds  = {'min': [-10],'max':[10]}
 xData,yData = initvals_(bounds)
@@ -281,11 +268,14 @@ Kernels = ctKernel(OUTPUT_DIM,INPUT_DIM,LEN_SCALE,LEN_SCALE)
 
 
 anotherY = mPareto(yReal)
-#print(anotherY)
+'''
+print('****')
+print(anotherY)
+print('****')
+'''
 grid_,dic = samplePareto(anotherY)
 
-
-
+Helpme_(anotherY)
 x = np.array([[0.4,0.3,0.6]])
 
 
@@ -297,12 +287,15 @@ x = np.array([[0.4,0.3,0.6]])
 
 
 sWeights = np.random.rand(1,anotherY.shape[0])
-Expected_HVI(anotherY,sWeights)
+#print(sWeights)
+EHVI,WI = Expected_HVI(anotherY,sWeights)
+print("Expected Hypervolume Improvement: {}".format(EHVI))
+#print(WI)
 #print(cell_point_dom(anotherY,np.array([[3,3,4,4]])))
 #print("**********")
 #print(grid_)
 
-#mu_ = (dvt_mu(x,xData,Kernels,yReal))
-#print(mu_)
-#print(dvt_var(x,xData,Kernels))
+mu_ = (dvt_mu(x,xData,Kernels,yReal))
+print(mu_)
+print(dvt_var(x,xData,Kernels))
 
