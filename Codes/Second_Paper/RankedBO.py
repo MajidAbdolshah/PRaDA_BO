@@ -1,5 +1,7 @@
 from __future__ import division
 import GPy
+from scipy.stats import multivariate_normal
+from scipy.stats import mvn
 import GPyOpt
 import numpy as np 
 import os.path
@@ -17,6 +19,7 @@ from scipy.spatial import ConvexHull
 from tqdm import *
 import time
 from sklearn.preprocessing import scale
+from scipy.stats import multivariate_normal
 import random
 
 INPUT_DIM = 1
@@ -26,9 +29,10 @@ MAX_ITER = 200
 EPSILON = 10**-6
 REF = [10,10]
 LEN_SCALE = 0.1
+EST_RANGE = 100
 
 class DataComplex:
-    data = np.empty((0,INPUT_DIM+OUTPUT_DIM))
+    data = np.empty((0,INPUT_DIM))
     outputs = np.empty((0,OUTPUT_DIM))
     def __init__(self, iData,iOut):
         self.data = iData
@@ -73,41 +77,29 @@ def f(x,fNum):
     return options[fNum](x)
     
     
-def function(XpR):
-    fVal = []
-    for val in XpR:
-        x = val[0:INPUT_DIM]
-        r = val[INPUT_DIM:INPUT_DIM+OUTPUT_DIM]
-        fSum = 0
-        for i in range(0,OUTPUT_DIM):
-            fSum = fSum + (r[i]*f(x,i))
-        fVal.append(fSum)
-    return np.array(fVal)
+def function(Xp):
+    tmp_1 = f(Xp,0)
+    tmp_2 = f(Xp,1)
+    res_ = np.hstack((tmp_1,tmp_2))
+    return res_
 
+    
+    
+    
+
+## CheckedOK
 def initvals_(bounds):
     print("Initialing Data As:\n")
-    gData = np.zeros([INITIAL,INPUT_DIM+OUTPUT_DIM])
+    gData = np.zeros([INITIAL,INPUT_DIM])
     for i in range(0,INITIAL):
         for j in range(0,INPUT_DIM):
             gData[i,j] = random.uniform(bounds['min'][0], bounds['max'][0])
-        ranktmp_ = []
-        for k in range(INPUT_DIM,INPUT_DIM+OUTPUT_DIM):
-            ranktmp_.append(random.uniform(0,1))
-        ranktmp_.sort()
-        for k in range(INPUT_DIM,INPUT_DIM+OUTPUT_DIM):
-            gData[i,k] = ranktmp_[k-INPUT_DIM]
-        
     gDataY = function(gData)
-    
     return gData,gDataY
     
-def extractF(x):
-    yOut = np.zeros([len(x),OUTPUT_DIM])
-    print(yOut.shape)
-    for i in range(yOut.shape[0]):
-        for j in range(yOut.shape[1]):
-            yOut[i,j] = f(x[i,0:INPUT_DIM],j)
-    return yOut
+    
+        
+    
     
 def info(*arg):
     for i in range(len(arg)):
@@ -126,9 +118,10 @@ def trainModel(X,Y,Ker,eVal):
     model_ = GPy.models.GPRegression(X,Y,Ker)
     model_.optimize(max_f_eval = eVal)    
     return model_
- 
+
 def testModel(model_,x):
     [mu_per,sig_per] = model_.predict(x,full_cov=1)
+    print(mu_per,sig_per)
     return mu_per[0,0],sig_per[0,0]
     
 def samplePareto(par):
@@ -161,20 +154,20 @@ def ruPareto(x,par):
     
 def dvt_mu(xs,Data,Kernels,yReal):
     
-    len_matrix = -np.linalg.pinv(np.identity(INPUT_DIM+OUTPUT_DIM)*LEN_SCALE**2)
+    len_matrix = -np.linalg.pinv(np.identity(INPUT_DIM)*LEN_SCALE**2)
     XsT = (Data - xs).T
     tmpI = np.dot(len_matrix,XsT)
     KxsX = Kernels['ker1'].K(xs,Data).T
     tmpII = np.dot(np.linalg.pinv(Kernels['ker1'].K(Data,Data)),np.matrix(yReal[:,0]).T)
     tmpIII = np.multiply(KxsX,tmpII)
     res_ = np.dot(tmpI,tmpIII)
-    '''
+    
     print(tmpI.shape)
     print(KxsX.shape)
     print(tmpII.shape)
     print(tmpIII.shape)
     print(res_.shape)
-    '''
+
     return res_
     
 def dvt_var(xs,Data,Kernels):
@@ -182,7 +175,7 @@ def dvt_var(xs,Data,Kernels):
     sizeD = Data.shape[0]
     sizeX = xs.shape[1]
     
-    len_matrix = np.linalg.inv(np.identity(INPUT_DIM+OUTPUT_DIM)*LEN_SCALE**2)
+    len_matrix = np.linalg.inv(np.identity(INPUT_DIM)*LEN_SCALE**2)
     #len_matrix = np.linalg.inv(np.identity(OUTPUT_DIM)*LEN_SCALE)
     KXX_m1 = np.linalg.pinv(Kernels['ker1'].K(Data,Data))
     KxsX = Kernels['ker1'].K(xs,Data)
@@ -190,19 +183,7 @@ def dvt_var(xs,Data,Kernels):
     X_xs = (Data-xs).T
     
     sumup_ = np.zeros([sizeX,sizeX])
-        
-    '''
-    print("----len_matrix-----")
-    print(len_matrix)
-    print("----KXX_m1-----")
-    print(KXX_m1)
-    print("----KxsX-----")
-    print(KxsX)
-    print("-----KXxs----")
-    print(KXxs)
-    print("------X_xs---")
-    print(X_xs)
-    '''
+
 
     Alis_ = 0
     for i in range(0,sizeD):
@@ -243,14 +224,27 @@ def Expected_HVI(points,weights):
                 exWeights = 1 - np.prod(np.take(weights,wPoints[repr(val)]))
             else:
                 exWeights = 1
-            #print(exWeights)
+            #print(exWeights)MultiplyB
+            
             fSum += exWeights*(val[0,3] - val[0,1])*(val[0,2] - val[0,0])
             Weightsdic[repr(val)] = exWeights       
     #print(wPoints)
     return fSum,Weightsdic
     
 
-   
+def findWeight(model,dim_):
+    cols_ = 10
+    start_ = 0
+    end_ = EST_RANGE
+    sum_up = 0
+    
+    for i in range(1,end_):
+        tmp_1 = np.arange(start_,i,i/cols_)
+        tmp_2 = np.empty(cols_)
+        tmp_2.fill(i)
+        points_ = np.array(list(zip(tmp_1,tmp_2)))
+        print(points_)
+        #print(mvn.pdf(points_))
     
 
 #############################################################
@@ -258,44 +252,43 @@ def Expected_HVI(points,weights):
 #############################################################
 #############################################################
 #############################################################
-INITIAL = 20
+
+INITIAL = 60
 bounds = dict()
 bounds  = {'min': [-10],'max':[10]}
 xData,yData = initvals_(bounds)
-yReal = extractF(xData)
-info(xData,yData,yReal)
+info(xData,yData)
 Kernels = ctKernel(OUTPUT_DIM,INPUT_DIM,LEN_SCALE,LEN_SCALE)
-
-
-anotherY = mPareto(yReal)
-'''
-print('****')
-print(anotherY)
-print('****')
-'''
+anotherY = mPareto(yData)
 grid_,dic = samplePareto(anotherY)
-
 Helpme_(anotherY)
+x = np.array([[0.4]])
+
+mod1 = trainModel(xData,np.matrix(yData[:,0]).T,Kernels['ker0'],400)
+mod2 = trainModel(xData,np.matrix(yData[:,1]).T,Kernels['ker1'],400)
+[mu_,sigma_] = testModel(mod1,x)
+[mu__,sigma__] = testModel(mod2,x)
+
+print(dvt_mu(x,xData,Kernels,yData))
+print(dvt_var(x,xData,Kernels))
+
+'''
+
 x = np.array([[0.4,0.3,0.6]])
 
 
-####
-#mod1 = trainModel(xData,np.matrix(yReal[:,0]).T,Kernels['ker0'],400)
-#mod2 = trainModel(xData,np.matrix(yReal[:,1]).T,Kernels['ker1'],400)
-#mod1 = trainModel(xData,yData,Kernels['ker0'],400)
-#mod2 = trainModel(xData,yData,Kernels['ker1'],400)
-
-
 sWeights = np.random.rand(1,anotherY.shape[0])
-#print(sWeights)
 EHVI,WI = Expected_HVI(anotherY,sWeights)
 print("Expected Hypervolume Improvement: {}".format(EHVI))
-#print(WI)
-#print(cell_point_dom(anotherY,np.array([[3,3,4,4]])))
-#print("**********")
-#print(grid_)
 
-mu_ = (dvt_mu(x,xData,Kernels,yReal))
+mu_ = np.array(dvt_mu(x,xData,Kernels,yReal)).reshape(3,)
+cov_ = dvt_var(x,xData,Kernels)
 print(mu_)
-print(dvt_var(x,xData,Kernels))
+print(cov_)
 
+
+mvn = multivariate_normal(mu_,cov_) #create a multivariate Gaussian object with specified mean and covariance matrix
+p = findWeight(mvn,2)
+print(p)
+#evaluate the probability density at x
+'''
