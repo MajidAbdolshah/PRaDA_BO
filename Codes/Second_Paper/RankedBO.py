@@ -1,4 +1,5 @@
 from __future__ import division
+from copy import deepcopy
 import GPy
 from scipy.stats import mvn
 import GPyOpt
@@ -122,8 +123,9 @@ def function(Xp):
     res_ = np.hstack((tmp_1,tmp_2))
     return res_
 
-def initvals_(bounds):
-    print_fancy('Initializing Data',0.1)
+def initvals_(bounds,INITIAL):
+    str_ = "Initializing " + str(INITIAL) + " Data"
+    print_fancy(str_,0.1)
     gData = np.zeros([INITIAL,INPUT_DIM])
     for i in range(0,INITIAL):
         for j in range(0,INPUT_DIM):
@@ -155,7 +157,6 @@ def trainModel(X,Y,Ker,eVal):
 
 def testModel(model_,x):
     [mu_per,sig_per] = model_.predict(x,full_cov=1)
-    print(mu_per,sig_per)
     return mu_per[0,0],sig_per[0,0]
     
 def samplePareto(par):
@@ -166,6 +167,7 @@ def samplePareto(par):
     uMapY = np.concatenate([[0],uPartsY,[REF[1]]])
     
     cells_ = np.empty((0,OUTPUT_DIM*2))
+    Jparet_ = np.empty((0,OUTPUT_DIM*2))
     for i in range(0,len(uMapX)-1):
         for j in range(0,len(uMapY)-1):
             
@@ -177,7 +179,10 @@ def samplePareto(par):
                                   (pos_[0,1]+pos_[0,3])/2])
             cells_ = np.vstack([cells_,pos_])
             infoDic[repr(pos_)] = ruPareto(mid_point,par)
-    return cells_,infoDic
+            if ruPareto(mid_point,par):
+                Jparet_ = np.vstack([Jparet_,pos_])
+
+    return cells_,Jparet_,infoDic
             
     
 def ruPareto(x,par):
@@ -217,7 +222,7 @@ def dvt_var(xs,Data,Kernels,Ker_):
     return (len_matrix + Alis_)       
             
 def Helpme_(points):
-    grid_,dic = samplePareto(points)
+    grid_,J,dic = samplePareto(points)
     for val in grid_:
         if np.invert(dic[repr(val)]):
             plt.plot(val[0,2],val[0,3],'*r',markersize=15)
@@ -232,9 +237,9 @@ def cell_point_dom(points,cell):
     return res_
             
 def Expected_HVI(points,weights):
-    grid_,pMap_ = samplePareto(points)
-    fSum = 0
-    fSum2 = 0
+    grid_,J,pMap_ = samplePareto(points)
+    w_area = 0
+    j_area = 0
     wPoints = {}
     Weightsdic = {}
     for val in grid_:
@@ -244,44 +249,38 @@ def Expected_HVI(points,weights):
                 exWeights = 1 - np.prod(np.take(1-weights,wPoints[repr(val)]))
             else:
                 exWeights = 1
-            
-            WW = exWeights*(val[0,3] - val[0,1])*(val[0,2] - val[0,0])
-            fSum += WW
-            fSum2 += (val[0,3] - val[0,1])*(val[0,2] - val[0,0])
+            area_ = (val[0,3] - val[0,1])*(val[0,2] - val[0,0])
+            w_area += exWeights*area_
+            j_area += area_
             Weightsdic[repr(val)] = exWeights     
-            plt.text((val[0,0]+val[0,2])/2, (val[0,1]+val[0,3])/2,str(np.round(exWeights,3)),color="blue",rotation=45,size=10) 
-            plt.plot([val[0,0],val[0,2]],[val[0,1],val[0,3]], '--ok')
-    #print(wPoints)
-    plt.ylabel('f2')
-    plt.xlabel('f1')
-    string_ = "HV: " + str(fSum2) + " & WHI: " + str(fSum)
-    plt.title(string_)
-    plt.grid(True)
-    return fSum,fSum2,Weightsdic
+    return w_area
     
-
-def findWeight(Mu,Sigma,deepness,breadth):
+def createPoints(deepness,breadth):
     points_ = {}
-    mvnMu = np.array([Mu[0][0,0], Mu[1][0,0]])
-    mvnSigma = np.array([[Sigma[0][0,0],0],[0,Sigma[1][0,0]]])
-    Rotationdict = createRot()
-    sumProb = 0
-    log = []
-
-    for i in range(1,deepness):
+    for i in range(1,deepness+1):
         temp_x = np.arange(0,i/5,i/(breadth*5))
         temp_y = np.zeros(temp_x.shape)+i
         temp_merge = np.vstack((temp_x,temp_y))
         points_[i] = temp_merge
 
+    for key in points_:
+        if key!=1:
+            points_[1] = np.hstack((points_[1],points_[key]))
+    return points_[1].T
+
+def findWeight(Mu,Sigma,deepness,breadth):
+    mvnMu = np.array([Mu[0][0,0], Mu[1][0,0]])
+    mvnSigma = np.array([[Sigma[0][0,0],0],[0,Sigma[1][0,0]]])
+    Rotationdict = createRot()
+    sumProb = 0
+    log = []
+    points_ = createPoints(deepness,breadth)
+    spoints_ = points_.shape[1]
     for key in Rotationdict:
         mvnMuRnine = np.dot(Rotationdict[key],mvnMu)
         mvnSigmaRnine = np.dot(Rotationdict[key].T,np.dot(mvnSigma,Rotationdict[key]))
-        for key_points in points_:
-            for j in range(breadth):
-                temp_check = points_[key_points][:,j]
-                sumProb += multivariate_normal.pdf(temp_check,mvnMuRnine,mvnSigmaRnine)
-                log.append(sumProb)
+        sumProb += np.sum(multivariate_normal.pdf(points_,mvnMuRnine,mvnSigmaRnine))
+        log.append(sumProb)
     return sumProb/(deepness*breadth)
 
 
@@ -310,65 +309,188 @@ def findIntegral(Mu,Sigma):
         print(p1)
         sumProb += p1
 
-    print(sumProb)
     return sumProb
 
 def plot_me(yPareto,Probs):
-    grid_,dic = samplePareto(yPareto)
+    grid_,J,dic = samplePareto(yPareto)
     for val in grid_:
+        '''
         if dic[repr(val)]:
             plt.plot(val[0,2],val[0,3],'or',marker='.',markersize=14)
         else:
             plt.plot(val[0,2],val[0,3],'og',marker='.',markersize=14)   
+        '''
     for i in range((yPareto.shape[0])):
         plt.plot(yPareto[i,0],yPareto[i,1],'ob',marker='*',markersize=12)
+        plt.text(yPareto[i,0]-0.5,yPareto[i,1]-0.5,np.round(Probs[i],5),size=14)
     plt.show()
 
+def Derivatives(x,xPareto,dataset,Kernels):
+    Mu = {}
+    Sigma = {}
+    Mu[0] = (dvt_mu(x,dataset.data,Kernels,dataset.outputs[:,0],'ker0'))
+    Mu[1] = (dvt_mu(x,dataset.data,Kernels,dataset.outputs[:,1],'ker1'))
+    Sigma[0] = (dvt_var(x,dataset.data,Kernels,'ker0'))
+    Sigma[1] = (dvt_var(x,dataset.data,Kernels,'ker1'))
+    return Mu,Sigma
+
+def sampleGenerator(X,mod1,mod2):
+    Y = np.empty((OUTPUT_DIM,0))
+    for i in range(len(X)):
+        mu_1,sig_1 = testModel(mod1,np.array([[X[0,i]]]))
+        mu_2,sig_2 = testModel(mod2,np.array([[X[0,i]]]))
+        Y = np.vstack((Y,np.array([[mu_1,mu_2]])))
+        print(Y.shape)
+
+
+
+def sampleXs(X,Y,bound):
+    ind0_0 = np.where(Y[0,:] >= bound[0])[0]
+    ind1_0 = np.where(Y[1,:] >= bound[1])[0]
+    fIndx_0 = list(set(ind0_0) & set(ind1_0))
+
+    ind0_1 = np.where(Y[0,:] <= bound[2])[0]
+    ind1_1 = np.where(Y[1,:] <= bound[3])[0]
+    fIndx_1 = list(set(ind0_1) & set(ind1_1))
+
+    finalInd = list(set(fIndx_0) & set(fIndx_1))
+    return X.T[finalInd],Y.T[finalInd]
+
+def WeightPoints(xPareto,dataset,Kernels):
+    Wlog = []
+    RPareto = []
+    for val in xPareto:
+        x = np.array([val])
+        Mu,Sigma = Derivatives(x,xPareto,dataset,Kernels)
+        tmp_ = findWeight(Mu,Sigma,DEEP,BREAD)
+        Wlog.append(tmp_)
+        RPareto.append([function(x)[0,0],function(x)[0,1]])
+    Weights = np.array(Wlog)
+    RPareto = np.array(RPareto)
+    return Weights,RPareto
+
+def AQFunc(bounds,Weights,RPareto):
+    print("(***)")
 
 
 if __name__ == '__main__':
-    
-    ############################################################# INITIALIZATIONS
-    INITIAL = 32
+
+    ################# PARAMETERS
+    INITIAL = 20
+    COUNTER = 3
+    DEEP = 100
+    BREAD = 100
+    MAXSAMPLE = 10000
     bounds = dict()
     bounds  = {'min': [-5],'max':[5]}
-    xData,yData = initvals_(bounds)
-    yPareto = mPareto(yData)
-    xPareto = findXpareto(xData,yData,yPareto)
-    info(xData,yData,yPareto,xPareto)
+
+    ################# GENERATE DATASET
+    start_time = time.time()
+    xData,yData = initvals_(bounds,INITIAL)
+    dataset = DataComplex(xData,yData)
+    yPareto = mPareto(dataset.outputs)
+    xPareto = findXpareto(dataset.data,dataset.outputs,yPareto)
+    print("_____________________________")
+    print("Data Initialized in %s seconds; OK!\n" % round(time.time() - start_time,5))
+    print("_____________ INFO ________________")
+    info(dataset.data,dataset.outputs,yPareto,xPareto)
     
-    ############################################################# KERNEL AND GP
+    ################# TRAIN THE MODEL
     Kernels = ctKernel(OUTPUT_DIM,INPUT_DIM,LEN_SCALE,LEN_SCALE)
-    mod1,Kernels['ker0'] = trainModel(xData,np.matrix(yData[:,0]).T,'ker0',40)
-    mod2,Kernels['ker1'] = trainModel(xData,np.matrix(yData[:,1]).T,'ker1',40)
+    mod1,Kernels['ker0'] = trainModel(dataset.data,np.matrix(dataset.outputs[:,0]).T,'ker0',40)
+    mod2,Kernels['ker1'] = trainModel(dataset.data,np.matrix(dataset.outputs[:,1]).T,'ker1',40)
+    X,Y = initvals_(bounds,MAXSAMPLE)
+    X,Y = X.T,Y.T
+    sampleGenerator(X,mod1,mod2)
+    sampleXs(X,Y,[0,0,1,3])
+    print("_____________________________")
+    print("GP trained in %s seconds; OK!\n" % round(time.time() - start_time,5))
     
-    ############################################################# CALLING DERIVATIVES
-    anothlog = []
-    xlog = []
-    cnt_ = 0
-    cnt_ov = len(xPareto)
-    for val in xPareto:
-        sys.stdout.write("\r I am analysing point "+str(cnt_+1)+" out of "+str(cnt_ov))
-        sys.stdout.flush()
-        x = np.array([val])
-        xlog.append(val)
-        Mu = {}
-        Sigma = {}
-        Mu[0] = (dvt_mu(x,xData,Kernels,yData[:,0],'ker0'))
-        Mu[1] = (dvt_mu(x,xData,Kernels,yData[:,1],'ker1'))
-        Sigma[0] = (dvt_var(x,xData,Kernels,'ker0'))
-        Sigma[1] = (dvt_var(x,xData,Kernels,'ker1'))
+    #################  FIND THE WEIGHTS AND EHVI
+    start_time = time.time()
+    Weights_,Paretos_ = WeightPoints(xPareto,dataset,Kernels)
+    EHVI = Expected_HVI(Paretos_,Weights_)
+    print("_____________________________")
+    print("Hypervolume found in %s seconds; OK!\n" % round(time.time() - start_time,5))
+    print(EHVI)
+    
+    #################  READY TO LUNCH THE LOOP
+    '''
+    tempoX = []
+    tempoY = []
+    copyPareto = deepcopy(yPareto)
+
+    grid_,Jgrid_,pMap_ = samplePareto(yPareto)
+    for valg in Jgrid_:
+        xBatch,yBatch = sampleXs(X,Y,[valg[0,0],valg[0,1],valg[0,2],valg[0,3]])
+        tempoX.extend(xBatch[:,0])
+        tempoY.extend(yBatch)
+    print(tempoY[0][0])
+    print(tempoY[0][1])
+    print(len(tempoX))
+    #print(tempoX)
+    for valx in X.T[:10,:]:
+        y1,Sigy1 = testModel(mod1,np.array([valx]))
+        y2,Sigy2 = testModel(mod2,np.array([valx]))
+        for i in range(len(tempoY)):
+            temp_pareto = np.vstack((copyPareto,np.array([tempoY[0][0],tempoY[0][1]])))
+            if np.array_equal(np.round(mPareto(temp_pareto),5),np.round(yPareto,5)):
+                pass
+            else:
+                print(np.round(mPareto(temp_pareto),1))
+                print("not")
+                print(np.round(yPareto,1))
+
+    '''
         
-        ############################################################# ROTATE THEM UP FIND INT
-        tmp_ = findWeight(Mu,Sigma,100,50)
-        cnt_ += 1
-        anothlog.append(tmp_)
+
+
+
+
+
+
+
+    '''
+    plot_me(Paretos_,Weights_)
+    ############################################################# CALLING DERIVATIVES
+    Wlog = []
+    RPareto = []
+
+    ############################################################# ROTATE THEM UP FIND INT
+    for val in xPareto:
+        x = np.array([val])
+        Mu,Sigma = Derivatives(x,xPareto,dataset,Kernels)
+        tmp_ = findWeight(Mu,Sigma,DEEP,BREAD)
+        Wlog.append(tmp_)
+        RPareto.append([function(x)[0,0],function(x)[0,1]])
         plt.plot(function(x)[0,0],function(x)[0,1],'ob',marker='*',markersize=12)
         plt.text(function(x)[0,0]-0.5,function(x)[0,1]-0.5,str(np.round(tmp_,5)),size=14)
     
+    print('\n______________Adding up the weights_______________')
+    Weights = np.array(Wlog)
+    RPareto = np.array(RPareto)
+    
+
+    #AQFunc(Weights,RPareto)
+    EWHI = Expected_HVI(RPareto,Weights)
+    print(EWHI)
+    '''    
+
+
+    
+    
+    
+    
+    '''
+    AQFunc(mod1,mod2,Kernels,xPareto,yPareto,dataset)
     ############################################################# FIND FOR EVERYPOINT
     print('\n______________Adding up the weights_______________')
-    Weights = np.array(anothlog)
+    Weights = np.array(Wlog)
     res1,res2,res3 = Expected_HVI(yPareto,Weights)
-    plot_me(yPareto,anothlog)
+    plot_me(yPareto,Wlog)
+    plot_me(RPareto,Wlog)
 
+    dataset.newData(np.array([1]))
+    dataset.newOut(np.array([9.0,9.0]))
+    print(dataset.outputs)
+    '''
