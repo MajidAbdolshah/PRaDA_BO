@@ -3,7 +3,7 @@ from copy import deepcopy
 import GPy
 from scipy.stats import mvn
 import GPyOpt
-import numpy as np 
+import numpy as np
 import os.path
 from termcolor import colored
 from numpy import linalg as LA
@@ -14,7 +14,7 @@ import matplotlib.lines as mlines
 import math
 from scipy.stats import norm
 import GPy
-import pprint 
+import pprint
 from scipy.spatial import ConvexHull
 from tqdm import *
 import time
@@ -44,7 +44,7 @@ class DataComplex:
         self.data = np.append(self.data,[newPoint],axis=0)
     def newOut(self,newPoint):
         self.outputs = np.append(self.outputs,[newPoint],axis=0)
-    
+
 def print_dots(string):
     sys.stdout.write(string)
     sys.stdout.flush()
@@ -69,7 +69,7 @@ def mPareto(y):
     sortedx = y[y[:,0].argsort()]
     uSortedx = np.empty((0,y.shape[1]))
     tMin = float('inf')
-    
+
     if np.unique(sortedx[:,0]).shape[0] != sortedx[:,0].shape[0]:
         print('Some points in a row...\nHandling that....\n')
         pFlag = 1
@@ -81,14 +81,14 @@ def mPareto(y):
             if (val[1] <= tMin):
                 pSet = np.append(pSet,np.array([val]),axis=0)
                 tMin = val[1]
-        return pSet               
+        return pSet
     else:
         for val in sortedx:
             if (val[1] <= tMin):
                 pSet = np.append(pSet,np.array([val]),axis=0)
                 tMin = val[1]
         return pSet
-        
+
 def parY_X(y,ypar):
 
     size_y = y.shape[0]
@@ -110,13 +110,13 @@ def findXpareto(xData,yData,yPareto):
 
 def f(x,fNum):
     def firstfun(x):
-        return x**2 
+        return x**2
     def secondfun(x):
         return (x-2)**2
     options = {0 : firstfun,
                1 : secondfun,}
-    return options[fNum](x) 
-    
+    return options[fNum](x)
+
 def function(Xp):
     tmp_1 = f(Xp,0)
     tmp_2 = f(Xp,1)
@@ -132,7 +132,7 @@ def initvals_(bounds,INITIAL):
             gData[i,j] = random.uniform(bounds['min'][0], bounds['max'][0])
     gDataY = function(gData)
     return gData,gDataY
-    
+
 def info(*arg):
     for i in range(len(arg)):
         print("Shape of "+str(i)+" is "+str(arg[i].shape))
@@ -152,28 +152,28 @@ def trainModel(X,Y,Ker,eVal):
     #model_.optimize_restarts(num_restarts = eVal)
     #print('______________________________')
     #print(Kernels['ker0'].variance)
-    #model_.optimize(max_f_eval = eVal)    
+    #model_.optimize(max_f_eval = eVal)
     return model_,Kernels[Ker]
 
 def testModel(model_,x):
     [mu_per,sig_per] = model_.predict(x,full_cov=1)
     return mu_per[0,0],sig_per[0,0]
-    
+
 def samplePareto(par):
     infoDic = {}
     uPartsX = np.sort(par[:,0])
     uMapX = np.concatenate([[0],uPartsX,[REF[0]]])
     uPartsY = np.sort(par[:,1])
     uMapY = np.concatenate([[0],uPartsY,[REF[1]]])
-    
+
     cells_ = np.empty((0,OUTPUT_DIM*2))
     Jparet_ = np.empty((0,OUTPUT_DIM*2))
     for i in range(0,len(uMapX)-1):
         for j in range(0,len(uMapY)-1):
-            
+
             pos_st = np.array([uMapX[i],uMapY[j]])
             pos_en = np.array([uMapX[i+1],uMapY[j+1]])
-            
+
             pos_ = np.matrix(np.append(pos_st,pos_en,axis=0))
             mid_point = np.array([(pos_[0,0]+pos_[0,2])/2,
                                   (pos_[0,1]+pos_[0,3])/2])
@@ -183,14 +183,14 @@ def samplePareto(par):
                 Jparet_ = np.vstack([Jparet_,pos_])
 
     return cells_,Jparet_,infoDic
-            
-    
+
+
 def ruPareto(x,par):
     for val in par:
         if(x[0]>val[0] and x[1]>val[1]):
             return False
     return True
-    
+
 def dvt_mu(xs,Data,Kernels,yReal,Ker_):
     len_matrix = -np.linalg.pinv(np.identity(INPUT_DIM)*LEN_SCALE**2)
     XsT = (Data - xs).T
@@ -200,7 +200,7 @@ def dvt_mu(xs,Data,Kernels,yReal,Ker_):
     tmpIII = np.multiply(KxsX,tmpII)
     res_ = np.dot(tmpI,tmpIII)
     return res_
-    
+
 def dvt_var(xs,Data,Kernels,Ker_):
     sizeD = Data.shape[0]
     sizeX = xs.shape[1]
@@ -209,25 +209,25 @@ def dvt_var(xs,Data,Kernels,Ker_):
     KxsX = Kernels[Ker_].K(xs,Data)
     KXxs = Kernels[Ker_].K(Data,xs)
     X_xs = (Data-xs).T
-   
+
     sumup_ = np.zeros([sizeX,sizeX])
     Alis_ = 0
     for i in range(0,sizeD):
         for j in range(0,sizeD):
-            
+
             tmpI = np.dot(np.dot(np.matrix(X_xs[:,i]).T,np.matrix(X_xs[:,j])),len_matrix**2)
             tmp1 = KXX_m1[i,j]*KxsX[0,i]*KxsX[0,j]
             Alis_ += tmp1*tmpI
-    
-    return (len_matrix + Alis_)       
-            
+
+    return (len_matrix + Alis_)
+
 def Helpme_(points):
     grid_,J,dic = samplePareto(points)
     for val in grid_:
         if np.invert(dic[repr(val)]):
             plt.plot(val[0,2],val[0,3],'*r',markersize=15)
     plt.plot(anotherY[:,0],anotherY[:,1],'*b',markersize=10)
-    plt.show()        
+    plt.show()
 
 def cell_point_dom(points,cell):
     res_ = []
@@ -235,7 +235,7 @@ def cell_point_dom(points,cell):
         if ((cell[0,0] >= points[i,0]) and (cell[0,1] >= points[i,1])):
             res_.append(i)
     return res_
-            
+
 def Expected_HVI(points,weights):
     grid_,J,pMap_ = samplePareto(points)
     w_area = 0
@@ -252,9 +252,9 @@ def Expected_HVI(points,weights):
             area_ = (val[0,3] - val[0,1])*(val[0,2] - val[0,0])
             w_area += exWeights*area_
             j_area += area_
-            Weightsdic[repr(val)] = exWeights     
+            Weightsdic[repr(val)] = exWeights
     return w_area
-    
+
 def createPoints(deepness,breadth):
     points_ = {}
     for i in range(1,deepness+1):
@@ -318,7 +318,7 @@ def plot_me(yPareto,Probs):
         if dic[repr(val)]:
             plt.plot(val[0,2],val[0,3],'or',marker='.',markersize=14)
         else:
-            plt.plot(val[0,2],val[0,3],'og',marker='.',markersize=14)   
+            plt.plot(val[0,2],val[0,3],'og',marker='.',markersize=14)
         '''
     for i in range((yPareto.shape[0])):
         plt.plot(yPareto[i,0],yPareto[i,1],'ob',marker='*',markersize=12)
@@ -333,16 +333,6 @@ def Derivatives(x,xPareto,dataset,Kernels):
     Sigma[0] = (dvt_var(x,dataset.data,Kernels,'ker0'))
     Sigma[1] = (dvt_var(x,dataset.data,Kernels,'ker1'))
     return Mu,Sigma
-
-def sampleGenerator(X,mod1,mod2):
-    Y = np.empty((OUTPUT_DIM,0))
-    for i in range(len(X)):
-        mu_1,sig_1 = testModel(mod1,np.array([[X[0,i]]]))
-        mu_2,sig_2 = testModel(mod2,np.array([[X[0,i]]]))
-        Y = np.vstack((Y,np.array([[mu_1,mu_2]])))
-        print(Y.shape)
-
-
 
 def sampleXs(X,Y,bound):
     ind0_0 = np.where(Y[0,:] >= bound[0])[0]
@@ -394,18 +384,18 @@ if __name__ == '__main__':
     print("Data Initialized in %s seconds; OK!\n" % round(time.time() - start_time,5))
     print("_____________ INFO ________________")
     info(dataset.data,dataset.outputs,yPareto,xPareto)
-    
+
     ################# TRAIN THE MODEL
     Kernels = ctKernel(OUTPUT_DIM,INPUT_DIM,LEN_SCALE,LEN_SCALE)
     mod1,Kernels['ker0'] = trainModel(dataset.data,np.matrix(dataset.outputs[:,0]).T,'ker0',40)
     mod2,Kernels['ker1'] = trainModel(dataset.data,np.matrix(dataset.outputs[:,1]).T,'ker1',40)
     X,Y = initvals_(bounds,MAXSAMPLE)
     X,Y = X.T,Y.T
-    sampleGenerator(X,mod1,mod2)
-    sampleXs(X,Y,[0,0,1,3])
+
+    xx,yy = sampleXs(X,Y,[0,0,1,3])
     print("_____________________________")
     print("GP trained in %s seconds; OK!\n" % round(time.time() - start_time,5))
-    
+
     #################  FIND THE WEIGHTS AND EHVI
     start_time = time.time()
     Weights_,Paretos_ = WeightPoints(xPareto,dataset,Kernels)
@@ -413,36 +403,38 @@ if __name__ == '__main__':
     print("_____________________________")
     print("Hypervolume found in %s seconds; OK!\n" % round(time.time() - start_time,5))
     print(EHVI)
-    
     #################  READY TO LUNCH THE LOOP
-    '''
+
     tempoX = []
     tempoY = []
     copyPareto = deepcopy(yPareto)
+    copyxPareto = deepcopy(xPareto)
+
+
 
     grid_,Jgrid_,pMap_ = samplePareto(yPareto)
     for valg in Jgrid_:
         xBatch,yBatch = sampleXs(X,Y,[valg[0,0],valg[0,1],valg[0,2],valg[0,3]])
         tempoX.extend(xBatch[:,0])
         tempoY.extend(yBatch)
-    print(tempoY[0][0])
-    print(tempoY[0][1])
-    print(len(tempoX))
-    #print(tempoX)
-    for valx in X.T[:10,:]:
+    print((tempoX[0]))
+    print((tempoY[0]))
+
+
+    for valx in X.T[:3,:]:
         y1,Sigy1 = testModel(mod1,np.array([valx]))
         y2,Sigy2 = testModel(mod2,np.array([valx]))
-        for i in range(len(tempoY)):
-            temp_pareto = np.vstack((copyPareto,np.array([tempoY[0][0],tempoY[0][1]])))
-            if np.array_equal(np.round(mPareto(temp_pareto),5),np.round(yPareto,5)):
-                pass
-            else:
-                print(np.round(mPareto(temp_pareto),1))
-                print("not")
-                print(np.round(yPareto,1))
-
-    '''
-        
+            for randx in X.T[5:10,:]:
+                temp_pareto = np.vstack((copyPareto,np.array([y1,y2])))
+                temp_x_pareto = np.vstack((copyxPareto,np.array([valx])))
+                if np.array_equal(np.round(mPareto(temp_pareto),5),np.round(yPareto,5)):
+                    pass
+                else:
+                    print("Not the same, initiate the process!~!")
+                    New_Weights_,New_Paretos_ = WeightPoints(temp_x_pareto,dataset,Kernels)
+                    Probs_ = scipy.stats.norm(y1, 1).pdf(1)
+                    EHVI_New = Expected_HVI(New_Paretos_,New_Weights_)
+                    print(EHVI_New - EHVI)
 
 
 
@@ -465,22 +457,22 @@ if __name__ == '__main__':
         RPareto.append([function(x)[0,0],function(x)[0,1]])
         plt.plot(function(x)[0,0],function(x)[0,1],'ob',marker='*',markersize=12)
         plt.text(function(x)[0,0]-0.5,function(x)[0,1]-0.5,str(np.round(tmp_,5)),size=14)
-    
+
     print('\n______________Adding up the weights_______________')
     Weights = np.array(Wlog)
     RPareto = np.array(RPareto)
-    
+
 
     #AQFunc(Weights,RPareto)
     EWHI = Expected_HVI(RPareto,Weights)
     print(EWHI)
-    '''    
+    '''
 
 
-    
-    
-    
-    
+
+
+
+
     '''
     AQFunc(mod1,mod2,Kernels,xPareto,yPareto,dataset)
     ############################################################# FIND FOR EVERYPOINT
@@ -493,4 +485,18 @@ if __name__ == '__main__':
     dataset.newData(np.array([1]))
     dataset.newOut(np.array([9.0,9.0]))
     print(dataset.outputs)
+
+
+    def sampleGenerator(X,mod1,mod2):
+        Y = np.empty((OUTPUT_DIM,X.shape[1]))
+        for i in range(X.shape[1]):
+            mu_1,sig_1 = testModel(mod1,np.array([[X[0,i]]]))
+            mu_2,sig_2 = testModel(mod2,np.array([[X[0,i]]]))
+            Y[0,i] = mu_1
+            Y[1,i] = mu_2
+        print(np.min(Y[0,:]))
+        print(np.min(Y[1,:]))
+            #print(Y.shape)
+
+sampleGenerator(X,mod1,mod2)
     '''
