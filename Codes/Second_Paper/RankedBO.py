@@ -72,7 +72,7 @@ def mPareto(y):
     tMin = float('inf')
 
     if np.unique(sortedx[:,0]).shape[0] != sortedx[:,0].shape[0]:
-        print('Some points in a row...\nHandling that....\n')
+        #print('Some points in a row...\nHandling that....\n')
         pFlag = 1
     if pFlag:
         U = np.unique(sortedx[:,0])
@@ -402,6 +402,7 @@ if __name__ == '__main__':
 
 
     while ctn < COUNTER:
+        #ctn+=1
         ################# TRAIN THE MODEL
         mod1,Kernels['ker0'] = trainModel(dataset.data,np.matrix(dataset.outputs[:,0]).T,'ker0',40)
         mod2,Kernels['ker1'] = trainModel(dataset.data,np.matrix(dataset.outputs[:,1]).T,'ker1',40)
@@ -411,6 +412,9 @@ if __name__ == '__main__':
         print("GP trained in %s seconds; OK!\n" % round(time.time() - start_time,5))
 
         #################  FIND THE WEIGHTS AND EHVI
+        yPareto = mPareto(dataset.outputs)
+        xPareto = findXpareto(dataset.data,dataset.outputs,yPareto)
+        '''
         start_time = time.time()
         yPareto = mPareto(dataset.outputs)
         xPareto = findXpareto(dataset.data,dataset.outputs,yPareto)
@@ -421,7 +425,7 @@ if __name__ == '__main__':
         EHVI = Expected_HVI(Paretos_,Weights_)
         print("_____________________________ %s " % EHVI)
         print("Hypervolume found in %s seconds; OK!\n" % round(time.time() - start_time,3))
-
+        '''
         #################  READY TO LUNCH THE LOOP
         copyPareto = deepcopy(yPareto)
         copyxPareto = deepcopy(xPareto)
@@ -444,7 +448,7 @@ if __name__ == '__main__':
 
             slide_size = len(SlidingY)
             for j in (range(slide_size)):
-                temp_pareto = np.vstack((copyPareto,np.array([SlidingY[j,0],SlidingY[j,1]])))
+                temp_pareto = np.vstack((New_Paretos_[:-1],np.array([SlidingY[j,0],SlidingY[j,1]])))
                 found_temp_pareto = mPareto(temp_pareto)
                 usef_weights = New_Weights_[parY_X(temp_pareto,found_temp_pareto)]
 
