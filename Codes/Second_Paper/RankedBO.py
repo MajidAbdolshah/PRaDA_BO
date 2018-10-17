@@ -210,13 +210,11 @@ def dvt_mu(xs,Data,Kernels,yReal,Ker_,Kinv):
 
 def dvt_var(xs,Data,Kernels,Ker_,Kinv):
     sizeD = Data.shape[0]
-    sizeX = xs.shape[1]
     len_matrix = (np.identity(INPUT_DIM)*(1/(LEN_SCALE**2)))
     KXX_m1 = Kinv#np.linalg.pinv(Kernels[Ker_].K(Data,Data))
     KxsX = Kernels[Ker_].K(xs,Data)
-    KXxs = Kernels[Ker_].K(Data,xs)
     X_xs = (Data-xs).T
-    sumup_ = np.zeros([sizeX,sizeX])
+
     Alis_ = 0
     for i in range(0,sizeD):
         for j in range(0,sizeD):
@@ -225,6 +223,18 @@ def dvt_var(xs,Data,Kernels,Ker_,Kinv):
             Alis_ += tmp1*tmpI
 
     return (len_matrix + Alis_)
+
+
+def improved_dvt_var(xs,Data,Kernels,Ker_,Kinv):
+    len_matrix = (np.identity(INPUT_DIM)*(1/(LEN_SCALE**2)))
+    first_ = len_matrix
+    second_ = np.dot((Kernels[Ker_].K(xs,Data)*(Data-xs).T).T,len_matrix)
+    third_ = Kinv
+    
+    result = first_ + np.dot(np.dot(second_.T,third_),second_)
+    return result
+    
+        
 
 def Helpme_(points):
     grid_,J,NJ,dic = samplePareto(points)
@@ -242,6 +252,8 @@ def cell_point_dom(points,cell):
     return res_
 
 def Expected_HVI(points,weights):
+    if (len(points) != len(weights)):
+        print("WARNING WEIGHTs AND POINTS?")
     grid_,Jgrid_,Not_Jgrid_,pMap_ = samplePareto(points)
     w_area = 0
     j_area = 0
@@ -262,7 +274,8 @@ def Expected_HVI(points,weights):
 def createPoints(deepness,breadth):
     points_ = {}
     for i in range(1,deepness+1):
-        temp_x = np.arange(0,i/5,i/(breadth*5))
+        #temp_x = np.arange(0,i/5,i/(breadth*5))
+        temp_x = np.arange(0,i,i/(breadth))
         temp_y = np.zeros(temp_x.shape)+i
         temp_merge = np.vstack((temp_x,temp_y))
         points_[i] = temp_merge
@@ -334,8 +347,8 @@ def Derivatives(x,xPareto,dataset,Kernels,Kinv_0,Kinv_1):
     Sigma = {}
     Mu[0] = (dvt_mu(x,dataset.data,Kernels,dataset.outputs[:,0],'ker0',Kinv_0))
     Mu[1] = (dvt_mu(x,dataset.data,Kernels,dataset.outputs[:,1],'ker1',Kinv_1))
-    Sigma[0] = (dvt_var(x,dataset.data,Kernels,'ker0',Kinv_0))
-    Sigma[1] = (dvt_var(x,dataset.data,Kernels,'ker1',Kinv_1))
+    Sigma[0] = (improved_dvt_var(x,dataset.data,Kernels,'ker0',Kinv_0))
+    Sigma[1] = (improved_dvt_var(x,dataset.data,Kernels,'ker1',Kinv_1))
     return Mu,Sigma
 
 def sampleXs(X,Y,bound):
@@ -375,11 +388,11 @@ def AQFunc(bounds,Weights,RPareto):
 if __name__ == '__main__':
 
     ################# PARAMETERS
-    INITIAL = 20
+    INITIAL = 8
     COUNTER = 3
     DEEP = 100
     BREAD = 100
-    COUNTER = 10
+    COUNTER = 30
     ctn = 0
     MAXSAMPLE = 10000
     bounds = dict()
@@ -414,38 +427,33 @@ if __name__ == '__main__':
         #################  FIND THE WEIGHTS AND EHVI
         yPareto = mPareto(dataset.outputs)
         xPareto = findXpareto(dataset.data,dataset.outputs,yPareto)
-        '''
-        start_time = time.time()
-        yPareto = mPareto(dataset.outputs)
-        xPareto = findXpareto(dataset.data,dataset.outputs,yPareto)
-        print("==============PARETO SHAPE================")
-        print(yPareto.shape)
-        print("==========================================")
-        Weights_,Paretos_ = WeightPoints(xPareto,dataset,Kernels,Kinv_0,Kinv_1)
-        EHVI = Expected_HVI(Paretos_,Weights_)
-        print("_____________________________ %s " % EHVI)
-        print("Hypervolume found in %s seconds; OK!\n" % round(time.time() - start_time,3))
-        '''
+        if (len(xPareto)!=len(yPareto)):
+            print("size differ?!")
+            time.sleep(1000)
+
         #################  READY TO LUNCH THE LOOP
         copyPareto = deepcopy(yPareto)
         copyxPareto = deepcopy(xPareto)
         SlidingY = np.empty(shape = (0,OUTPUT_DIM))
         grid_,Jgrid_,Ngridholder_,pMap_ = samplePareto(yPareto)
         for valg in Jgrid_:
-            yBatch = Generate_bounded(valg[0,0],valg[0,2],valg[0,1],valg[0,3],5)
+            yBatch = Generate_bounded(valg[0,0],valg[0,2],valg[0,1],valg[0,3],1)
             SlidingY = np.vstack((SlidingY,yBatch))
 
         print("Yshape: ",SlidingY.shape)
         x_log = []
         imp_log = []
-        for i in tqdm(range(len(X.T[:1000,:]))):
-            x_log.append([X.T[i,:]])
+        indices_ = [random.randint(0, X.shape[1]) for p in range(0, 128)]
+        optimizerX = X.T[indices_]
+        for i in tqdm(range(len(optimizerX))):
+            x_log.append([optimizerX[i,:]])
             Total_HVI_diff = 0
-            y1,Sigy1 = testModel(mod1,np.array([X.T[i,:]]))
-            y2,Sigy2 = testModel(mod2,np.array([X.T[i,:]]))
-            temp_x_pareto = np.vstack((copyxPareto,np.array([X.T[i,:]])))
+            y1,Sigy1 = testModel(mod1,np.array([optimizerX[i,:]]))
+            y2,Sigy2 = testModel(mod2,np.array([optimizerX[i,:]]))
+            temp_x_pareto = np.vstack((copyxPareto,np.array([optimizerX[i,:]])))
             New_Weights_,New_Paretos_ = WeightPoints(temp_x_pareto,dataset,Kernels,Kinv_0,Kinv_1)
-
+            
+            
             slide_size = len(SlidingY)
             for j in (range(slide_size)):
                 temp_pareto = np.vstack((New_Paretos_[:-1],np.array([SlidingY[j,0],SlidingY[j,1]])))
@@ -454,22 +462,25 @@ if __name__ == '__main__':
 
                 Probs_dim1 = norm(y1, Sigy1).pdf(SlidingY[j,0])
                 Probs_dim2 = norm(y2, Sigy2).pdf(SlidingY[j,1])
-                #EHVI_New = Expected_HVI(found_temp_pareto,usef_weights)*Probs_dim1*Probs_dim2
-                #Total_HVI_diff += EHVI_New
+                EHVI_New = Expected_HVI(found_temp_pareto,usef_weights)*Probs_dim1*Probs_dim2
+                Total_HVI_diff += EHVI_New
             imp_log.append(Total_HVI_diff)
+        
         indx = imp_log.index(max(imp_log))
         Best_x = x_log[indx][0]
         Best_y = function(np.array([Best_x]))[0,0],function(np.array([Best_x]))[0,1]
-        dataset.newData(Best_x)
-        dataset.newOut(Best_y)
+        if Best_x not in dataset.data:
+            dataset.newData(Best_x)
+            dataset.newOut(Best_y)
+        else:
+            print("Couldn't go on, almost the same.")
+            time.sleep(1000)
         ctn += 1
 
 
-    plt.plot(initial_pareto[:,0],initial_pareto[:,1],"*r",markersize = 15)
-    plt.plot(yPareto[:,0],yPareto[:,1],"*b",markersize = 10)
-    plt.show()
-
-
+        plt.plot(initial_pareto[:,0],initial_pareto[:,1],"*r",markersize = 15)
+        plt.plot(yPareto[:,0],yPareto[:,1],"*b",markersize = 10)
+        plt.show()
 
 
 
@@ -482,6 +493,21 @@ if __name__ == '__main__':
 
 
     '''
+        start_time = time.time()
+        yPareto = mPareto(dataset.outputs)
+        xPareto = findXpareto(dataset.data,dataset.outputs,yPareto)
+        print("==============PARETO SHAPE================")
+        print(yPareto.shape)
+        print("==========================================")
+        Weights_,Paretos_ = WeightPoints(xPareto,dataset,Kernels,Kinv_0,Kinv_1)
+        EHVI = Expected_HVI(Paretos_,Weights_)
+        print("_____________________________ %s " % EHVI)
+        print("Hypervolume found in %s seconds; OK!\n" % round(time.time() - start_time,3))
+        '''
+
+    '''
+    
+    
             print("==============================")
             print("size of X is: ",dataset.data.shape)
             print("size of Y is: ",dataset.outputs.shape)
