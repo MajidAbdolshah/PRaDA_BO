@@ -275,7 +275,7 @@ def Expected_HVI(points,weights):
 def createPoints(deepness,breadth):
     points_ = {}
     for i in range(1,deepness+1):
-        temp_x = np.arange(0,i/5,i/(breadth*5))
+        temp_x = np.arange(0,i/4,i/(breadth*4))
         #temp_x = np.arange(0,i,i/(breadth))
         temp_y = np.zeros(temp_x.shape)+i
         temp_merge = np.vstack((temp_x,temp_y))
@@ -477,8 +477,8 @@ if __name__ == '__main__':
         ctn += 1
 
 
-        plt.plot(initial_pareto[:,0],initial_pareto[:,1],"*r",markersize = 15)
-        plt.plot(yPareto[:,0],yPareto[:,1],"*k",markersize = 10)
+        plt.plot(initial_pareto[:,0],initial_pareto[:,1],"*b",markersize = 15)
+        plt.plot(yPareto[:,0],yPareto[:,1],"ok",markersize = 12)
         plt.show()
 
 

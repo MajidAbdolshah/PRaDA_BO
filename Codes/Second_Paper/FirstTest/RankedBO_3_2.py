@@ -252,10 +252,16 @@ def cell_point_dom(points,cell):
             res_.append(i)
     return res_
 
-def Expected_HVI(points,weights):
+def Expected_HVI(points,weights,Not_Jgrid_):
     if (len(points) != len(weights)):
         sys.exit("WARNING WEIGHTs AND POINTS?")
-    grid_,Jgrid_,Not_Jgrid_,pMap_ = samplePareto(points)
+    #grid_,Jgrid_,Not_Jgrid_,pMap_ = samplePareto(points)
+    #print("================")
+    #print(Not_Jgrid_)
+    #print(Not_Jgrid__)
+    #print("================")
+    #time.sleep(2)
+    
     w_area = 0
     j_area = 0
     wPoints = {}
@@ -275,8 +281,9 @@ def Expected_HVI(points,weights):
 def createPoints(deepness,breadth):
     points_ = {}
     for i in range(1,deepness+1):
-        temp_x = np.arange(0,i/5,i/(breadth*5))
+        #temp_x = np.arange(0,i/3,i/(breadth*3))
         #temp_x = np.arange(0,i,i/(breadth))
+        temp_x = np.linspace(0, i/2, num=breadth)
         temp_y = np.zeros(temp_x.shape)+i
         temp_merge = np.vstack((temp_x,temp_y))
         points_[i] = temp_merge
@@ -286,14 +293,14 @@ def createPoints(deepness,breadth):
             points_[1] = np.hstack((points_[1],points_[key]))
     return points_[1].T
 
-def findWeight(Mu,Sigma,deepness,breadth):
+def findWeight(Mu,Sigma,deepness,breadth,points_):
     mvnMu = np.array([Mu[0][0,0], Mu[1][0,0]])
     mvnSigma = np.array([[Sigma[0][0,0],0],[0,Sigma[1][0,0]]])
     Rotationdict = createRot()
     sumProb = 0
     log = []
-    points_ = createPoints(deepness,breadth)
-    spoints_ = points_.shape[1]
+    #points_ = createPoints(deepness,breadth)
+    #spoints_ = points_.shape[1]
     for key in Rotationdict:
         mvnMuRnine = np.dot(Rotationdict[key],mvnMu)
         mvnSigmaRnine = np.dot(Rotationdict[key].T,np.dot(mvnSigma,Rotationdict[key]))
@@ -326,7 +333,6 @@ def findIntegral(Mu,Sigma):
         p1,i = mvn.mvnun(low,upp,mvnMuRnine,mvnSigmaRnine)
         print(p1)
         sumProb += p1
-
     return sumProb
 
 def plot_me(yPareto,Probs):
@@ -364,13 +370,13 @@ def sampleXs(X,Y,bound):
     finalInd = list(set(fIndx_0) & set(fIndx_1))
     return X.T[finalInd],Y.T[finalInd]
 
-def WeightPoints(xPareto,dataset,Kernels,Kinv_0,Kinv_1):
+def WeightPoints(xPareto,dataset,Kernels,Kinv_0,Kinv_1,points_):
     Wlog = []
     RPareto = []
     for val in xPareto:
         x = np.array([val])
         Mu,Sigma = Derivatives(x,xPareto,dataset,Kernels,Kinv_0,Kinv_1)
-        tmp_ = findWeight(Mu,Sigma,DEEP,BREAD)
+        tmp_ = findWeight(Mu,Sigma,DEEP,BREAD,points_)
         Wlog.append(tmp_)
         RPareto.append([function(x)[0,0],function(x)[0,1]])
     Weights = np.array(Wlog)
@@ -389,11 +395,11 @@ def AQFunc(bounds,Weights,RPareto):
 if __name__ == '__main__':
 
     ################# PARAMETERS
-    INITIAL = 8
+    INITIAL = 16
     COUNTER = 3
     DEEP = 100
     BREAD = 100
-    COUNTER = 30
+    COUNTER = 40
     ctn = 0
     MAXSAMPLE = 10**6
     bounds = dict()
@@ -401,11 +407,15 @@ if __name__ == '__main__':
 
     ################# GENERATE DATASET
     start_time = time.time()
-    xData,yData = initvals_(bounds,INITIAL)
+    xData = np.loadtxt('xData.txt', dtype=float)
+    xData = xData.reshape(len(xData),1)
+    yData = np.loadtxt('yData.txt', dtype=float)
+    #xData,yData = initvals_(bounds,INITIAL)
     dataset = DataComplex(xData,yData)
     yPareto = mPareto(dataset.outputs)
     xPareto = findXpareto(dataset.data,dataset.outputs,yPareto)
     initial_pareto = yPareto
+    points_ = createPoints(DEEP,BREAD)
     print("_____________ INFO ________________")
     info(dataset.data,dataset.outputs,yPareto,xPareto)
     X,Y = initvals_(bounds,MAXSAMPLE)
@@ -416,8 +426,9 @@ if __name__ == '__main__':
 
 
     while ctn < COUNTER:
-        #ctn+=1
+
         ################# TRAIN THE MODEL
+        start_time = time.time()
         mod1,Kernels['ker0'] = trainModel(dataset.data,np.matrix(dataset.outputs[:,0]).T,'ker0',40)
         mod2,Kernels['ker1'] = trainModel(dataset.data,np.matrix(dataset.outputs[:,1]).T,'ker1',40)
         Kinv_0 = np.linalg.pinv(Kernels['ker0'].K(dataset.data,dataset.data))
@@ -425,35 +436,53 @@ if __name__ == '__main__':
         print("_____________________________")
         print("GP trained in %s seconds; OK!\n" % round(time.time() - start_time,5))
 
-        #################  FIND THE WEIGHTS AND EHVI
+        #################  FIND THE PARETO
+        start_time = time.time()
         yPareto = mPareto(dataset.outputs)
         xPareto = findXpareto(dataset.data,dataset.outputs,yPareto)
         if (len(xPareto)!=len(yPareto)):
             sys.exit("Size of X pareto is not same as Y pareto!")
+        print("_____________________________")
+        print("Found the Pareto in %s seconds; OK!\n" % round(time.time() - start_time,5))
 
         #################  READY TO LUNCH THE LOOP
+        start_time = time.time()
         copyPareto = deepcopy(yPareto)
         copyxPareto = deepcopy(xPareto)
         SlidingY = np.empty(shape = (0,OUTPUT_DIM))
         grid_,Jgrid_,Ngridholder_,pMap_ = samplePareto(yPareto)
         for valg in Jgrid_:
-            yBatch = Generate_bounded(valg[0,0],valg[0,2],valg[0,1],valg[0,3],2)
-            SlidingY = np.vstack((SlidingY,yBatch))
+            if (valg[0,0]>valg[0,1]) and (valg[0,2]>valg[0,3]):
+                yBatch = Generate_bounded(valg[0,0],valg[0,2],valg[0,1],valg[0,3],2)
+                SlidingY = np.vstack((SlidingY,yBatch))
 
-        
-        print("Yshape: ",SlidingY.shape)
+        if (SlidingY.shape[0] > 64):
+            indices_ = [random.randint(0, SlidingY.shape[0]-1) for p in range(0, 64)]
+            SlidingY = SlidingY[indices_]
+            #plt.plot(SlidingY[:,0],SlidingY[:,1],"*g")
+            #plt.show()
+            
+        Faster = {}
+        for k in (range(SlidingY.shape[0])):
+            AddY = np.vstack((yPareto,np.array([SlidingY[k,0],SlidingY[k,1]])))
+            ParAddY = mPareto(AddY)
+            Fast_1,Fast_2,Fast_3,Fast_4 = samplePareto(ParAddY)
+            Faster[k] = Fast_3    
+        print("Number of grids to handle: %s" % SlidingY.shape[0])
         x_log = []
         imp_log = []
-        indices_ = [random.randint(0, X.shape[1]) for p in range(0, 100)]
+        indices_ = [random.randint(0, X.shape[1]-1) for p in range(0, 100)]
         optimizerX = X.T[indices_]
+        print("_____________________________")
+        print("Data Prep for main loop launch in %s seconds; OK!\n" % round(time.time() - start_time,5))
+        
         for i in tqdm(range(len(optimizerX))):
             x_log.append([optimizerX[i,:]])
             Total_HVI_diff = 0
             y1,Sigy1 = testModel(mod1,np.array([optimizerX[i,:]]))
             y2,Sigy2 = testModel(mod2,np.array([optimizerX[i,:]]))
             temp_x_pareto = np.vstack((copyxPareto,np.array([optimizerX[i,:]])))
-            New_Weights_,New_Paretos_ = WeightPoints(temp_x_pareto,dataset,Kernels,Kinv_0,Kinv_1)
-            
+            New_Weights_,New_Paretos_ = WeightPoints(temp_x_pareto,dataset,Kernels,Kinv_0,Kinv_1,points_)
             slide_size = len(SlidingY)
             for j in (range(slide_size)):
                 temp_pareto = np.vstack((New_Paretos_[:-1],np.array([SlidingY[j,0],SlidingY[j,1]])))
@@ -462,10 +491,9 @@ if __name__ == '__main__':
 
                 Probs_dim1 = norm(y1, Sigy1).pdf(SlidingY[j,0])
                 Probs_dim2 = norm(y2, Sigy2).pdf(SlidingY[j,1])
-                EHVI_New = Expected_HVI(found_temp_pareto,usef_weights)*Probs_dim1*Probs_dim2
+                EHVI_New = Expected_HVI(found_temp_pareto,usef_weights,Faster[j])*Probs_dim1*Probs_dim2
                 Total_HVI_diff += EHVI_New
             imp_log.append(Total_HVI_diff)
-        
         indx = imp_log.index(max(imp_log))
         Best_x = x_log[indx][0]
         Best_y = function(np.array([Best_x]))[0,0],function(np.array([Best_x]))[0,1]
@@ -476,9 +504,14 @@ if __name__ == '__main__':
             sys.exit("Couldn't go on, almost the same point! Why?!")
         ctn += 1
 
-
-        plt.plot(initial_pareto[:,0],initial_pareto[:,1],"*r",markersize = 15)
-        plt.plot(yPareto[:,0],yPareto[:,1],"*k",markersize = 10)
+        plt.plot(yPareto[:,0],yPareto[:,1],"or",markersize = 8,label='solutions we found')
+        plt.plot(initial_pareto[:,0],initial_pareto[:,1],"*b",markersize = 15,label='initial observation')
+        plt.legend('Model length', 'Data length',loc='upper center', shadow=True)
+        plt.xlabel('f1')
+        plt.ylabel('f2')
+        plt.legend()
+        plt.title('r2>(2)*r1')
+        plt.savefig('2_32_lONG_times.pdf', format='pdf', dpi=1000)
         plt.show()
 
 

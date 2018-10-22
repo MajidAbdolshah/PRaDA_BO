@@ -275,7 +275,7 @@ def Expected_HVI(points,weights):
 def createPoints(deepness,breadth):
     points_ = {}
     for i in range(1,deepness+1):
-        temp_x = np.arange(0,i/5,i/(breadth*5))
+        temp_x = np.arange(0,i/2,i/(breadth*2))
         #temp_x = np.arange(0,i,i/(breadth))
         temp_y = np.zeros(temp_x.shape)+i
         temp_merge = np.vstack((temp_x,temp_y))
